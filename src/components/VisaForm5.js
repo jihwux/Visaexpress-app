@@ -241,7 +241,7 @@ const handleCountryNameChange = (index, event) => {
     1년간 기타 국가 방문기록
   </label>
   <div className="flex">
-    <label className="inline-flex items-center">
+  <label className="inline-flex items-center mr-4">
       <input
         type="radio"
         name="visitedCountries"
@@ -387,7 +387,7 @@ const handleCountryNameChange = (index, event) => {
 
       {/* 비상 연락처 */}
    {/* 비상 연락처 */}
-<div className="mb-4">
+<div className="mb-20">
   <div className="block text-lg font-medium text-gray-700 mb-2">
     비상 연락처
   </div>

@@ -138,20 +138,25 @@ useEffect(() => {
   return (
     <div>
      <div>
-  {calculatedPrice !== null && (
-    <div className="mt-5 p-4 border border-green-400 rounded shadow-lg">
-      <h3 className="text-lg font-semibold">
-        발급 비용: <span className="text-green-600 font-bold"><input
-        type="number"
-        value={calculatedPrice}
-        onChange={handlecalcTypeChange}
-        className="mt-2 border-2 border-green-600"
-      />원</span>
-      </h3>
-      {/* 이 부분이 추가된 입력 필드입니다. */}
-      
-    </div>
-  )}
+     {calculatedPrice !== null && (
+  <div className="mt-5 p-4 rounded shadow-lg">
+    <h3 className="text-lg font-semibold">
+      발급 비용:<span className="text-red-600 font-bold">
+        <span className="inline-flex items-center">
+          {/* readOnly input 필드에 포맷된 숫자를 표시합니다. */}
+          <input
+            type="text" // 숫자에 콤마를 포함하기 때문에 type을 "text"로 설정합니다.
+            value={new Intl.NumberFormat('ko-KR').format(calculatedPrice)}
+            readOnly // 사용자가 값을 변경할 수 없도록 합니다.
+            className=" bg-transparent text-right"
+            style={{ maxWidth: '6em' }}
+          />
+           &nbsp;원
+        </span>
+      </span>
+    </h3>
+  </div>
+)}
 </div>
       <div className="mb-4 pt-10">
         <label

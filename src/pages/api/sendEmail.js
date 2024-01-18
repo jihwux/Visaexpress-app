@@ -4,6 +4,11 @@ import mjml2html from 'mjml';
 
 export default async (req, res) => {
     const labels = {
+            visaType: '비자 유형',
+            stayDuration: '체류 기간',
+            visaDuration: '비자 기간',
+            serviceType: '서비스 유형',
+            calculatedPrice: '계산된 가격',
         departureDate: "출국 날짜",
         arrivalDate: "도착 날짜",
         fullName: "성명",

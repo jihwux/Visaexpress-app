@@ -129,7 +129,7 @@ const VisaForm4 = ({ onFormDataChange }) => {
         <button
           type="button"
           onClick={addFamilyMember}
-          className="px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-700"
+          className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-700"
         >
           + 추가하기
         </button>
