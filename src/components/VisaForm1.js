@@ -140,22 +140,28 @@ useEffect(() => {
      <div>
      {calculatedPrice !== null && (
   <div className="mt-5 p-4 rounded shadow-lg">
-    <h3 className="text-lg font-semibold">
-      발급 비용:<span className="text-red-600 font-bold">
+  <h3 className="text-lg font-semibold">
+    발급 비용:
+    {calculatedPrice > 0 ? ( // calculatedPrice가 0보다 큰 숫자인 경우에만 값을 표시합니다.
+      <span className="text-red-600 font-bold">
         <span className="inline-flex items-center">
-          {/* readOnly input 필드에 포맷된 숫자를 표시합니다. */}
           <input
-            type="text" // 숫자에 콤마를 포함하기 때문에 type을 "text"로 설정합니다.
+            type="text"
             value={new Intl.NumberFormat('ko-KR').format(calculatedPrice)}
-            readOnly // 사용자가 값을 변경할 수 없도록 합니다.
-            className=" bg-transparent text-right"
+            readOnly
+            className="bg-transparent text-right"
             style={{ maxWidth: '6em' }}
           />
-           &nbsp;원
+          &nbsp;원
         </span>
       </span>
-    </h3>
-  </div>
+    ) : ( // calculatedPrice가 0이하이거나 유효하지 않은 경우 안내 메시지를 표시합니다.
+      <span className="text-gray-500">
+        &nbsp;비자 종류를 선택해주세요.
+      </span>
+    )}
+  </h3>
+</div>
 )}
 </div>
       <div className="mb-4 pt-10">

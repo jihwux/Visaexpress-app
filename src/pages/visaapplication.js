@@ -120,29 +120,28 @@ const VisaApplicationForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // onClickPayment();
-    const response = await fetch('/api/sendEmail', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(visaFormData), // 전체 폼 데이터를 JSON으로 변환
-    });
+    onClickPayment();
+    // const response = await fetch('/api/sendEmail', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(visaFormData), // 전체 폼 데이터를 JSON으로 변환
+    // });
 
-    if (!response.ok) {
-      console.error('Failed to send email');
-      const errorData = await response.text(); // 또는 response.json() 이 될 수도 있습니다.
-      console.error('Error response from server:', errorData);
-      // 오류 메시지 표시 또는 추가 액션
-    } else{
-      console.log('Email sent successfully');
-      alert('Email sent successfully');
-    }
+    // if (!response.ok) {
+    //   console.error('Failed to send email');
+    //   const errorData = await response.text(); // 또는 response.json() 이 될 수도 있습니다.
+    //   console.error('Error response from server:', errorData);
+    //   // 오류 메시지 표시 또는 추가 액션
+    // } else{
+    //   console.log('Email sent successfully');
+    //   alert('Email sent successfully');
+    // }
     console.log(visaFormData);
     console.log(visaFormData.form1.calculatedPrice);
     // API 라우트에 전체 폼 데이터를 POST 요청으로 전송합니다.
-  
-  };
+    };
 
   return (
     <div>
@@ -202,46 +201,7 @@ export default VisaApplicationForm;
 //   비자 신청서
 // </h2>
 
-// <div
-//   className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4"
-//   role="alert"
-// >
-//   <p className="font-bold">긴급 안내</p>
-//   <p>*오전 12시 전 서류 도착 시 2일 내 초특급 비자 발급 가능*</p>
-// </div>
 
-// <div
-//   className="mt-4 bg-green-100 border-l-4 border-green-500 text-green-700 p-4"
-//   role="alert"
-// >
-//   <p className="font-bold">중요</p>
-//   <p>
-//     **현재 관광비자, 상용비자, 친척방문비자, 단수 및 더블 신청은 지문
-//     등록 면제입니다**
-//   </p>
-// </div>
-
-// <div
-//   className="mt-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4"
-//   role="alert"
-// >
-//   <p className="font-bold">비자 사진 안내</p>
-//   <p>
-//     (여권용 사진. 안경 착용 불가. 이마, 귀 등 노출 필수. 여권 사진과
-//     동일 시 여권 발행일 6개월 이내면 가능.)
-//   </p>
-// </div>
-
-// <div
-//   className="mt-4 bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4"
-//   role="alert"
-// >
-//   <p className="font-bold">참고 사항</p>
-//   <p>
-//     ※신청 비자 종류에 따라 필요 서류가 다르므로 필히 담당자에 상담 요청.
-//   </p>
-// </div>
-// </div>
 
 // const [employmentInfo, setEmploymentInfo] = useState({
 //   startDate: "",
