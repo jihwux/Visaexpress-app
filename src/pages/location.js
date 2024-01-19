@@ -63,7 +63,7 @@ const DirectionsPage = () => {
             <div className="flex gap-4 mt-4 pb-4">
             <Link href="/visa">
 
-              <button className="py-2 px-4 bg-green-500 text-white rounded hover:bg-green-700 transition duration-300 flex items-center gap-2">
+              <button className="py-2 px-4 bg-blue-500 text-white rounded hover:bg-green-700 transition duration-300 flex items-center gap-2">
                 비자신청
               </button>
               </Link>

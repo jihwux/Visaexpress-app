@@ -11,8 +11,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <Head>
       <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-          <script src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-        <title>비자익스프레스</title>
+      <script src="https://cdn.iamport.kr/v1/iamport.js"></script>        <title>비자익스프레스</title>
         <link
           rel="icon"
           href="https://modo-phinf.pstatic.net/20230425_180/16824135831875xEty_PNG/mosaf0vGXi.png"

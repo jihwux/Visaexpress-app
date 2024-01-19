@@ -161,7 +161,7 @@ const VisaPage = () => {
   </p>
 </div>
       <div className="flex justify-center mt-12">
-        <a href="agree" className="bg-red-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out">
+        <a href="agree" className="bg-red-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out">
           신청하기
         </a>
       </div>

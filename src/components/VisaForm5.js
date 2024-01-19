@@ -272,7 +272,6 @@ const handleCountryNameChange = (index, event) => {
             onChange={(event) => handleCountryNameChange(index, event)}
             className="p-2 border border-gray-300 rounded-md shadow-sm block w-full mr-2"
           />
-       // ...
 
   
 
@@ -294,7 +293,6 @@ const handleCountryNameChange = (index, event) => {
   국가 추가
 </button>
 
-// ...
 
 
       {/* 필요한 만큼 입력 필드를 추가할 수 있습니다. */}

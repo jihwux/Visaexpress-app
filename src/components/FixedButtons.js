@@ -20,9 +20,8 @@ export default function FixedButtons() {
       >
         <FontAwesomeIcon style={{width: '20px'}} icon={faPhoneAlt} />
       </a>
-      
       <a
-        href="https://kakaotalk.com"
+        href="http://pf.kakao.com/_Kxfqcxj/chat"
         target="_blank"
         rel="noopener noreferrer"
         className="bg-yellow-400 text-white p-2 rounded-full shadow-lg text-center hover:bg-yellow-500 transition-colors"
@@ -30,7 +29,7 @@ export default function FixedButtons() {
         <FontAwesomeIcon style={{width: '20px'}} icon={faComments} />
       </a>
       <a
-        href="/directions"
+        href="/location"
         className="bg-gray-600 text-white p-2 rounded-full shadow-lg text-center hover:bg-gray-700 transition-colors"
       >
         <FontAwesomeIcon style={{width: '20px'}} icon={faMapMarkerAlt} />
