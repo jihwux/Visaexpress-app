@@ -150,7 +150,7 @@ const VisaApplicationForm = () => {
         onSubmit={handleSubmit}
         className="max-w-6xl mx-auto my-20 p-6 bg-white shadow-md rounded-lg"
       >
-        {/* 폼 내용 */}
+        {/* 폼 내용 s*/}
         {/* 폼 내용 */}
         {/* 예시: 비자 종류 선택 필드 */}
         <h2 className="text-2xl font-semibold mb-4 text-center">
