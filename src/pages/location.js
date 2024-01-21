@@ -1,20 +1,27 @@
 // pages/directions.js
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComments ,faMapMarkerAlt, faClock, faPhone, faEnvelope, faDirections, faMap } from '@fortawesome/free-solid-svg-icons';
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faComments,
+  faMapMarkerAlt,
+  faClock,
+  faPhone,
+  faEnvelope,
+  faDirections,
+  faMap,
+} from "@fortawesome/free-solid-svg-icons";
 
-import Link from 'next/link';
+import Link from "next/link";
 const DirectionsPage = () => {
-
-  const iconStyle = { width: '14px', display: 'inline', margin: '5px'};
-
+  const iconStyle = { width: "14px", display: "inline", margin: "5px" };
 
   return (
     <div className="container mx-auto p-4 ">
-      <div className="mb-8 " >
-      <h1 className="text-2xl font-bold mb-2 pt-10"><FontAwesomeIcon style={iconStyle} icon={faMapMarkerAlt} />비자익스프레스 
-
-</h1>
+      <div className="mb-8 ">
+        <h1 className="text-2xl font-bold mb-2 pt-10">
+          <FontAwesomeIcon style={iconStyle} icon={faMapMarkerAlt} />
+          비자익스프레스
+        </h1>
         <p className="text-blue-600">서울특별시 영등포구 문래동4가 67</p>
         <div className="flex gap-4 my-4">
           <a
@@ -48,28 +55,35 @@ const DirectionsPage = () => {
 
       <div className="info_area mb-8">
         <div className="bg-white shadow-lg rounded-lg p-6">
-        <h2 className="text-lg font-semibold mb-4 pb-4">이용안내 <FontAwesomeIcon style={iconStyle} icon={faClock} /></h2>
-        <p className="mb-4 flex items-center gap-2">
-      <FontAwesomeIcon icon={faClock} style={iconStyle } />
-      이용시간: 매일 10:00 ~ 22:00
-    </p>
-    <p className="mb-4 flex items-center gap-2">
-      <FontAwesomeIcon icon={faComments} style={iconStyle } />
-      카톡상담은 24시간 가능합니다
-    </p>
-            
-            <p className="mb-4 flex items-center gap-2"><FontAwesomeIcon style={iconStyle} icon={faPhone} /> 전화번호: 070-8028-3829, 010-7775-2183</p>
-            <p className="mb-4 flex items-center gap-2  pb-4"><FontAwesomeIcon style={iconStyle} icon={faEnvelope} /> 이메일: visaexpress2183@naver.com</p>
-            <div className="flex gap-4 mt-4 pb-4">
-            <Link href="/visa">
+          <h2 className="text-lg font-semibold mb-4 pb-4">
+            이용안내 <FontAwesomeIcon style={iconStyle} icon={faClock} />
+          </h2>
+          <p className="mb-4 flex items-center gap-2">
+            <FontAwesomeIcon icon={faClock} style={iconStyle} />
+            이용시간: 월 ~ 금 09:00 ~ 18:00
+          </p>
+          <p className="mb-4 flex items-center gap-2">
+            <FontAwesomeIcon icon={faComments} style={iconStyle} />
+            카톡상담은 24시간 가능합니다
+          </p>
 
+          <p className="mb-4 flex items-center gap-2">
+            <FontAwesomeIcon style={iconStyle} icon={faPhone} /> 전화번호:
+            070-8028-3829, 010-7775-2183
+          </p>
+          <p className="mb-4 flex items-center gap-2  pb-4">
+            <FontAwesomeIcon style={iconStyle} icon={faEnvelope} /> 이메일:
+            visaexpress2183@naver.com
+          </p>
+          <div className="flex gap-4 mt-4 pb-4">
+            <Link href="/visa">
               <button className="py-2 px-4 bg-blue-500 text-white rounded hover:bg-green-700 transition duration-300 flex items-center gap-2">
                 비자신청
               </button>
-              </Link>
-              <button className="py-2 px-4 bg-red-500 text-white rounded hover:bg-red-700 transition duration-300 flex items-center gap-2">
-              <a href="tel:070-8028-3829" >방문접수/출장문의</a>
-              </button>
+            </Link>
+            <button className="py-2 px-4 bg-red-500 text-white rounded hover:bg-red-700 transition duration-300 flex items-center gap-2">
+              <a href="tel:070-8028-3829">방문접수/출장문의</a>
+            </button>
           </div>
         </div>
 
