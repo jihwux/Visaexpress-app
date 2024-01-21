@@ -60,7 +60,7 @@ const DirectionsPage = () => {
           </h2>
           <p className="mb-4 flex items-center gap-2">
             <FontAwesomeIcon icon={faClock} style={iconStyle} />
-            이용시간: 월 ~ 금 09:00 ~ 18:00
+            이용시간: AM 9:00 - PM 6:00 (토, 일, 공휴일 휴무)
           </p>
           <p className="mb-4 flex items-center gap-2">
             <FontAwesomeIcon icon={faComments} style={iconStyle} />
