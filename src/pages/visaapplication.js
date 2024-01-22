@@ -5,9 +5,24 @@ import VisaForm2 from "@/components/VisaForm2";
 import VisaForm3 from "@/components/VisaForm3";
 import VisaForm4 from "@/components/VisaForm4";
 import VisaForm5 from "@/components/VisaForm5";
+import { redirect } from "next/dist/server/api-utils";
 
 const VisaApplicationForm = () => {
   const router = useRouter();
+
+  useEffect(() => {
+    // 로컬 스토리지에서 'agreements' 확인
+    const agreements = JSON.parse(localStorage.getItem("agreements") || "{}");
+    const allAgreed = Object.values(agreements).every((value) => value);
+
+    // 모든 약관에 동의하지 않았다면 'privacypolicy' 페이지로 리다이렉트
+    if (!allAgreed) {
+      router.push("/agree");
+    } else {
+      console.log("All agreements have been agreed."); // 모든 약관 동의 로그
+    }
+  }, [router]);
+
   const [visaFormData, setVisaFormData] = useState({
     form1: {},
     form2: {},
@@ -20,9 +35,13 @@ const VisaApplicationForm = () => {
     pay_method: "card",
     name: "테스트 주문",
     merchant_uid: `merchant_${Date.now()}`,
-    amount: visaFormData.form1.calculatedPrice,
+    // amount: visaFormData.form1.calculatedPrice,
+    amount: 100,
     buyer_tel: "000-0000-0000",
+    m_redirect_url: "/success",
   };
+
+  // ... 나머지 코드 ...
 
   const [params, setParams] = useState(initialState);
   const [result, setResult] = useState();
@@ -40,8 +59,11 @@ const VisaApplicationForm = () => {
         if (response.success) {
           // 결제 성공 시 폼 제출 로직을 실행합니다.
           // 예를 들어, 폼 데이터를 서버로 전송하는 함수를 호출할 수 있습니다.
-          submitForm();
+          router.push("/success"); // Next.js 라우터를 사용한 리디렉션
         } else {
+          // 결제 실패 처리
+          console.log("결제 실패: ", response.error_msg);
+
           // 결제 실패 처리...
         }
       });
@@ -49,55 +71,6 @@ const VisaApplicationForm = () => {
       console.error("아임포트 라이브러리가 로드되지 않았습니다.");
     }
   };
-
-  useEffect(() => {
-    // 로컬 스토리지에서 'agreements' 확인
-    const agreements = JSON.parse(localStorage.getItem("agreements") || "{}");
-    const allAgreed = Object.values(agreements).every((value) => value);
-
-    // 모든 약관에 동의하지 않았다면 'privacypolicy' 페이지로 리다이렉트
-    if (!allAgreed) {
-      router.push("/agree");
-    } else {
-      console.log("All agreements have been agreed."); // 모든 약관 동의 로그
-    }
-    // Excel 파일 로드
-  }, [router]);
-
-  // 예를 들어, 폼 컴포넌트 내부에서 API 라우트를 호출합니다.
-  // VisaApplicationForm.js
-  // Payment 컴포넌트에 대한 코드 주석을 해제합니다.
-
-  // 폼 데이터를 서버로 제출하는 함수
- 
-
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault(); // 기본 폼 제출 동작 방지
-
-  //   try {
-  //     const response = await fetch('/api/sendEmail', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ message: 'This is a test email.' }), // 테스트 메시지
-  //     });
-
-  //     if (response.ok) {
-  //       console.log('Email sent successfully');
-  //       alert('Email sent successfully');
-  //     } else {
-  //       console.error('Failed to send email');
-  //       alert('Failed to send email');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error sending email:', error);
-  //     alert('Error sending email');
-  //   }
-  // };
-
-  // ...
-
   // useEffect를 사용하여 visaFormData가 변경될 때마다 params를 업데이트합니다.
   useEffect(() => {
     // visaFormData.form1.calculatedPrice가 유효한 숫자인지 확인합니다.
@@ -120,28 +93,45 @@ const VisaApplicationForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    onClickPayment();
-    // const response = await fetch('/api/sendEmail', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(visaFormData), // 전체 폼 데이터를 JSON으로 변환
-    // });
+    if (!isFormDataValid(visaFormData)) {
+      alert("모든 내용을 입력해주세요.");
+      return;
+    }
 
-    // if (!response.ok) {
-    //   console.error('Failed to send email');
-    //   const errorData = await response.text(); // 또는 response.json() 이 될 수도 있습니다.
-    //   console.error('Error response from server:', errorData);
-    //   // 오류 메시지 표시 또는 추가 액션
-    // } else{
-    //   console.log('Email sent successfully');
-    //   alert('Email sent successfully');
-    // }
+    onClickPayment();
+    const response = await fetch("/api/sendEmail", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(visaFormData), // 전체 폼 데이터를 JSON으로 변환
+    });
+
+    if (!response.ok) {
+      console.error("Failed to send email");
+      const errorData = await response.text(); // 또는 response.json() 이 될 수도 있습니다.
+      console.error("Error response from server:", errorData);
+      // 오류 메시지 표시 또는 추가 액션
+    } else {
+      console.log("Email sent successfully");
+      alert("Email sent successfully");
+    }
     console.log(visaFormData);
     console.log(visaFormData.form1.calculatedPrice);
     // API 라우트에 전체 폼 데이터를 POST 요청으로 전송합니다.
-    };
+  };
+  const isFormDataValid = (formData) => {
+    for (const key of Object.keys(formData)) {
+      // formData의 각 섹션이 빈 객체인지 확인합니다.
+      if (Object.keys(formData[key]).length === 0) {
+        return false; // 빈 객체가 있으면 false를 반환합니다.
+      }
+    }
+    // 모든 섹션이 비어 있지 않으면 true를 반환합니다.
+    return true;
+  };
+
+  // handleSubmit 함수 내에서 유효성 검사를 수행합니다.
 
   return (
     <div>
@@ -179,7 +169,7 @@ const VisaApplicationForm = () => {
         <div className="flex justify-center">
           <button
             type="submit"
-            className="bg-red-500 text-white p-3 text-lg rounded mt-2"
+            className="bg-red-500 text-white p-3 text-lg rounded mt-2 hover:bg-red-600"
           >
             신청하기
           </button>
@@ -195,75 +185,3 @@ const VisaApplicationForm = () => {
 };
 
 export default VisaApplicationForm;
-
-// <div className="container mx-auto px-4 sm:px-6 lg:px-8 my-12">
-// <h2 className="text-4xl font-bold mb-8 text-center text-blue-800">
-//   비자 신청서
-// </h2>
-
-
-
-// const [employmentInfo, setEmploymentInfo] = useState({
-//   startDate: "",
-//   companyName: "",
-//   position: "",
-//   supervisorName: "",
-//   supervisorContact: "",
-//   companyAddress: "",
-// });
-// const [formData, setFormData] = useState({
-//   stayDuration: "", // 체류 일자
-//   serviceType: "", // 서비스 종류
-//   departureDate: "", // 예정 출국 일자
-//   entryDate: "", // 예정 입국 일자
-//   name: "", // 성명
-//   previousChineseName: "", // 귀화전 중국어 이름
-//   contactNumber: "", // 연락처
-//   birthPlace: "", // 출생지
-//   maritalStatus: "", // 혼인상황
-//   address: "", // 거주주소
-//   employmentStartDate: "", // 입사일
-//   employerName: "", // 직장명
-//   position: "", // 직위
-//   supervisorName: "", // 상사이름
-//   supervisorContact: "", // 상사연락처
-//   employerAddress: "", // 직장주소
-//   educationLevel: "", // 최종학력
-//   schoolName: "", // 학교명
-//   schoolAddress: "", // 학교주소
-//   familyDetails: [], // 가족사항
-//   travelHistory: [], // 기
-//   visaDenialDetails: "", // 비자 거부 사유
-//   criminalRecordDetails: "", // 범죄 기록
-//   emergencyContactName: "", // 비상연락처 성명
-//   emergencyContactRelation: "", // 관계
-//   emergencyContactNumber: "", // 연락처visitingPlacesInChina: '',     // 중국 방문지
-//   contactInChina: "", // 중국 연락처
-//   visaRejectionOrOverstayRecord: "", // 비자 거부 혹은 불체 기록
-//   countryNamesVisited: [],
-//   chineseContactNumber: "", // 중국 연락처
-//   recentOneYearTravelRecord: "", // 1년간 기타 국가 방문기록
-//   visaDenialOrIllegalStay: "", // 비자 거부 혹은 불체 기록 여부
-//   crimeRecordInChinaOrKorea: "", // 중국 또는 한국에서의 범죄 기록
-//   emergencyContactDetails: {
-//     // 비상 연락처 정보
-//     name: "",
-//     relationship: "",
-//     contactNumber: "",
-//   },
-//   educationLevel: "", // 최종학력
-//   schoolName: "", // 학교명
-//   schoolAddress: "", // 학교주소
-//   familyDetails: [
-//     {
-//       // 가족사항 (배열로 초기화)
-//       relationship: "", // 관계
-//       englishName: "", // 영문이름
-//       nationality: "", // 국적
-//       birthPlace: "", // 출생지
-//       birthDate: "", // 생년월일
-//       occupation: "", // 직업
-//       currentResidence: "", // 현거주지
-//     },
-//   ],
-// });

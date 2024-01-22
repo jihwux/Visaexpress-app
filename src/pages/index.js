@@ -29,7 +29,7 @@ const HomePage = () => {
   ];
 
   return (
-    <div className="relative" style={{ height: "100vh", overflow: "hidden" }}>
+    <div className="relative" style={{ height: "100vh", overflowX: "hidden" }}>
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}
         pagination={{ clickable: true }}
@@ -45,10 +45,10 @@ const HomePage = () => {
               alt={slide.title}
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
-            ;
+
             <div
               style={{ top: "20%" }}
-              className="absolute top-1/4 left-40 z-20 text-left "
+              className="absolute left-0 md:left-40 top-1/4 z-20 text-left"
             >
               {/* 제목 */}
               <h2 className="text-6xl font-bold text-white">{slide.title}</h2>
@@ -58,7 +58,7 @@ const HomePage = () => {
               </h4>
             </div>
             <Link href="/visa" legacyBehavior>
-              <a className="absolute top-1/3 left-40 transform -translate-y-1/2 z-20 inline-block bg-red-500 text-white py-3 px-6 rounded hover:bg-red-700 transition-colors text-2xl mt-20">
+              <a className="absolute top-1/3   left-0 md:left-40 transform -translate-y-1/2 z-20 inline-block bg-red-500 text-white py-3 px-6 rounded hover:bg-red-700 transition-colors text-2xl mt-10 md:mt-20">
                 비자 신청하기
               </a>
             </Link>

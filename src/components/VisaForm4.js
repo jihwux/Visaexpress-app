@@ -13,7 +13,7 @@ const VisaForm4 = ({ onFormDataChange }) => {
   ]);
 
   const handleFamilyMemberChange = (index, e) => {
-    const updatedMembers = familyMembers.map((member, idx) => 
+    const updatedMembers = familyMembers.map((member, idx) =>
       idx === index ? { ...member, [e.target.name]: e.target.value } : member
     );
     setFamilyMembers(updatedMembers);
@@ -37,8 +37,10 @@ const VisaForm4 = ({ onFormDataChange }) => {
     <div>
       {/* <h2 className="text-2xl font-semibold mb-4 text-center">가족사항</h2> */}
       {familyMembers.map((member, index) => (
-  <div key={index} className="grid grid-cols-6 gap-4 mb-4">
-    
+        <div
+          key={index}
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-4"
+        >
           {/* 관계 드롭다운 */}
           <div>
             <label className="block text-lg font-medium text-gray-700 mb-2">
@@ -51,10 +53,10 @@ const VisaForm4 = ({ onFormDataChange }) => {
               className="block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             >
               <option value="">관계 선택</option>
-              <option value="spouse">배우자</option>
-              <option value="father">부</option>
-              <option value="mother">모</option>
-              <option value="child">자녀</option>
+              <option value="배우자">배우자</option>
+              <option value="부">부</option>
+              <option value="모">모</option>
+              <option value="자녀">자녀</option>
               {/* 필요에 따라 더 추가 */}
             </select>
           </div>
@@ -129,7 +131,7 @@ const VisaForm4 = ({ onFormDataChange }) => {
         <button
           type="button"
           onClick={addFamilyMember}
-          className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-700"
+          className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:bg-indigo-700"
         >
           + 추가하기
         </button>

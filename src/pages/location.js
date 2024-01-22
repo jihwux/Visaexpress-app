@@ -12,7 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import Link from "next/link";
-const DirectionsPage = () => {
+const Location = () => {
   const iconStyle = { width: "14px", display: "inline", margin: "5px" };
 
   return (
@@ -69,7 +69,7 @@ const DirectionsPage = () => {
 
           <p className="mb-4 flex items-center gap-2">
             <FontAwesomeIcon style={iconStyle} icon={faPhone} /> 전화번호:
-            070-8028-3829, 010-7775-2183
+            070-8028-3829
           </p>
           <p className="mb-4 flex items-center gap-2  pb-4">
             <FontAwesomeIcon style={iconStyle} icon={faEnvelope} /> 이메일:
@@ -77,7 +77,7 @@ const DirectionsPage = () => {
           </p>
           <div className="flex gap-4 mt-4 pb-4">
             <Link href="/visa">
-              <button className="py-2 px-4 bg-blue-500 text-white rounded hover:bg-green-700 transition duration-300 flex items-center gap-2">
+              <button className="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-300 flex items-center gap-2">
                 비자신청
               </button>
             </Link>
@@ -86,17 +86,9 @@ const DirectionsPage = () => {
             </button>
           </div>
         </div>
-
-        {/* <div className="business_info mt-8 bg-white shadow-lg rounded-lg p-6">
-          <h2 className="text-lg font-semibold mb-2">사업자 정보</h2>
-          <p className="mb-2">상호명: 비자익스프레스</p>
-          <p className="mb-2">대표자: 김성찬</p>
-          <p className="mb-2">사업자번호: 313-36-01073</p>
-          <p className="mb-2">통신판매번호: 제2023-서울영등포-1087호</p>
-        </div> */}
       </div>
     </div>
   );
 };
 
-export default DirectionsPage;
+export default Location;

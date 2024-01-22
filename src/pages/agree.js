@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 const PrivacyPolicyPage = () => {
@@ -18,7 +18,7 @@ const PrivacyPolicyPage = () => {
   useEffect(() => {
     localStorage.setItem("agreements", JSON.stringify(agreements));
   }, [agreements]);
-  
+
   const handleAgreementChange = (e) => {
     const { name, checked } = e.target;
     const updatedAgreements = {
@@ -28,13 +28,16 @@ const PrivacyPolicyPage = () => {
     setAgreements(updatedAgreements);
     console.log("Updated Agreements:", updatedAgreements); // 상태 업데이트 확인
   };
-  
+
   const handleNextStep = () => {
     const allAgreed = Object.values(agreements).every((value) => value);
     console.log("All Agreed:", allAgreed); // 모든 약관 동의 확인
     if (allAgreed) {
       localStorage.setItem("agreements", JSON.stringify(agreements));
-      console.log("LocalStorage Agreements:", localStorage.getItem("agreements")); // 로컬 스토리지 저장 확인
+      console.log(
+        "LocalStorage Agreements:",
+        localStorage.getItem("agreements")
+      ); // 로컬 스토리지 저장 확인
       router.push("/visaapplication");
     } else {
       alert("모든 약관에 동의해야 다음 단계로 진행할 수 있습니다.");
@@ -67,7 +70,7 @@ const PrivacyPolicyPage = () => {
       <div className="text-center mt-6">
         <button
           onClick={handleNextStep}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
         >
           다음 단계
         </button>
