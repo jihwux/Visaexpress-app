@@ -9,7 +9,7 @@ export default function Footer() {
             주소: 서울특별시 영등포구 경인로77길49, 109동 상가 2층
             201-4호(문래동4가 리버뷰 신안인스빌)
           </p>
-          <p>대표자: 김성찬</p>
+          <p>대표자: JIN XINGCAN</p>
           <p>
             대표전화:
             <a
