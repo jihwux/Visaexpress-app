@@ -1,4 +1,6 @@
+import VisaAdditionalInfoPage from "@/components/dropdown";
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 
 const VisaPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -120,6 +122,72 @@ const VisaPage = () => {
                 </button>
               </div>
             </div>
+            {/* <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+              <div className="w-full max-w-4xl bg-white rounded-lg shadow-md p-6 md:p-8">
+                <h2 className="text-2xl font-bold text-center text-red-600 md:text-3xl mb-6">
+                  중국 비자 신청 발급 기간
+                </h2> */}
+
+            <div className="container mx-auto py-8">
+              <h1 className="text-3xl font-bold leading-tight text-gray-800">
+                비자 발급 서비스 유형(서비스 제공기간)
+              </h1>
+              <p className="mt-4 text-gray-600 text-lg">
+                - 회사접수-중국비자센터 사전심사-지문등록 및
+                비자센터접수-영사관심사-발급
+                <br />- 영사관 보류 시 별도 시간소요됩니다.
+              </p>
+              <div className="text-right py-4">
+                <Link href="/refund" legacyBehavior>
+                  <a className="text-blue-600 hover:text-blue-800 transition duration-300 ease-in-out">
+                    환불 규정 →
+                  </a>
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+                {/* 보통 신청 */}
+                <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out">
+                  <h3 className="text-lg font-semibold">보통 신청</h3>
+                  <p className="text-gray-700 mt-2">
+                    전 과정은 평일 기준 7일이 소요되며, 지문 등록이 면제될 경우
+                    총 평일 기준으로 발급 기간은 4일입니다.
+                  </p>
+                </div>
+
+                {/* 급행 신청 */}
+                <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out">
+                  <h3 className="text-lg font-semibold">급행 신청</h3>
+                  <p className="text-gray-700 mt-2">
+                    전 과정은 평일 기준 6일이 소요되며, 지문 등록이 면제될 경우
+                    총 평일 기준으로 3일입니다.
+                  </p>
+                </div>
+
+                {/* 특급 신청 */}
+                <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out">
+                  <h3 className="text-lg font-semibold">특급 신청</h3>
+                  <p className="text-gray-700 mt-2">
+                    전 과정은 평일 기준 5일이 소요되며, 지문 등록이 면제될 경우
+                    총 평일 기준으로 2일입니다.
+                  </p>
+                </div>
+
+                {/* 초특급 신청 */}
+                <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out">
+                  <h3 className="text-lg font-semibold">초특급 신청</h3>
+                  <p className="text-gray-700 mt-2">
+                    전 과정은 평일 기준 3일이 소요되며, 평일 12시 전 서류 도착
+                    시, 2일이며 지문 등록이 면제될 경우 총 평일 기준으로
+                    2일입니다.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <VisaAdditionalInfoPage />
+            <h1 className="text-3xl font-bold leading-tight text-gray-800 py-10 ">
+              비자 신청 전 참고사항
+            </h1>
             <div
               className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4"
               role="alert"
@@ -127,7 +195,6 @@ const VisaPage = () => {
               <p className="font-bold">긴급 안내</p>
               <p>*오전 12시 전 서류 도착 시 2일 내 초특급 비자 발급 가능*</p>
             </div>
-
             <div
               className="mt-4 bg-green-100 border-l-4 border-green-500 text-green-700 p-4"
               role="alert"
@@ -138,7 +205,6 @@ const VisaPage = () => {
                 지문 등록 면제입니다**
               </p>
             </div>
-
             <div
               className="mt-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4"
               role="alert"
@@ -149,7 +215,6 @@ const VisaPage = () => {
                 동일 시 여권 발행일 6개월 이내면 가능.)
               </p>
             </div>
-
             <div
               className="mt-4 bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4"
               role="alert"
