@@ -5,17 +5,15 @@ import VisaForm2 from "@/components/VisaForm2";
 import VisaForm3 from "@/components/VisaForm3";
 import VisaForm4 from "@/components/VisaForm4";
 import VisaForm5 from "@/components/VisaForm5";
-import { redirect } from "next/dist/server/api-utils";
+import { initiatePayment } from "@/components/Payment";
 
 const VisaApplicationForm = () => {
   const router = useRouter();
 
   useEffect(() => {
-    // 로컬 스토리지에서 'agreements' 확인
     const agreements = JSON.parse(localStorage.getItem("agreements") || "{}");
     const allAgreed = Object.values(agreements).every((value) => value);
 
-    // 모든 약관에 동의하지 않았다면 'privacypolicy' 페이지로 리다이렉트
     if (!allAgreed) {
       router.push("/agree");
     } else {
@@ -30,48 +28,7 @@ const VisaApplicationForm = () => {
     form4: {},
     form5: {},
   });
-  const initialState = {
-    pg: "uplus",
-    pay_method: "card",
-    name: "테스트 주문",
-    merchant_uid: `merchant_${Date.now()}`,
-    // amount: visaFormData.form1.calculatedPrice,
-    amount: 100,
-    buyer_tel: "000-0000-0000",
-    m_redirect_url: "/success",
-  };
 
-  // ... 나머지 코드 ...
-
-  const [params, setParams] = useState(initialState);
-  const [result, setResult] = useState();
-
-  const IMP_UID = "imp21001741"; // 가맹점 식별코드
-
-  const onClickPayment = () => {
-    const IMP = window.IMP;
-    IMP.init(IMP_UID);
-    if (IMP) {
-      IMP.request_pay(params, (response) => {
-        console.log(response);
-        setResult(response);
-
-        if (response.success) {
-          // 결제 성공 시 폼 제출 로직을 실행합니다.
-          // 예를 들어, 폼 데이터를 서버로 전송하는 함수를 호출할 수 있습니다.
-          router.push("/success"); // Next.js 라우터를 사용한 리디렉션
-        } else {
-          // 결제 실패 처리
-          console.log("결제 실패: ", response.error_msg);
-
-          // 결제 실패 처리...
-        }
-      });
-    } else {
-      console.error("아임포트 라이브러리가 로드되지 않았습니다.");
-    }
-  };
-  // useEffect를 사용하여 visaFormData가 변경될 때마다 params를 업데이트합니다.
   useEffect(() => {
     // visaFormData.form1.calculatedPrice가 유효한 숫자인지 확인합니다.
     if (visaFormData.form1 && !isNaN(visaFormData.form1.calculatedPrice)) {
@@ -91,33 +48,58 @@ const VisaApplicationForm = () => {
     }));
   };
 
+  const IMP_UID = "imp21001741"; // 실제 가맹점 식별코드로 변경해야 함
+  const [paymentParams, setPaymentParams] = useState({
+    pg: "uplus.tlgdacomxpay",
+    // pg: "uplus", // PG사 코드표 참조
+
+    pay_method: "card",
+    name: "테스트 주문",
+    merchant_uid: `merchant_${Date.now()}`,
+    amount: 100,
+    // escrow: false,
+    // tax_free: 1,
+    buyer_name: "홍길동",
+    buyer_email: "buyer@example.com",
+    buyer_tel: "02-1670-5176",
+    buyer_addr: "성수이로 20길 16",
+    buyer_postcode: "04783",
+    // m_redirect_url: "/success" // 필요시 주석 해제 후 사용
+  });
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!isFormDataValid(visaFormData)) {
-      alert("모든 내용을 입력해주세요.");
-      return;
+    // if (!isFormDataValid(visaFormData)) {
+    //   alert("모든 내용을 입력해주세요.");
+    //   return;
+    // }
+    try {
+      const result = await initiatePayment(IMP_UID, paymentParams);
+      console.log("결제 및 검증 성공: ", result.message);
+      // router.push("/success"); // 성공 시 페이지 이동
+    } catch (error) {
+      console.error("결제 또는 검증 실패: ", error.message);
     }
 
-    onClickPayment();
-    const response = await fetch("/api/sendEmail", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(visaFormData), // 전체 폼 데이터를 JSON으로 변환
-    });
+    // const response = await fetch("/api/sendEmail", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(visaFormData), // 전체 폼 데이터를 JSON으로 변환
+    // });
 
-    if (!response.ok) {
-      console.error("Failed to send email");
-      const errorData = await response.text(); // 또는 response.json() 이 될 수도 있습니다.
-      console.error("Error response from server:", errorData);
-      // 오류 메시지 표시 또는 추가 액션
-    } else {
-      console.log("Email sent successfully");
-      alert("Email sent successfully");
-    }
-    console.log(visaFormData);
-    console.log(visaFormData.form1.calculatedPrice);
+    // if (!response.ok) {
+    //   console.error("Failed to send email");
+    //   const errorData = await response.text(); // 또는 response.json() 이 될 수도 있습니다.
+    //   console.error("Error response from server:", errorData);
+    //   // 오류 메시지 표시 또는 추가 액션
+    // } else {
+    //   console.log("Email sent successfully");
+    //   alert("Email sent successfully");
+    // }
+    // console.log(visaFormData);
+    // console.log(visaFormData.form1.calculatedPrice);
     // API 라우트에 전체 폼 데이터를 POST 요청으로 전송합니다.
   };
   const isFormDataValid = (formData) => {
@@ -127,11 +109,8 @@ const VisaApplicationForm = () => {
         return false; // 빈 객체가 있으면 false를 반환합니다.
       }
     }
-    // 모든 섹션이 비어 있지 않으면 true를 반환합니다.
     return true;
   };
-
-  // handleSubmit 함수 내에서 유효성 검사를 수행합니다.
 
   return (
     <div>

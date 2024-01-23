@@ -78,6 +78,7 @@ export const initiatePayment = async (IMP_UID, paymentParams) => {
     return new Promise((resolve, reject) => {
       IMP.request_pay(paymentParams, async (response) => {
         if (response.success) {
+          console.log(response);
           try {
             const verifyResponse = await fetch("/api/verify", {
               method: "POST",
