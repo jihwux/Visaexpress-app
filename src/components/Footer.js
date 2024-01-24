@@ -4,6 +4,8 @@ export default function Footer() {
     <footer className="bg-gray-800 text-gray-400 py-6">
       <div className="container mx-auto px-4">
         <div className="text-sm">
+          <p>상호명: 비자익스프레스</p>
+
           <p>사업자등록번호: 313-36-01073</p>
           <p>
             주소: 서울특별시 영등포구 경인로77길49, 109동 상가 2층
