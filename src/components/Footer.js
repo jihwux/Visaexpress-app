@@ -31,6 +31,7 @@ export default function Footer() {
             </a>
           </p>
           <p>운영시간: AM 9:00 - PM 6:00 (토, 일, 공휴일 휴무)</p>
+          <p>사업자등록번호: 제2023-서울영등포-1087호</p>
         </div>
       </div>
     </footer>
