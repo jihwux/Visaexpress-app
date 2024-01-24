@@ -5,10 +5,15 @@ import VisaForm2 from "@/components/VisaForm2";
 import VisaForm3 from "@/components/VisaForm3";
 import VisaForm4 from "@/components/VisaForm4";
 import VisaForm5 from "@/components/VisaForm5";
+
+import VisaForm6 from "@/components/VisaForm6";
 import { initiatePayment } from "@/components/Payment";
 
 const VisaApplicationForm = () => {
   const router = useRouter();
+
+  const [params, setParams] = useState();
+  const [result, setResult] = useState();
 
   useEffect(() => {
     const agreements = JSON.parse(localStorage.getItem("agreements") || "{}");
@@ -27,6 +32,7 @@ const VisaApplicationForm = () => {
     form3: {},
     form4: {},
     form5: {},
+    // form6: {},
   });
 
   useEffect(() => {
@@ -141,6 +147,9 @@ const VisaApplicationForm = () => {
         <VisaForm5
           onFormDataChange={(data) => handleVisaFormChange("form5", data)}
         />
+        {/* <VisaForm6
+          onFormDataChange={(data) => handleVisaFormChange("form6", data)}
+        /> */}
 
         {/* 직장명 */}
         {/* ... 동일한 패턴으로 직장명, 직위, 상사 이름, 상사 연락처, 직장 주소 필드 추가 ... */}
