@@ -136,28 +136,25 @@ const VisaForm6 = ({ calculatedPrice, onFormDataChange }) => {
                 <option value="mail">등기로 발송</option>
               </select>
             </div>
-            {visaApplicationMethod === "mail" && (
-              <div className="mt-auto">
-                <label
-                  htmlFor="deliveryMethod"
-                  className="block text-lg font-medium text-gray-700 mb-2 required-label"
-                >
-                  비자 수령 방법
-                </label>
-                <select
-                  id="deliveryMethod"
-                  value={deliveryMethod}
-                  onChange={handleDeliveryMethodChange}
-                  className="block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 pl-3 pr-10 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  required
-                >
-                  <option value="">선택해주세요</option>
-                  <option value="express">익일 특급 등기 배송(5000원)</option>
-                  <option value="quick">착불 퀵 배송</option>
-                  <option value="direct">직접 수령 (11시~5시)</option>
-                </select>
-              </div>
-            )}
+            <div className="mt-auto">
+              <label
+                htmlFor="deliveryMethod"
+                className="block text-lg font-medium text-gray-700 mb-2 required-label"
+              >
+                비자 수령 방법
+              </label>
+              <select
+                id="deliveryMethod"
+                value={deliveryMethod}
+                onChange={handleDeliveryMethodChange}
+                className="block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 pl-3 pr-10 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                required
+              >
+                <option value="quick">착불 퀵 배송</option>
+                <option value="direct">직접 수령 (11시~5시)</option>
+                <option value="express">익일 특급 등기 배송(5000원)</option>
+              </select>
+            </div>
           </div>
         </div>
 
