@@ -10,8 +10,19 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-      <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-      <script src="https://cdn.iamport.kr/v1/iamport.js"></script>        <title>비자익스프레스</title>
+        <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+
+        <script
+          type="text/javascript"
+          src="https://code.jquery.com/jquery-1.12.4.min.js"
+        ></script>
+
+        <script
+          type="text/javascript"
+          src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"
+        ></script>
+        <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        <title>비자익스프레스</title>
         <link
           rel="icon"
           href="https://modo-phinf.pstatic.net/20230425_180/16824135831875xEty_PNG/mosaf0vGXi.png"
@@ -25,4 +36,4 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
-// pages/_do 
+// pages/_do

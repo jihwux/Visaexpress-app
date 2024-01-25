@@ -25,14 +25,41 @@ const VisaApplicationForm = () => {
       console.log("All agreements have been agreed."); // 모든 약관 동의 로그
     }
   }, [router]);
+  useEffect(() => {
+    console.log(visaFormData.form1.calculatedPrice);
+    console.log(visaFormData.form6);
 
+    const requiredLabels = document.querySelectorAll(".required-label");
+
+    requiredLabels.forEach((label) => {
+      let nextElement = label.nextElementSibling;
+
+      // fieldset 요소의 경우 첫 번째 radio 버튼을 찾습니다.
+      if (nextElement && nextElement.tagName === "FIELDSET") {
+        const firstRadio = nextElement.querySelector('input[type="radio"]');
+        if (firstRadio) {
+          firstRadio.setAttribute("required", true);
+        }
+      }
+
+      // 일반 입력 요소의 경우 바로 다음 요소에 required 속성을 추가합니다.
+      else if (
+        nextElement &&
+        (nextElement.tagName === "INPUT" ||
+          nextElement.tagName === "SELECT" ||
+          nextElement.tagName === "TEXTAREA")
+      ) {
+        nextElement.setAttribute("required", true);
+      }
+    });
+  }, []);
   const [visaFormData, setVisaFormData] = useState({
     form1: {},
     form2: {},
     form3: {},
     form4: {},
     form5: {},
-    // form6: {},
+    form6: {},
   });
 
   useEffect(() => {
@@ -105,7 +132,6 @@ const VisaApplicationForm = () => {
     //   alert("Email sent successfully");
     // }
     // console.log(visaFormData);
-    // console.log(visaFormData.form1.calculatedPrice);
     // API 라우트에 전체 폼 데이터를 POST 요청으로 전송합니다.
   };
   const isFormDataValid = (formData) => {
@@ -147,13 +173,42 @@ const VisaApplicationForm = () => {
         <VisaForm5
           onFormDataChange={(data) => handleVisaFormChange("form5", data)}
         />
-        {/* <VisaForm6
+        <VisaForm6
           onFormDataChange={(data) => handleVisaFormChange("form6", data)}
-        /> */}
+        />
 
         {/* 직장명 */}
         {/* ... 동일한 패턴으로 직장명, 직위, 상사 이름, 상사 연락처, 직장 주소 필드 추가 ... */}
         {/* 예시: 직장명 */}
+
+        <div className="mt-5 p-4 rounded shadow-lg text-lg">
+          <div className="font-semibold mb-2">비용 안내:</div>
+          <div className="flex justify-between mb-1">
+            <span>발급 비용:</span>
+            <span className="font-bold">
+              {visaFormData?.form1?.calculatedPrice?.toLocaleString() ?? ""}원
+            </span>
+          </div>
+          {visaFormData?.form6?.expressFee > 0 && (
+            <div className="flex justify-between mb-1">
+              <span>배송비:</span>
+              <span className="font-bold">
+                {visaFormData.form6.expressFee.toLocaleString()}원
+              </span>
+            </div>
+          )}
+          <div className="flex justify-between mt-3 pt-3 border-t-2 border-gray-200">
+            <span className="font-semibold">총합:</span>
+            <span className="text-red-600 font-bold">
+              {(
+                (visaFormData?.form1?.calculatedPrice ?? 0) +
+                (visaFormData?.form6?.expressFee ?? 0)
+              ).toLocaleString()}
+              원
+            </span>
+          </div>
+        </div>
+
         <div className="flex justify-center">
           <button
             type="submit"

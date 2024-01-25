@@ -3,7 +3,39 @@ import React, { useState } from "react";
 const VisaForm4 = ({ onFormDataChange }) => {
   const [familyMembers, setFamilyMembers] = useState([
     {
-      relation: "",
+      relation: "배우자",
+      englishName: "",
+      nationality: "",
+      dob: "",
+      occupation: "",
+      residence: "",
+    },
+    {
+      relation: "부",
+      englishName: "",
+      nationality: "",
+      dob: "",
+      occupation: "",
+      residence: "",
+    },
+    {
+      relation: "모",
+      englishName: "",
+      nationality: "",
+      dob: "",
+      occupation: "",
+      residence: "",
+    },
+    {
+      relation: "자녀1",
+      englishName: "",
+      nationality: "",
+      dob: "",
+      occupation: "",
+      residence: "",
+    },
+    {
+      relation: "자녀2",
       englishName: "",
       nationality: "",
       dob: "",
@@ -24,7 +56,7 @@ const VisaForm4 = ({ onFormDataChange }) => {
     setFamilyMembers([
       ...familyMembers,
       {
-        relation: "",
+        relation: "자녀+", // 새로운 가족 구성원의 관계를 '자녀+'로 설정
         englishName: "",
         nationality: "",
         dob: "",
@@ -52,11 +84,18 @@ const VisaForm4 = ({ onFormDataChange }) => {
               onChange={(e) => handleFamilyMemberChange(index, e)}
               className="block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             >
-              <option value="">관계 선택</option>
-              <option value="배우자">배우자</option>
-              <option value="부">부</option>
-              <option value="모">모</option>
-              <option value="자녀">자녀</option>
+              {index < 5 ? (
+                <>
+                  <option value="">관계 선택</option>
+                  <option value="배우자">배우자</option>
+                  <option value="부">부</option>
+                  <option value="모">모</option>
+                  <option value="자녀1">자녀1</option>
+                  <option value="자녀2">자녀2</option>
+                </>
+              ) : (
+                <option value="자녀+">자녀+</option>
+              )}
               {/* 필요에 따라 더 추가 */}
             </select>
           </div>

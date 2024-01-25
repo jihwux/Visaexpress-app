@@ -30,3 +30,8 @@ body {
 .swiper-button-next {
   color: white !important;
 }
+/* 필수 레이블에 자동으로 별표(*) 추가 */
+.required-label::after {
+  content: " *";
+  color: red; /* 별표 색상을 빨간색으로 설정 */
+}

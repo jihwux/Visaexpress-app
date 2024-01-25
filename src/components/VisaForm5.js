@@ -69,154 +69,6 @@ const VisaForm5 = ({ onFormDataChange }) => {
     });
   };
 
-  // useEffect 훅을 사용하여 formData 상태가 변경될 때마다 부모 컴포넌트에 전달합니다.
-
-  // const handleRejectionReasonChange = (e) => {
-  //   setFormData({
-  //     ...formData,
-  //     rejectionReason: e.target.value,
-  //   });
-  // };
-
-  // 나머지 핸들러 함수들을 수정합니다.
-  // const handleAddCountry = () => {
-  //   setFormData({
-  //     ...formData,
-  //     countries: [...formData.countries, { name: '' }],
-  //   });
-  // };
-
-  // const handleRemoveCountry = (index) => {
-  //   const newCountries = formData.countries.filter((_, i) => i !== index);
-  //   setFormData({
-  //     ...formData,
-  //     countries: newCountries,
-  //   });
-  // };
-
-  // const handleCriminalDetailsChange = (e) => {
-  //   setFormData({
-  //     ...formData,
-  //     criminalDetails: e.target.value,
-  //   });
-  // };
-
-  // const handleVisitedCountriesChange = (index, value) => {
-  //   const newVisitedCountries = formData.travelHistory.visitedCountries.map((country, i) =>
-  //     i === index ? value : country
-  //   );
-  //   setFormData({
-  //     ...formData,
-  //     travelHistory: {
-  //       ...formData.travelHistory,
-  //       visitedCountries: newVisitedCountries,
-  //     },
-  //   });
-  // };
-  // const handleFormDataChange = (fieldName, value) => {
-  //   setFormData((prevFormData) => ({
-  //     ...prevFormData,
-  //     [fieldName]: value,
-  //   }));
-  // };
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData({
-  //     ...formData,
-  //     travelHistory: {
-  //       ...formData.travelHistory,
-  //       [name]: value,
-  //     },
-  //   });
-  // };
-
-  // const handleCriminalRecordChange = (e) => {
-  //   setFormData({
-  //     ...formData,
-  //     criminalRecord: {
-  //       ...formData.criminalRecord,
-  //       hasRecord: e.target.checked,
-  //     },
-  //   });
-  // };
-
-  // const handleEmergencyContactChange = (e) => {
-  //   setFormData({
-  //     ...formData,
-  //     criminalRecord: {
-  //       ...formData.criminalRecord,
-  //       emergencyContact: {
-  //         ...formData.criminalRecord.emergencyContact,
-  //         [e.target.name]: e.target.value,
-  //       },
-  //     },
-  //   });
-  // };
-
-  // // 불체 기록 입력 핸들러
-  // const handleIllegalStayRecordChange = (e) => {
-  //   setIllegalStayRecord(e.target.value);
-  // };
-
-  // const handleCountryNameChange = (index, event) => {
-  //   const newCountries = countries.map((country, i) => {
-  //     if (index === i) {
-  //       return { ...country, name: event.target.value };
-  //     }
-  //     return country;
-  //   });
-  //   setCountries(newCountries);
-  // };
-
-  // const handleAddCountry = () => {
-  //   setCountries([...countries, { name: "" }]);
-  // };
-
-  // const handleRemoveCountry = (index) => {
-  //   const newCountries = countries.filter((_, i) => i !== index);
-  //   setCountries(newCountries);
-  // };
-
-  // const handleCriminalDetailsChange = (e) => {
-  //   setCriminalDetails(e.target.value);
-  // };
-
-  // const handleVisitedCountriesChange = (index, value) => {
-  //   setTravelHistory((prevHistory) => ({
-  //     ...prevHistory,
-  //     visitedCountries: prevHistory.visitedCountries.map((country, i) =>
-  //       i === index ? value : country
-  //     ),
-  //   }));
-  // };
-
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setTravelHistory((prevHistory) => ({
-  //     ...prevHistory,
-  //     [name]: value,
-  //   }));
-  // };
-  // // 범죄 기록 여부를 처리하는 핸들러
-  // const handleCriminalRecordChange = (e) => {
-  //   setCriminalRecord({ ...criminalRecord, hasRecord: e.target.checked });
-  // };
-
-  // // 비상 연락처 정보를 처리하는 핸들러
-  // const handleEmergencyContactChange = (e) => {
-  //   setCriminalRecord({
-  //     ...criminalRecord,
-  //     emergencyContact: {
-  //       ...criminalRecord.emergencyContact,
-  //       [e.target.name]: e.target.value,
-  //     },
-  //   });
-  // };
-
-  // formData 상태 정의는 이전 예시와 동일합니다.
-
-  // 폼 요소와 이벤트 핸들러들을 사용하는 JSX 렌더링 부분은 이전 예시와 동일합니다.
-
   return (
     <div>
       <div className="mb-4">
@@ -365,14 +217,14 @@ const VisaForm5 = ({ onFormDataChange }) => {
       {/* 비상 연락처 */}
       {/* 비상 연락처 */}
       <div className="mb-20">
-        <div className="block text-lg font-medium text-gray-700 mb-2">
+        <div className="block text-lg font-medium text-gray-700 mb-2   required-label">
           비상 연락처
         </div>
         <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
           <input
             type="text"
             name="emergencyContact.name"
-            placeholder="성명"
+            placeholder="성함"
             value={formData.emergencyContact.name} // 경로 수정
             onChange={(e) => onChange("emergencyContact.name", e.target.value)} // 경로 수정
             className="flex-grow border border-gray-300 rounded-md shadow-sm py-2 px-3 sm:text-sm"
@@ -397,7 +249,7 @@ const VisaForm5 = ({ onFormDataChange }) => {
             onChange={(e) =>
               onChange("emergencyContact.contact", e.target.value)
             } // 경로 수정
-            className="flex-grow border border-gray-300 rounded-md shadow-sm py-2 px-3 sm:text-sm"
+            className="flex-grow border border-gray-300 rounded-md shadow-sm py-2 px-3 sm:text-sm "
           />
         </div>
       </div>
