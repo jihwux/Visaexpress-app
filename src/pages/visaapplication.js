@@ -209,7 +209,7 @@ const VisaApplicationForm = () => {
           </div>
         </div>
 
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-10">
           <button
             type="submit"
             className="bg-red-500 text-white p-3 text-lg rounded mt-2 hover:bg-red-600"
