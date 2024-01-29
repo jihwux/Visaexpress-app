@@ -60,34 +60,4 @@ export default async (req, res) => {
 };
 
 // ...
-// if (paymentDataResult.response) {
-//     const paymentData = paymentDataResult.response;
-
-//     // 예를 들어, 데이터베이스에 저장된 주문 정보를 조회
-//     const order = await findOrderById(paymentData.merchant_uid);
-
-//     if (paymentData.amount === order.amount) { // 결제 금액 일치 확인
-//       if (paymentData.status === 'paid') { // 결제 상태 확인
-//         // 주문 상태 업데이트 로직
-//         // 예: order.status = 'confirmed';
-//         // await updateOrder(order);
-
-//         // 검증 성공 시 응답
-//         res.status(200).json({
-//           status: "success",
-//           message: "결제 검증 성공",
-//           data: paymentData,
-//         });
-//       } else {
-//         // 결제 상태가 'paid'가 아닌 경우
-//         res.status(400).json({ status: "error", message: "결제 상태가 유효하지 않습니다." });
-//       }
-//     } else {
-//       // 결제 금액 불일치
-//       res.status(400).json({ status: "error", message: "결제 금액이 일치하지 않습니다." });
-//     }
-//   } else {
-//     // 결제 정보가 존재하지 않음
-//     res.status(400).json({ status: "error", message: "결제 정보를 찾을 수 없음" });
-//   }
-//   // ...
+ 

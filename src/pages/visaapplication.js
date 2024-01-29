@@ -25,34 +25,46 @@ const VisaApplicationForm = () => {
       console.log("All agreements have been agreed."); // 모든 약관 동의 로그
     }
   }, [router]);
-  // useEffect(() => {
-  //   console.log(visaFormData.form1.calculatedPrice);
-  //   console.log(visaFormData.form6);
-
-  //   const requiredLabels = document.querySelectorAll(".required-label");
-
-  //   requiredLabels.forEach((label) => {
-  //     let nextElement = label.nextElementSibling;
-
-  //     // fieldset 요소의 경우 첫 번째 radio 버튼을 찾습니다.
-  //     if (nextElement && nextElement.tagName === "FIELDSET") {
-  //       const firstRadio = nextElement.querySelector('input[type="radio"]');
-  //       if (firstRadio) {
-  //         firstRadio.setAttribute("required", true);
-  //       }
-  //     }
-
-  //     // 일반 입력 요소의 경우 바로 다음 요소에 required 속성을 추가합니다.
-  //     else if (
-  //       nextElement &&
-  //       (nextElement.tagName === "INPUT" ||
-  //         nextElement.tagName === "SELECT" ||
-  //         nextElement.tagName === "TEXTAREA")
-  //     ) {
-  //       nextElement.setAttribute("required", true);
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    // 기존 로그 출력
+    console.log(visaFormData.form1.calculatedPrice);
+    console.log(visaFormData.form6);
+  
+    // ".required-label" 클래스를 가진 모든 레이블 선택
+    const requiredLabels = document.querySelectorAll(".required-label");
+  
+    requiredLabels.forEach((label) => {
+      let nextElement = label.nextElementSibling;
+  
+      // FIELDSET 요소인 경우 (라디오 버튼 그룹)
+      if (nextElement && nextElement.tagName === "FIELDSET") {
+        const radioButtons = nextElement.querySelectorAll('input[type="radio"]');
+        if (radioButtons.length > 0) {
+          // 라디오 버튼 그룹에 대해 required 속성을 추가합니다.
+          radioButtons.forEach((radio) => {
+            radio.setAttribute("required", true);
+          });
+        }
+      }
+      // DIV 요소인 경우 (SELECT 태그를 포함할 가능성이 있는 경우)
+      else if (nextElement && nextElement.tagName === "DIV") {
+        const selectElement = nextElement.querySelector('select');
+        // SELECT 요소가 존재하는 경우 required 속성을 추가합니다.
+        if (selectElement) {
+          selectElement.setAttribute("required", true);
+        }
+      }
+      // INPUT, SELECT, TEXTAREA 태그인 경우
+      else if (
+        nextElement &&
+        (nextElement.tagName === "INPUT" ||
+         nextElement.tagName === "SELECT" ||
+         nextElement.tagName === "TEXTAREA")
+      ) {
+        nextElement.setAttribute("required", true);
+      }
+    });
+  }, []);
   const [visaFormData, setVisaFormData] = useState({
     form1: {},
     form2: {},
@@ -80,19 +92,33 @@ const VisaApplicationForm = () => {
       [formId]: data,
     }));
   };
+  useEffect(() => {
+    // 발급 비용과 배송비를 합산하여 결제 금액을 업데이트합니다.
+    const totalAmount =
+      (visaFormData.form1?.calculatedPrice ?? 0) +
+      (visaFormData.form6?.expressFee ?? 0);
 
-  const IMP_UID = "imp31516312"; // 실제 가맹점 식별코드로 변경해야 함
-  // const IMP_UID = "imp21001741"; // 실제 가맹점 식별코드로 변경해야 함
+    setPaymentParams((currentParams) => ({
+      ...currentParams,
+      amount: totalAmount,
+      name: visaFormData.form1.visaType,
+      stayDuration: visaFormData.form1.stayDuration,
+      visaDuration: visaFormData.form1.visaDuration,
+      serviceType: visaFormData.form1.serviceType,
+    }));
+  }, [visaFormData.form1, visaFormData.form6]); // form1 또는 form6의 변화를 감지합니다.
+ 
+
+  // const IMP_UID = "imp31516312"; // 실제 가맹점 식별코드로 변경해야 함
+  const IMP_UID = "imp21001741"; // 실제 가맹점 식별코드로 변경해야 함
   const [paymentParams, setPaymentParams] = useState({
     pg: "kakaopay.TC0ONETIME",
-    // pg: "uplus", // PG사 코드표 참조
 
     pay_method: "card",
-    name: "테스트 주문",
+    name: visaFormData.form1.visaType,
     merchant_uid: `merchant_${Date.now()}`,
-    amount: 100,
-    // escrow: false,
-    // tax_free: 1,
+    amount: visaFormData.form1.calculatedPrice,
+
     buyer_name: "홍길동",
     buyer_email: "buyer@example.com",
     buyer_tel: "02-1670-5176",
@@ -112,9 +138,35 @@ const VisaApplicationForm = () => {
     try {
       const result = await initiatePayment(IMP_UID, paymentParams);
       console.log("결제 및 검증 성공: ", result.message);
-      // router.push("/success"); // 성공 시 페이지 이동
+      // 결제 성공 후 성공 페이지로 넘어갈 때 쿼리 파라미터를 포함시킵니다.
+      router.push({
+        pathname: "/success",
+        query: {
+          // 결제 성공과 관련된 데이터를 쿼리 파라미터로 전달합니다.
+          // 예를 들어, orderId와 paymentAmount를 전달한다고 가정합니다.
+          name: visaFormData.form1.visaType,
+          stayDuration: visaFormData.form1.stayDuration,
+          visaDuration: visaFormData.form1.visaDuration,
+          serviceType: visaFormData.form1.serviceType,
+          merchant_uid: `merchant_${Date.now()}`,
+          amount: visaFormData.form1.calculatedPrice,
+        },
+      });       
+
+       
+
+
+
+      router.push("/success"); // 성공 시 페이지 이동
     } catch (error) {
-      console.error("결제 또는 검증 실패: ", error.message);
+     // 에러가 발생했을 때 호출되는 함수 내부
+console.error("결제 또는 검증 실패: ", error.message);
+
+// 페이지 이동과 함께 쿼리 파라미터로 에러 메시지 전달
+router.push({
+  pathname: '/fail',
+  query: { error: error.message },
+});
     }
 
     const response = await fetch("/api/sendEmail", {
@@ -223,11 +275,6 @@ const VisaApplicationForm = () => {
           </button>
         </div>
       </form>
-
-      {/* <button type="submit" onClick={handleSubmit}        onSubmit={handleSubmit}
- className="bg-red-500 text-white p-2 rounded ">
-          신청하기
-        </button> */}
     </div>
   );
 };

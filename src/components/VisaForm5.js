@@ -228,6 +228,7 @@ const VisaForm5 = ({ onFormDataChange }) => {
             value={formData.emergencyContact.name} // 경로 수정
             onChange={(e) => onChange("emergencyContact.name", e.target.value)} // 경로 수정
             className="flex-grow border border-gray-300 rounded-md shadow-sm py-2 px-3 sm:text-sm"
+            required
           />
 
           <input
@@ -239,6 +240,7 @@ const VisaForm5 = ({ onFormDataChange }) => {
               onChange("emergencyContact.relation", e.target.value)
             } // 경로 수정
             className="flex-grow border border-gray-300 rounded-md shadow-sm py-2 px-3 sm:text-sm"
+            required
           />
 
           <input
@@ -250,6 +252,7 @@ const VisaForm5 = ({ onFormDataChange }) => {
               onChange("emergencyContact.contact", e.target.value)
             } // 경로 수정
             className="flex-grow border border-gray-300 rounded-md shadow-sm py-2 px-3 sm:text-sm "
+            required
           />
         </div>
       </div>

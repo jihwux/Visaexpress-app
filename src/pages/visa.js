@@ -1,8 +1,14 @@
 import VisaAdditionalInfoPage from "@/components/dropdown";
 import React, { useState, useEffect } from "react";
+
 import Link from "next/link";
+import { useRouter } from 'next/router';
+
+// 컴포넌트 내부
+
 
 const VisaPage = () => {
+  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("tab1");
 
@@ -108,18 +114,32 @@ const VisaPage = () => {
                 <p>※ 익일 접수 마감시간은 오후 12시까지입니다.</p>
               </div>
               <div className="mt-8 flex flex-wrap gap-4 pb-10">
-                <button
+                {/* <button
                   onClick={() => toggleModal("tab1")}
                   className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out"
                 >
                   필요서류 조회하기
-                </button>
+                </button> */}
                 <button
-                  onClick={() => toggleModal("tab2")}
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out"
-                >
-                  가격표
-                </button>
+  onClick={() => router.push('/visachecklist')}
+  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out"
+>
+  필요서류 조회하기
+</button>
+
+                
+
+
+
+
+
+
+<button
+  onClick={() => router.push('/price')}
+  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out"
+>
+  가격표
+</button>
               </div>
             </div>
             {/* <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">

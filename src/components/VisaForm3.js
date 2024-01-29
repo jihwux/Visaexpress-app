@@ -9,6 +9,7 @@ const VisaForm3 = ({ onFormDataChange }) => {
     supervisorContact: "",
     // companyAddress: "",
     maritalStatus: "", // 결혼 상태
+    educationLevel: ''
   });
 
   const handleEmploymentInfoChange = (e) => {
@@ -154,8 +155,8 @@ const VisaForm3 = ({ onFormDataChange }) => {
           <select
             id="educationLevel"
             name="educationLevel"
-            value={educationInfo.educationLevel}
-            onChange={handleEducationInfoChange}
+            value={employmentInfo.educationLevel}
+            onChange={handleEmploymentInfoChange}
             className="block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 pl-3 pr-10 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
             <option value="" disabled>
@@ -213,6 +214,7 @@ const VisaForm3 = ({ onFormDataChange }) => {
               // checked={maritalStatus === 'married'}
               onChange={handleMaritalStatusChange}
               className="form-radio h-5 w-5 text-indigo-600"
+              required
             />
             <span className="ml-2">기혼</span>
           </label>
@@ -224,6 +226,7 @@ const VisaForm3 = ({ onFormDataChange }) => {
               // checked={maritalStatus === 'single'}
               onChange={handleMaritalStatusChange}
               className="form-radio h-5 w-5 text-indigo-600"
+              required
             />
             <span className="ml-2">미혼</span>
           </label>
@@ -235,6 +238,7 @@ const VisaForm3 = ({ onFormDataChange }) => {
               // checked={maritalStatus === 'divorced'}
               onChange={handleMaritalStatusChange}
               className="form-radio h-5 w-5 text-indigo-600"
+              required
             />
             <span className="ml-2">이혼</span>
           </label>
@@ -246,6 +250,7 @@ const VisaForm3 = ({ onFormDataChange }) => {
               // checked={maritalStatus === 'widowed'}
               onChange={handleMaritalStatusChange}
               className="form-radio h-5 w-5 text-indigo-600"
+              required
             />
             <span className="ml-2">사별</span>
           </label>

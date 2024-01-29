@@ -5,15 +5,15 @@ const VisaForm2 = ({ onFormDataChange }) => {
     departureDate: "",
     arrivalDate: "",
     fullName: "",
+    socialSecurityNumber: "", //
     chineseNameBeforeNaturalization: "",
+    passportName: "", // 여권 영문 성명
+    passportNumber: "", // 여권 번호
     contactNumber: "",
     placeOfBirth: "",
     residenceAddress: "",
     visitPlace: "",
     chinaContact: "",
-    passportName: "", // 여권 영문 성명
-    passportNumber: "", // 여권 번호
-    socialSecurityNumber: "", //
   });
   const handleChange = (e) => {
     const { name, value } = e.target;

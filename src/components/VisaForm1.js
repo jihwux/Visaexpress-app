@@ -464,6 +464,7 @@ const VisaForm1 = ({ handleChange }) => {
               checked={serviceType === "normal"}
               onChange={handleServiceTypeChange}
               className="form-radio h-5 w-5 text-indigo-600"
+              required
             />
             <span className="ml-2">보통</span>
           </label>
@@ -475,6 +476,7 @@ const VisaForm1 = ({ handleChange }) => {
               checked={serviceType === "express"}
               onChange={handleServiceTypeChange}
               className="form-radio h-5 w-5 text-indigo-600"
+              required
             />
             <span className="ml-2">급행</span>
           </label>
@@ -486,6 +488,7 @@ const VisaForm1 = ({ handleChange }) => {
               checked={serviceType === "special"}
               onChange={handleServiceTypeChange}
               className="form-radio h-5 w-5 text-indigo-600"
+              required
             />
             <span className="ml-2">특급</span>
           </label>
@@ -497,6 +500,7 @@ const VisaForm1 = ({ handleChange }) => {
               checked={serviceType === "superSpecial"}
               onChange={handleServiceTypeChange}
               className="form-radio h-5 w-5 text-indigo-600"
+              required
             />
             <span className="ml-2">초특급</span>
           </label>
