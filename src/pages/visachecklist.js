@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const Visachecklist = () => {
-  const [activeTab, setActiveTab] = useState("Q2");
+  const [activeTab, setActiveTab] = useState("L");
   const visaCategories = {
     L: "L 관광 비자",
     M: "M 상용 비자",
@@ -254,17 +254,17 @@ const Visachecklist = () => {
                   <thead className="bg-gray-50">
                     <tr>
                       {/* 항상 '필요 서류' 헤더를 보여줍니다. */}
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-s font-medium text-gray-500 uppercase tracking-wider">
                         필요 서류
                       </th>
 
                       {/* 'Minor'와 'Naturalized' 탭이 아닐 때 '서류 규정'과 '기타 상세' 헤더를 보여줍니다. */}
                       {activeTab !== "Minor" && activeTab !== "Naturalized" && (
                         <>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-left text-s font-medium text-gray-500 uppercase tracking-wider">
                             서류 규정
                           </th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-left text-s font-medium text-gray-500 uppercase tracking-wider">
                             기타 상세
                           </th>
                         </>
@@ -288,13 +288,13 @@ const Visachecklist = () => {
                                 <td className="px-6 py-4 whitespace-normal text-sm text-gray-500">
                                   {renderWithLineBreaksAndLinks(
                                     requiredDocumentsData[activeTab]
-                                      ?.documentRegulations[index] || "N/A"
+                                      ?.documentRegulations[index] || ""
                                   )}
                                 </td>
                                 <td className="px-6 py-4 whitespace-normal text-sm text-gray-500">
                                   {renderWithLineBreaksAndLinks(
                                     requiredDocumentsData[activeTab]
-                                      ?.otherDetails[index] || "N/A"
+                                      ?.otherDetails[index] || ""
                                   )}
                                 </td>
                               </>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const Price = () => {
-  const [activeTab, setActiveTab] = useState("Q2");
+  const [activeTab, setActiveTab] = useState("L");
 
   const visaCategories = {
     L: "L 관광 비자",
