@@ -109,8 +109,8 @@ const VisaApplicationForm = () => {
   }, [visaFormData.form1, visaFormData.form6]); // form1 또는 form6의 변화를 감지합니다.
  
 
-  // const IMP_UID = "imp31516312"; // 실제 가맹점 식별코드로 변경해야 함
-  const IMP_UID = "imp21001741"; // 실제 가맹점 식별코드로 변경해야 함
+  const IMP_UID = "imp31516312"; // 실제 가맹점 식별코드로 변경해야 함
+  // const IMP_UID = "imp21001741"; // 실제 가맹점 식별코드로 변경해야 함
   const [paymentParams, setPaymentParams] = useState({
     pg: "kakaopay.TC0ONETIME",
 
