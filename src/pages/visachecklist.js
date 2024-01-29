@@ -1,0 +1,319 @@
+import React, { useState } from "react";
+
+const Visachecklist = () => {
+  const [activeTab, setActiveTab] = useState("Q2");
+  const visaCategories = {
+    L: "L 관광 비자",
+    M: "M 상용 비자",
+    Q2: "Q2 친인척",
+    S1S2: "S1/S2 가족동반",
+    X1X2: "X1/X2 유학비자",
+    F: "F 비영리 비자",
+    Z: "Z 취업비자",
+    Minor: "미성년자 추가서류",
+    Naturalized: "귀화자 추가서류",
+    // ... other categories with their Korean names
+  };
+  const requiredDocumentsData = {
+    L: {
+      requiredDocuments: [
+        "여권(원본)",
+        "여권용 증명사진 1매",
+        "신청서: 온라인 신청하기",
+      ],
+      documentRegulations: [
+        "▶사증 페이지 2면 이상\n▶여권 유효기간\n   단수 7개월 이상\n   더블 10개월 이상\n   복수 16개월 이상\n(여권 케이스는 빼주셔야 됩니다. 반환 불가X)",
+        "▶6개월 이내 증명사진(흰색 배경)\n▶악세사리 착용 금지. 안경 없이 귀, 이마 노출 必.\n▶여권과 동일 사진 사용 시, 여권 발급일 6개월 이내만 사용 가능.",
+        "필수 기재 사항 반드시 기입 必.",
+      ],
+      otherDetails: [
+        "★복수 비자 신청 시, 여권에 중국 입국 기록 2회 이상 必.\n★입국 기록이 구여권에 있을 경우, 구여권+여권발급기록증명서(정부24 혹은 주민센터 발급가능) 추가 제출.\n*구여권이 없을 경우 복수 비자 신청 불가.",
+        "*남는 사진은 폐기 처리.",
+        "*온라인 신청이 어려울 경우, 신청서 양식 엑셀 파일 제공.(별도 요청)",
+      ],
+    },
+    M: {
+      requiredDocuments: [
+        "여권(원본)",
+        "여권용 증명사진 1매",
+        "신청서: 온라인 신청하기",
+        "중국 회사 초청장",
+      ],
+      documentRegulations: [
+        "▶사증 페이지 2면 이상\n▶여권 유효기간\n   단수 7개월 이상\n   더블 10개월 이상\n   복수 16개월 이상\n(여권 케이스는 빼주셔야 됩니다. 반환 불가X)",
+        "▶6개월 이내 증명사진(흰색 배경)\n▶악세사리 착용 금지. 안경 없이 귀, 이마 노출 必.\n▶여권과 동일 사진 사용 시, 여권 발급일 6개월 이내만 사용 가능.",
+        "필수 기재 사항 반드시 기입 必.",
+        "▶자사 초청장 양식 참고.(파일 다운로드)\n▶초안 먼저 작성, 컨펌 후 서명 날인.\n★양식 내용 빠짐 없이 모두 기재 必!",
+      ],
+      otherDetails: [
+        "★복수 비자 신청 시, 여권에 중국 입국 기록 1회 이상 必.\n★입국 기록이 구여권에 있을 경우, 구여권+여권발급기록증명서(정부24 혹은 주민센터 발급가능) 추가 제출.\n*구여권이 없을 경우 복수 비자 신청 불가.",
+        "*남는 사진은 폐기처리.",
+        "*온라인 신청이 어려울 경우, 신청서 양식 엑셀 파일 제공.(별도 요청)",
+        "[M 단수 초정장 양식 다운로드]\n[M 더블 초정장 양식 다운로드]\n[M 복수 초정장 양식 다운로드]\n서류 보내실 곳: \n서울특별시 영등포구 경인로77길49, 상가 2층 201-4호 (리버뷰 신안인스빌) \n비자익스프레스 070-8028-3829/010-7775-2183",
+      ],
+      downloadLinks: {
+        singleEntry: "/path/to/single_entry.pdf",
+        doubleEntry: "/path/to/double_entry.pdf",
+        multipleEntry: "/path/to/multiple_entry.pdf",
+      },
+    },
+    Q2: {
+      requiredDocuments: [
+        "여권(원본)",
+        "여권용 증명사진 1매",
+        "신청서: 온라인 신청하기",
+        "초청인 작성 초청장(사본)",
+        "초청인 중국 신분증(사본)",
+        "관계 입증 서류 (3년 복수 비자만)",
+      ],
+      documentRegulations: [
+        "▶사증 페이지 2면 이상\n▶여권 유효기간\n   Q2 단수 10개월 이상\n   Q2 1-2년 복수 13~24개월 이상\n   Q2 3년 복수 43개월 이상\n(여권 케이스는 빼주셔야 됩니다. 반환 불가X)",
+        "▶6개월 이내 증명사진(흰색 배경)\n▶악세사리 착용 금지. 안경 없이 귀, 이마 노출 必.\n▶여권과 동일 사진 사용 시, 여권 발급일 6개월 이내만 사용 가능.",
+        "필수 기재 사항 반드시 기입 必.",
+        "▶초청 인원 수 만큼 작성 必. 한장에 작성 X.\nex) 초청인이 3명인 경우, 초청인 별로 초청장 3장 작성.",
+        "▶신분증 유효기간 확인 必.\n (신분증 앞 뒤면 복사본)",
+        "▶가족관계증명서/혼인관계증명서/결혼/중국 호구부/친속공증 등\n※ 서류 발급 시, 상세 원본/ 주민번호 뒷자리 공개로 발급 必.",
+      ],
+      otherDetails: [
+        "★복수 비자 신청 시, 여권에 중국 입국 기록 2회 이상 必.\n★입국 기록이 구여권에 있을 경우, 구여권+여권발급기록증명서(정부24 혹은 주민센터 발급가능) 추가 제출.\n*구여권이 없을 경우 복수 비자 신청 불가.",
+        "*남는 사진은 폐기처리.",
+        "*온라인 신청이 어려울 경우, 신청서 양식 엑셀 파일 제공.(별도 요청)",
+        "",
+        "",
+        "※ 서류 발급 시, 상세 원본/ 주민번호 뒷자리 공개로 발급 必.",
+      ],
+      downloadLinks: {
+        Q2InvitationForm: "/path/to/Q2_invitation_form.pdf",
+      },
+    },
+    S1S2: {
+      requiredDocuments: [
+        "여권(원본)",
+        "여권용 증명사진 1매",
+        "신청서: 온라인 신청하기",
+        "초청인 작성 초청장(사본)",
+        "초청인 여권 및 거류증 (사본)",
+        "가족관계증명서(원본)",
+      ],
+      documentRegulations: [
+        "▶사증 페이지 2면 이상\n▶여권 유효기간\n   S1 7개월 이상\n   S2 10개월 이상\n(여권 케이스는 빼주셔야 됩니다. 반환 불가X)",
+        "▶6개월 이내 증명사진(흰색 배경)\n▶악세사리 착용 금지. 안경 없이 귀, 이마 노출 必.\n▶여권과 동일 사진 사용 시, 여권 발급일 6개월 이내만 사용 가능.",
+        "필수 기재 사항 반드시 기입 必.",
+        "▶초청 인원 수 만큼 작성 必. 한장에 작성 X.\nex) 초청인이 3명인 경우, 초청인 별로 초청장 3장 작성.",
+        "▶거류증 기간 4개월 이상 남아 있어야 함.",
+        "▶상세 원본/주민번호 모두 공개로 발급.\n▶신청 인원 별 본인 이름으로 발행.",
+      ],
+      otherDetails: [
+        "",
+        "*남는 사진은 폐기처리.",
+        "*온라인 신청이 어려울 경우, 신청서 양식 엑셀 파일 제공.(별도 요청)",
+        "[S1 초정장 양식]\n[S2 초정장 양식]",
+        "",
+        "",
+      ],
+      downloadLinks: {
+        S1InvitationForm: "/path/to/S1_invitation_form.pdf",
+        S2InvitationForm: "/path/to/S2_invitation_form.pdf",
+      },
+    },
+    X1X2: {
+      requiredDocuments: [
+        "여권(원본)",
+        "여권용 증명사진 1매",
+        "신청서: 온라인 신청하기",
+        "입학허가서 원본 및 사본",
+        "JW202 원본 및 사본",
+      ],
+      documentRegulations: [
+        "▶사증 페이지 2면 이상\n▶여권 유효기간\n   X1 7개월 이상\n   X2 10개월 이상\n(여권 케이스는 빼주셔야 됩니다. 반환 불가X)",
+        "▶6개월 이내 증명사진(흰색 배경)\n▶악세사리 착용 금지. 안경 없이 귀, 이마 노출 必.\n▶여권과 동일 사진 사용 시, 여권 발급일 6개월 이내만 사용 가능.",
+        "▶필수 기재 사항 반드시 기입 必.",
+        "",
+        "JW202에 명시되어 있는 학습 등록 기간 전에 신청.",
+      ],
+      otherDetails: [
+        "",
+        "*남는 사진은 폐기처리.",
+        "*온라인 신청이 어려울 경우, 신청서 양식 엑셀 파일 제공.(별도 요청)",
+        "",
+        "*유효한 거류증이 있는 경우, 재학증명서(원본)",
+        "서류 보내실 곳: \n서울특별시 영등포구 경인로77길49, 상가 2층 201-4호 (리버뷰 신안인스빌) \n비자익스프레스 070-8028-3829/010-7775-2183",
+      ],
+    },
+
+    Z: {
+      requiredDocuments: [
+        "여권(원본)",
+        "여권용 증명사진 1매",
+        "신청서: 온라인 신청하기",
+        "취업 허가서 중문+영문(사본)",
+      ],
+      documentRegulations: [
+        "▶사증 페이지 2면 이상\n▶여권 유효기간\n    7개월 이상\n(여권 케이스는 빼주셔야 됩니다. 반환 불가X)",
+        "▶6개월 이내 증명사진(흰색 배경)\n▶악세사리 착용 금지. 안경 없이 귀, 이마 노출 必.\n▶여권과 동일 사진 사용 시, 여권 발급일 6개월 이내만 사용 가능",
+        "▶필수 기재 사항 반드시 기입 必.",
+        "*취업 허가서는 중화인민공화국 외국인취업허가통지서 신청 허가를 받아야 됩니다.",
+      ],
+      otherDetails: [
+        "",
+        "*남는 사진은 폐기처리.",
+        "*온라인 신청이 어려울 경우, 신청서 양식 엑셀 파일 제공.(별도 요청)",
+        "서류 보내실 곳: \n서울특별시 영등포구 경인로77길49, 상가 2층 201-4호 (리버뷰 신안인스빌) \n비자익스프레스 070-8028-3829/010-7775-2183",
+      ],
+    },
+
+    Minor: {
+      requiredDocuments: [
+        "▶미성년자가 현 여권에 중국 입룩 기록(중국 비자면+입국 도장)이 있을 겨우, 추가 서류 필요 없음.\n\n▶1.미성년자가 중국 다녀온 기록(비자면+도장)이 있지만 구여권에 있는 경우,\n구여권 및 여권발급기록증명서(국문) 원본 제출 必.\n\n2.중국 다녀온 기록이 없거나, 구여권 폐기로 증빙할 수 없는 경우,\n(1) 아이 이름 기준으로 발급된 가족관계증명서(상세)원본, 주민등록번호 다 보이게 발급 필수.\n(2) 아이 아버지 기본증명서(상세) 원본, 주민등록번호 다 보이게 발급 필수.\n(3) 아이 어머님 기본증명서(상세) 원본, 주민등록번호 다 보이게 발급 필수.\n\n*미성년자 부모 중 귀화자 또는 중국 국적자가 있을 경우, 사전 문의 필수.",
+      ],
+    },
+    Naturalized: {
+      requiredDocuments: [
+        "▶현 여권에 중국 입룩 기록(중국 비자면+입국 도장)이 있을 겨우, 추가 서류 필요 없음.\n\n▶1. 귀화자가 중국 다녀온 기록(비자면+도장)이 있지만 구여권에 있는 경우,\n구여권 및 여권발급기록증명서(국문) 원본 제출 必.\n\n2. 귀화 후 첫 비자 신청\n(1) 외국 국적 포기 확인서 원본(출입국사무소 발급/ 이전국적 중화인민공화국, 중국만 가능)\n(2) 기본증명서(상세) 원본/ 주민등록번호 뒷번호 공개로 발급 必.\n\n※자녀 부모님 중 귀화자 또는 중국 국적자가 있을 경우, 사전 문의 필수",
+      ],
+    },
+
+    // 다른 비자 데이터도 이와 비슷한 형식으로 추가될 수 있습니다.
+  };
+
+  // ...// renderWithLineBreaks 함수를 이전에 제공한 대로 사용합니다.
+
+  const renderWithLineBreaksAndLinks = (text, downloadLinks) => {
+    // 줄바꿈으로 텍스트를 분리합니다.
+    return text.split("\n").map((line, index) => {
+      // 링크가 있는지 확인합니다.
+      if (line.includes("[M 단수 초정장 양식 다운로드]")) {
+        return (
+          <span key={index}>
+            <a
+              // href={downloadLinks.singleEntry}
+              download
+              className="text-blue-600 hover:underline"
+            >
+              M 단수 초정장 양식 다운로드
+            </a>
+            <br />
+          </span>
+        );
+      }
+      // 다른 링크에 대해서도 비슷한 방식으로 처리할 수 있습니다.
+      // ...
+      // 링크가 없는 일반 텍스트입니다.
+      return (
+        <span key={index}>
+          {line}
+          <br />
+        </span>
+      );
+    });
+  };
+
+  // ...
+
+  return (
+    <main className="flex-grow container mx-auto my-8">
+      <div className="container mx-auto px-4 pt-10">
+        {/* 제목 */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-semibold text-gray-800 leading-tight">
+            필요 서류 확인
+          </h1>
+          <p className="text-md text-gray-600 mt-2">
+            비자 유형에 필요한 서류 목록입니다.
+          </p>
+        </div>
+
+        <div className="flex flex-row">
+          {/* 탭 메뉴 */}
+          <div className="w-1/4">
+            <ul className="space-y-2 border-r-2 border-gray-200">
+              {Object.keys(requiredDocumentsData).map((key) => (
+                <li key={key} className="last:mb-0">
+                  <button
+                    onClick={() => setActiveTab(key)}
+                    className={`block w-full text-left px-4 py-2 rounded-r-full transition duration-300 ease-in-out focus:outline-none ${
+                      activeTab === key
+                        ? "bg-red-500 text-white font-semibold"
+                        : "hover:bg-gray-100 text-gray-700"
+                    }`}
+                  >
+                    {visaCategories[key] || key}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* 탭 콘텐츠 */}
+
+          {/* 탭 콘텐츠 */}
+          <div className="w-full md:w-3/4 p-4">
+            {activeTab && (
+              <div className="overflow-x-auto">
+                <table className="min-w-full md:table-fixed">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      {/* 항상 '필요 서류' 헤더를 보여줍니다. */}
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        필요 서류
+                      </th>
+
+                      {/* 'Minor'와 'Naturalized' 탭이 아닐 때 '서류 규정'과 '기타 상세' 헤더를 보여줍니다. */}
+                      {activeTab !== "Minor" && activeTab !== "Naturalized" && (
+                        <>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            서류 규정
+                          </th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            기타 상세
+                          </th>
+                        </>
+                      )}
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {/* 데이터 로우 */}
+                    {requiredDocumentsData[activeTab]?.requiredDocuments.map(
+                      (document, index) => (
+                        <tr key={`document-${index}`}>
+                          {/* 항상 '필요 서류' 열을 보여줍니다. */}
+                          <td className="px-6 py-4 whitespace-normal text-sm font-medium text-gray-900">
+                            {renderWithLineBreaksAndLinks(document)}
+                          </td>
+
+                          {/* 'Minor'와 'Naturalized' 탭이 아닐 때 '서류 규정'과 '기타 상세' 열을 보여줍니다. */}
+                          {activeTab !== "Minor" &&
+                            activeTab !== "Naturalized" && (
+                              <>
+                                <td className="px-6 py-4 whitespace-normal text-sm text-gray-500">
+                                  {renderWithLineBreaksAndLinks(
+                                    requiredDocumentsData[activeTab]
+                                      ?.documentRegulations[index] || "N/A"
+                                  )}
+                                </td>
+                                <td className="px-6 py-4 whitespace-normal text-sm text-gray-500">
+                                  {renderWithLineBreaksAndLinks(
+                                    requiredDocumentsData[activeTab]
+                                      ?.otherDetails[index] || "N/A"
+                                  )}
+                                </td>
+                              </>
+                            )}
+                        </tr>
+                      )
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+};
+
+export default Visachecklist;
+// CSS: Tailwind CSS를 사용한 예시입니다.
+// table-layout: auto로 설정하여 셀의 내용에 따라 너비가 유동적으로 변하게 합니다.
+// md:table-fixed는 중간 크기의 화면에서는 고정된 테이블 레이아웃을 사용합니다.
