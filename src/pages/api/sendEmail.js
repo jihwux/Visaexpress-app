@@ -45,18 +45,33 @@ export default async (req, res) => {
     criminalRecord: "범죄 기록",
     hasRecord: "기록 보유 여부",
     emergencyContact: "긴급 연락처",
-    name: "국가명",
+
     contact: "연락처",
     form4: "가족 리스트",
     form1: "신청 비자 정보",
     form2: "개인 정보",
     form3: "재직. 힉력 정보",
     form5: "방문, 불체, 범죄 기록",
-
+    form6: "비자 접수 방법, 비자 수령 방법",
     workAddress: "직장 주소",
     schoolName: "학교 이름",
     educationLevel: "학력",
     schoolAddress: "학교 주소",
+    deliveryMethod: "비자 수령 방법",
+    visaApplicationMethod: "비자 접수 방법",
+    name: "이름",
+    contact: "연락처",
+    address: "주소",
+    detailedAddress: "상세 주소",
+    passportNumber: "여권 번호",
+    groupNames: "그룹 이름",
+    expressFee: "배송비",
+    socialSecurityNumber: "주민번호뒷자리",
+    passportName: "여권이름",
+    quick: "착불 퀵 배송",
+    direct: "직접 수령 (11시~5시)",
+    group: "2인 이상 묶음 익일 등기 받기(5000원)",
+    express: "익일 특급 등기 배송(5000원)",
   };
   // 객체를 HTML 테이블 행으로 변환하는 함수
 
@@ -67,6 +82,31 @@ export default async (req, res) => {
   // 레이블 매핑 객체
 
   // 객체 또는 배열을 HTML 테이블 행으로 변환하는 함수
+
+  const deliveryMethodKoreanMap = {
+    quick: "착불 퀵 배송",
+    direct: "직접 수령 (11시~5시)",
+    group: "2인 이상 묶음 익일 등기 받기(5000원)",
+    express: "익일 특급 등기 배송(5000원)",
+    visit: "직접 방문 (11시~4시)",
+    mail: "등기로 발송",
+    Single: "단수",
+    Double: "더블",
+    "1YearMultiple": "복수(1년)",
+    "1-2YearMultiple": "1-2년복수",
+    "3YearMultiple": "3년복수",
+    ResidencePermit: "중국 입국 30일 이내 거류증으로 변경",
+    "180DayMultiple": "초청장허가만큼 최대180일",
+    normal: "보통",
+    express: "급행",
+    special: "특급",
+    superSpecial: "초특급",
+    married: "기혼",
+    single: "미혼",
+    divorced: "이혼",
+    widowed: "사별",
+  };
+
   const renderObjectToTableRows = (obj, labels, parentKey = "") => {
     if (Array.isArray(obj)) {
       // 부모 키에 따라 레이블을 결정합니다.
@@ -86,6 +126,20 @@ export default async (req, res) => {
     } else if (typeof obj === "object") {
       return Object.entries(obj)
         .map(([key, value]) => {
+          // 빈 값이면 테이블 행을 생성하지 않습니다.
+          if (!value) return "";
+
+          // 한글로 매핑이 필요한 키에 대해서 처리합니다.
+          if (
+            key === "deliveryMethod" ||
+            key === "visaApplicationMethod" ||
+            key === "visaDuration" ||
+            key === "serviceType" ||
+            key === "maritalStatus"
+          ) {
+            value = deliveryMethodKoreanMap[value] || value;
+          }
+
           const label = labels[key] || key;
           const displayValue =
             typeof value === "object"

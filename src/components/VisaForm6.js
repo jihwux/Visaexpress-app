@@ -1,50 +1,85 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Location from "../pages/location";
 
 // 자식 컴포넌트에서 상태를 다루는 로직
-// ...
+// ...import React, { useState } from 'react';
 
-const VisaForm6 = ({ calculatedPrice, onFormDataChange }) => {
-  const [deliveryMethod, setDeliveryMethod] = useState("");
-  const [deliveryDetails, setDeliveryDetails] = useState({
+const VisaForm6 = ({ onFormDataChange }) => {
+  const [formData, setFormData] = useState({
+    deliveryMethod: "",
+    visaApplicationMethod: "",
     name: "",
     contact: "",
     address: "",
     detailedAddress: "",
     passportNumber: "",
+    groupNames: "",
+    expressFee: "",
   });
-  const [visaApplicationMethod, setVisaApplicationMethod] = useState("");
 
-  // ... 기존 handleInputChange, handleDeliveryMethodChange, handleDetailChange 생략 ...
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
 
+    // 배송 방법이 변경되었을 경우의 추가 로직
+    if (name === "deliveryMethod") {
+      // 익일 특급 등기 배송 또는 그룹 배송이 선택되었다면 요금을 추가합니다.
+      const expressFee = value === "express" || value === "group" ? 5000 : 0;
+
+      // 필요한 상세 정보를 초기화합니다.
+      const newDetails = {
+        name: "",
+        contact: "",
+        address: "",
+        detailedAddress: "",
+        passportNumber: "",
+        groupNames: "",
+      };
+
+      // 상태를 업데이트합니다.
+      const newData = {
+        ...formData,
+        ...newDetails,
+        [name]: value,
+        expressFee: expressFee,
+      };
+
+      setFormData(newData);
+      onFormDataChange(newData);
+      // 부모 컴포넌트에 변경 사항을 전달합니다. 빈 값이 없는 경우에만 전달
+      if (
+        Object.values(newData).every((field) => field !== "") &&
+        typeof onFormDataChange === "function"
+      ) {
+      }
+    } else {
+      // 기타 입력 필드 변경에 대한 처리
+      const newData = { ...formData, [name]: value };
+      setFormData(newData);
+
+      // 부모 컴포넌트에 변경 사항을 전달합니다. 빈 값이 없는 경우에만 전달
+      if (value !== "" && typeof onFormDataChange === "function") {
+        onFormDataChange(newData);
+      }
+    }
+  };
   const handleAddressSearch = () => {
     new window.daum.Postcode({
       oncomplete: function (data) {
-        // 검색 결과에서 얻은 주소를 처리하는 로직
-        setDeliveryDetails((prevDetails) => ({
-          ...prevDetails,
+        // 검색 결과에서 얻은 주소로 formData 업데이트
+        const updatedFormData = {
+          ...formData,
           address: data.address,
-        }));
+        };
+        setFormData(updatedFormData);
+
+        // 부모 컴포넌트로 변경된 formData 전달
+        if (typeof onFormDataChange === "function") {
+          onFormDataChange(updatedFormData);
+        }
       },
     }).open();
   };
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    const newData = { ...formData, [name]: value };
-
-    setFormData(newData);
-
-    if (typeof onFormDataChange === "function") {
-      onFormDataChange(newData);
-    }
-  };
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setDeliveryDetails((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+  // 나머지 로직은 동일하게 유지
 
   const handleDeliveryMethodChange = (event) => {
     const { value } = event.target;
@@ -127,11 +162,15 @@ const VisaForm6 = ({ calculatedPrice, onFormDataChange }) => {
                 비자 접수 방법
               </label>
               <select
-                value={visaApplicationMethod}
-                onChange={(e) => setVisaApplicationMethod(e.target.value)}
+                id="visaApplicationMethod"
+                name="visaApplicationMethod" // name 속성을 추가하여 handleInputChange에서 사용
+                value={formData.visaApplicationMethod}
+                onChange={handleInputChange}
                 className="block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 pl-3 pr-10 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm mb-5"
-                required
               >
+                <option value="" disabled>
+                  접수 방법을 선택하세요
+                </option>
                 <option value="visit">직접 방문 (11시~4시)</option>
                 <option value="mail">등기로 발송</option>
               </select>
@@ -145,13 +184,19 @@ const VisaForm6 = ({ calculatedPrice, onFormDataChange }) => {
               </label>
               <select
                 id="deliveryMethod"
-                value={deliveryMethod}
-                onChange={handleDeliveryMethodChange}
+                name="deliveryMethod" // name 속성을 추가하여 handleInputChange에서 사용
+                value={formData.deliveryMethod}
+                onChange={handleInputChange}
                 className="block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 pl-3 pr-10 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                required
               >
+                <option value="" disabled>
+                  수령 방법을 선택하세요
+                </option>
                 <option value="quick">착불 퀵 배송</option>
                 <option value="direct">직접 수령 (11시~5시)</option>
+                <option value="group">
+                  2인 이상 묶음 익일 등기 받기(5000원)
+                </option>
                 <option value="express">익일 특급 등기 배송(5000원)</option>
               </select>
             </div>
@@ -184,7 +229,7 @@ const VisaForm6 = ({ calculatedPrice, onFormDataChange }) => {
         </div>
       </div>
       {/* '받는 분' 정보 입력 섹션 */}
-      {deliveryMethod && deliveryMethod !== "direct" && (
+      {formData.deliveryMethod && formData.deliveryMethod !== "direct" && (
         <>
           <div className="flex flex-wrap -mx-3 mb-4">
             <div className="w-full lg:w-1/2 px-3 mb-4 lg:mb-0">
@@ -192,32 +237,54 @@ const VisaForm6 = ({ calculatedPrice, onFormDataChange }) => {
                 htmlFor="name"
                 className="block text-lg font-medium text-gray-700 mb-2 required-label"
               >
-                받는 분 성함
+                {formData.deliveryMethod === "group"
+                  ? "묶음으로 받으실 분 모든 성함"
+                  : "받는 분 성함"}
               </label>
               <input
                 type="text"
                 id="name"
                 name="name"
-                value={deliveryDetails.name}
+                value={formData.name}
                 onChange={handleInputChange}
                 className="block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm "
                 required
               />
             </div>
 
-            {/* 연락처 입력 필드 */}
+            {/* 대표 여권 번호 입력 필드 */}
+
+            {formData.deliveryMethod && formData.deliveryMethod === "group" && (
+              <div className="w-full lg:w-1/2 px-3 mb-4 lg:mb-0">
+                <label
+                  htmlFor="passportNumber"
+                  className="block text-lg font-medium text-gray-700 mb-2 required-label"
+                >
+                  대표여권번호
+                </label>
+                <input
+                  type="text"
+                  id="passportNumber"
+                  name="passportNumber"
+                  value={formData.passportNumber}
+                  onChange={handleInputChange}
+                  className="block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  required
+                />
+              </div>
+            )}
             <div className="w-full lg:w-1/2 px-3 mb-4 lg:mb-0">
               <label
                 htmlFor="contact"
                 className="block text-lg font-medium text-gray-700 mb-2 required-label"
               >
-                연락처
+                {formData.deliveryMethod === "group" ? "대표 연락처" : "연락처"}{" "}
               </label>
               <input
                 type="text"
                 id="contact"
                 name="contact"
-                value={deliveryDetails.contact}
+                value={formData.contact}
                 onChange={handleInputChange}
                 className="block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 required
@@ -239,7 +306,7 @@ const VisaForm6 = ({ calculatedPrice, onFormDataChange }) => {
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-4 required-label"
                 type="text"
                 name="address"
-                value={deliveryDetails.address}
+                value={formData.address}
                 placeholder="주소를 검색하세요 "
                 required
               />
@@ -264,7 +331,7 @@ const VisaForm6 = ({ calculatedPrice, onFormDataChange }) => {
                 type="text"
                 id="detailedAddress"
                 name="detailedAddress"
-                value={deliveryDetails.detailedAddress}
+                value={formData.detailedAddress}
                 onChange={handleInputChange}
                 className="block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 required
@@ -276,7 +343,7 @@ const VisaForm6 = ({ calculatedPrice, onFormDataChange }) => {
 
       {/* '직접 수령'일 때 여권 번호 입력 필드를 렌더링 */}
       {/* '직접 수령'일 때 '오시는길' 문구와 지도 보기 버튼 렌더링 */}
-      {deliveryMethod === "direct" && (
+      {formData.deliveryMethod === "direct" && (
         <div className="flex flex-wrap -mx-3 mb-4">
           <div className="w-full px-3">
             <p className="text-lg font-medium text-gray-700 mb-2">오시는길</p>

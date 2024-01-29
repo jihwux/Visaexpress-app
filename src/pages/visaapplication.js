@@ -25,34 +25,34 @@ const VisaApplicationForm = () => {
       console.log("All agreements have been agreed."); // 모든 약관 동의 로그
     }
   }, [router]);
-  useEffect(() => {
-    console.log(visaFormData.form1.calculatedPrice);
-    console.log(visaFormData.form6);
+  // useEffect(() => {
+  //   console.log(visaFormData.form1.calculatedPrice);
+  //   console.log(visaFormData.form6);
 
-    const requiredLabels = document.querySelectorAll(".required-label");
+  //   const requiredLabels = document.querySelectorAll(".required-label");
 
-    requiredLabels.forEach((label) => {
-      let nextElement = label.nextElementSibling;
+  //   requiredLabels.forEach((label) => {
+  //     let nextElement = label.nextElementSibling;
 
-      // fieldset 요소의 경우 첫 번째 radio 버튼을 찾습니다.
-      if (nextElement && nextElement.tagName === "FIELDSET") {
-        const firstRadio = nextElement.querySelector('input[type="radio"]');
-        if (firstRadio) {
-          firstRadio.setAttribute("required", true);
-        }
-      }
+  //     // fieldset 요소의 경우 첫 번째 radio 버튼을 찾습니다.
+  //     if (nextElement && nextElement.tagName === "FIELDSET") {
+  //       const firstRadio = nextElement.querySelector('input[type="radio"]');
+  //       if (firstRadio) {
+  //         firstRadio.setAttribute("required", true);
+  //       }
+  //     }
 
-      // 일반 입력 요소의 경우 바로 다음 요소에 required 속성을 추가합니다.
-      else if (
-        nextElement &&
-        (nextElement.tagName === "INPUT" ||
-          nextElement.tagName === "SELECT" ||
-          nextElement.tagName === "TEXTAREA")
-      ) {
-        nextElement.setAttribute("required", true);
-      }
-    });
-  }, []);
+  //     // 일반 입력 요소의 경우 바로 다음 요소에 required 속성을 추가합니다.
+  //     else if (
+  //       nextElement &&
+  //       (nextElement.tagName === "INPUT" ||
+  //         nextElement.tagName === "SELECT" ||
+  //         nextElement.tagName === "TEXTAREA")
+  //     ) {
+  //       nextElement.setAttribute("required", true);
+  //     }
+  //   });
+  // }, []);
   const [visaFormData, setVisaFormData] = useState({
     form1: {},
     form2: {},
@@ -81,9 +81,10 @@ const VisaApplicationForm = () => {
     }));
   };
 
-  const IMP_UID = "imp21001741"; // 실제 가맹점 식별코드로 변경해야 함
+  const IMP_UID = "imp31516312"; // 실제 가맹점 식별코드로 변경해야 함
+  // const IMP_UID = "imp21001741"; // 실제 가맹점 식별코드로 변경해야 함
   const [paymentParams, setPaymentParams] = useState({
-    pg: "uplus.tlgdacomxpay",
+    pg: "kakaopay.TC0ONETIME",
     // pg: "uplus", // PG사 코드표 참조
 
     pay_method: "card",
@@ -97,7 +98,7 @@ const VisaApplicationForm = () => {
     buyer_tel: "02-1670-5176",
     buyer_addr: "성수이로 20길 16",
     buyer_postcode: "04783",
-    // m_redirect_url: "/success" // 필요시 주석 해제 후 사용
+    m_redirect_url: "/success", // 필요시 주석 해제 후 사용
   });
 
   const handleSubmit = async (event) => {
@@ -106,6 +107,8 @@ const VisaApplicationForm = () => {
     //   alert("모든 내용을 입력해주세요.");
     //   return;
     // }
+    console.log(visaFormData);
+
     try {
       const result = await initiatePayment(IMP_UID, paymentParams);
       console.log("결제 및 검증 성공: ", result.message);
@@ -114,35 +117,34 @@ const VisaApplicationForm = () => {
       console.error("결제 또는 검증 실패: ", error.message);
     }
 
-    // const response = await fetch("/api/sendEmail", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(visaFormData), // 전체 폼 데이터를 JSON으로 변환
-    // });
+    const response = await fetch("/api/sendEmail", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(visaFormData), // 전체 폼 데이터를 JSON으로 변환
+    });
 
-    // if (!response.ok) {
-    //   console.error("Failed to send email");
-    //   const errorData = await response.text(); // 또는 response.json() 이 될 수도 있습니다.
-    //   console.error("Error response from server:", errorData);
-    //   // 오류 메시지 표시 또는 추가 액션
-    // } else {
-    //   console.log("Email sent successfully");
-    //   alert("Email sent successfully");
-    // }
-    // console.log(visaFormData);
+    if (!response.ok) {
+      console.error("Failed to send email");
+      const errorData = await response.text(); // 또는 response.json() 이 될 수도 있습니다.
+      console.error("Error response from server:", errorData);
+      // 오류 메시지 표시 또는 추가 액션
+    } else {
+      console.log("Email sent successfully");
+      // alert("Email 확인 하세요 담당자님 ");
+    }
     // API 라우트에 전체 폼 데이터를 POST 요청으로 전송합니다.
   };
-  const isFormDataValid = (formData) => {
-    for (const key of Object.keys(formData)) {
-      // formData의 각 섹션이 빈 객체인지 확인합니다.
-      if (Object.keys(formData[key]).length === 0) {
-        return false; // 빈 객체가 있으면 false를 반환합니다.
-      }
-    }
-    return true;
-  };
+  // const isFormDataValid = (formData) => {
+  //   for (const key of Object.keys(formData)) {
+  //     // formData의 각 섹션이 빈 객체인지 확인합니다.
+  //     if (Object.keys(formData[key]).length === 0) {
+  //       return false; // 빈 객체가 있으면 false를 반환합니다.
+  //     }
+  //   }
+  //   return true;
+  // };
 
   return (
     <div>
@@ -180,13 +182,14 @@ const VisaApplicationForm = () => {
         {/* 직장명 */}
         {/* ... 동일한 패턴으로 직장명, 직위, 상사 이름, 상사 연락처, 직장 주소 필드 추가 ... */}
         {/* 예시: 직장명 */}
-
         <div className="mt-5 p-4 rounded shadow-lg text-lg">
           <div className="font-semibold mb-2">비용 안내:</div>
           <div className="flex justify-between mb-1">
             <span>발급 비용:</span>
             <span className="font-bold">
-              {visaFormData?.form1?.calculatedPrice?.toLocaleString() ?? ""}원
+              {visaFormData?.form1?.calculatedPrice
+                ? `${visaFormData.form1.calculatedPrice.toLocaleString()}원`
+                : "비자 타입을 선택해주세요"}
             </span>
           </div>
           {visaFormData?.form6?.expressFee > 0 && (
@@ -200,11 +203,13 @@ const VisaApplicationForm = () => {
           <div className="flex justify-between mt-3 pt-3 border-t-2 border-gray-200">
             <span className="font-semibold">총합:</span>
             <span className="text-red-600 font-bold">
-              {(
-                (visaFormData?.form1?.calculatedPrice ?? 0) +
-                (visaFormData?.form6?.expressFee ?? 0)
-              ).toLocaleString()}
-              원
+              {visaFormData?.form1?.calculatedPrice ||
+              visaFormData?.form6?.expressFee
+                ? `${(
+                    (visaFormData?.form1?.calculatedPrice ?? 0) +
+                    (visaFormData?.form6?.expressFee ?? 0)
+                  ).toLocaleString()}원`
+                : "0원"}
             </span>
           </div>
         </div>

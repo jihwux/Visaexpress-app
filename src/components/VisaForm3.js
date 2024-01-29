@@ -157,7 +157,6 @@ const VisaForm3 = ({ onFormDataChange }) => {
             value={educationInfo.educationLevel}
             onChange={handleEducationInfoChange}
             className="block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 pl-3 pr-10 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            required
           >
             <option value="" disabled>
               학력을 선택하세요
