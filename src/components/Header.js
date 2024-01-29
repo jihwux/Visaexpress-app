@@ -74,21 +74,21 @@ export default function Header() {
               <li>
                 <Link href="/visa" legacyBehavior>
                   <a className="text-lg hover:text-gray-500 transition duration-300">
-                    비자 신청
+                    비자 신청하기
                   </a>
                 </Link>
               </li>
               <li>
                 <Link href="/visachecklist" legacyBehavior>
                   <a className="text-lg hover:text-gray-500 transition duration-300">
-                    비자 필요 서류
+                    비자 신청 서류
                   </a>
                 </Link>
               </li>
               <li>
                 <Link href="/price" legacyBehavior>
                   <a className="text-lg hover:text-gray-500 transition duration-300">
-                    비자 가격
+                    비자 신청 가격
                   </a>
                 </Link>
               </li>
@@ -108,19 +108,19 @@ export default function Header() {
         <div className="hidden md:flex space-x-6">
           <Link href="/visa" legacyBehavior>
             <a className="text-lg hover:text-gray-500 transition duration-300">
-              비자 신청
+            비자 신청하기
             </a>
           </Link>
 
           <Link href="/visachecklist" legacyBehavior>
             <a className="text-lg hover:text-gray-500 transition duration-300">
-              비자 필요 서류
+            비자 신청 서류
             </a>
           </Link>
 
           <Link href="/price" legacyBehavior>
             <a className="text-lg hover:text-gray-500 transition duration-300">
-              비자 가격
+            비자 신청 가격
             </a>
           </Link>
 
