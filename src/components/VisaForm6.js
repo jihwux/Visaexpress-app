@@ -171,8 +171,8 @@ const VisaForm6 = ({ onFormDataChange }) => {
                 <option value="" disabled>
                   접수 방법을 선택하세요
                 </option>
-                <option value="visit">직접 방문 (11시~4시)</option>
                 <option value="mail">등기로 발송</option>
+                <option value="visit">방문 접수 (11시~4시)</option>
               </select>
             </div>
             <div className="mt-auto">
@@ -192,12 +192,13 @@ const VisaForm6 = ({ onFormDataChange }) => {
                 <option value="" disabled>
                   수령 방법을 선택하세요
                 </option>
+                <option value="express">익일 등기 배송(5000원)</option>
+                <option value="group">
+                  2인이상 익일 등기 묶음 배송(5000원)
+                </option>
+                <option value="group2">2인 이상 묶음 대표자 외</option>
                 <option value="quick">착불 퀵 배송</option>
                 <option value="direct">직접 수령 (11시~5시)</option>
-                <option value="group">
-                  2인 이상 묶음 익일 등기 받기(5000원)
-                </option>
-                <option value="express">익일 특급 등기 배송(5000원)</option>
               </select>
             </div>
           </div>
@@ -238,7 +239,9 @@ const VisaForm6 = ({ onFormDataChange }) => {
                 className="block text-lg font-medium text-gray-700 mb-2 required-label"
               >
                 {formData.deliveryMethod === "group"
-                  ? "묶음으로 받으실 분 모든 성함"
+                  ? "대표자 성함"
+                  : formData.deliveryMethod === "group2"
+                  ? "대표자 성함"
                   : "받는 분 성함"}
               </label>
               <input
@@ -251,93 +254,167 @@ const VisaForm6 = ({ onFormDataChange }) => {
                 required
               />
             </div>
-
-            {/* 대표 여권 번호 입력 필드 */}
-
-            {formData.deliveryMethod && formData.deliveryMethod === "group" && (
+            {formData.deliveryMethod !== "group2" && (
               <div className="w-full lg:w-1/2 px-3 mb-4 lg:mb-0">
                 <label
-                  htmlFor="passportNumber"
+                  htmlFor="contact"
                   className="block text-lg font-medium text-gray-700 mb-2 required-label"
                 >
-                  대표여권번호
+                  {formData.deliveryMethod === "group" ||
+                  formData.deliveryMethod === "group2"
+                    ? "대표자 연락처"
+                    : "연락처"}{" "}
                 </label>
                 <input
                   type="text"
-                  id="passportNumber"
-                  name="passportNumber"
-                  value={formData.passportNumber}
+                  id="contact"
+                  name="contact"
+                  value={formData.contact}
                   onChange={handleInputChange}
                   className="block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   required
                 />
               </div>
             )}
-            <div className="w-full lg:w-1/2 px-3 mb-4 lg:mb-0">
-              <label
-                htmlFor="contact"
-                className="block text-lg font-medium text-gray-700 mb-2 required-label"
-              >
-                {formData.deliveryMethod === "group" ? "대표 연락처" : "연락처"}{" "}
-              </label>
-              <input
-                type="text"
-                id="contact"
-                name="contact"
-                value={formData.contact}
-                onChange={handleInputChange}
-                className="block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                required
-              />
-            </div>
+            {
+              // group2 조건일 때 대표자 여권번호 입력 필드만 렌더링합니다.
+              formData.deliveryMethod === "group2" && (
+                <div className="w-full lg:w-1/2 px-3 mb-4 lg:mb-0">
+                  <label
+                    htmlFor="representativePassportNumber"
+                    className="block text-lg font-medium text-gray-700 mb-2 required-label"
+                  >
+                    대표자 여권번호
+                  </label>
+                  <input
+                    type="text"
+                    id="representativePassportNumber"
+                    name="representativePassportNumber"
+                    value={formData.representativePassportNumber}
+                    onChange={handleInputChange}
+                    className="block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    required
+                  />
+                </div>
+              )
+            }
+            {formData.deliveryMethod === "group2" && (
+              <div className="w-full lg:w-1/2 px-3 mb-4 lg:mb-0 pt-5">
+                <label
+                  htmlFor="contact"
+                  className="block text-lg font-medium text-gray-700 mb-2 required-label"
+                >
+                  대표자 연락처
+                </label>
+                <input
+                  type="text"
+                  id="contact"
+                  name="contact"
+                  value={formData.contact}
+                  onChange={handleInputChange}
+                  className="block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  required
+                />
+              </div>
+            )}
           </div>
 
-          {/* 받는 분 주소 입력 필드 */}
-          <div className="flex flex-wrap -mx-3 mb-4">
-            <div className="w-full lg:w-1/2 px-3 mb-4 lg:mb-0">
-              <label
-                htmlFor="address"
-                className="block text-lg font-medium text-gray-700 mb-2 required-label"
-              >
-                받는 분 주소
-              </label>
+          {/* 대표 여권 번호 입력 필드 */}
 
-              <input
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-4 required-label"
-                type="text"
-                name="address"
-                value={formData.address}
-                placeholder="주소를 검색하세요 "
-                required
-              />
-              <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                type="button"
-                onClick={handleAddressSearch}
-              >
-                주소 검색
-              </button>
-            </div>
+          {formData.deliveryMethod === "group" && (
+            <div className="flex flex-wrap -mx-3 mb-4">
+              {/* 대표자 여권번호 입력 필드 */}
+              <div className="w-full lg:w-1/2 px-3 mb-4 lg:mb-0">
+                <label
+                  htmlFor="representativePassportNumber"
+                  className="block text-lg font-medium text-gray-700 mb-2 required-label"
+                >
+                  대표자 여권번호
+                </label>
+                <input
+                  type="text"
+                  id="passportNumber"
+                  name="representativePassportNumber"
+                  value={formData.passportNumber}
+                  onChange={handleInputChange}
+                  className="block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  required
+                />
+              </div>
 
-            {/* 상세 주소 입력 필드 */}
-            <div className="w-full lg:w-1/2 px-3 mb-4 lg:mb-0">
-              <label
-                htmlFor="detailedAddress"
-                className="block text-lg font-medium text-gray-700 mb-2 required-label"
-              >
-                상세주소
-              </label>
-              <input
-                type="text"
-                id="detailedAddress"
-                name="detailedAddress"
-                value={formData.detailedAddress}
-                onChange={handleInputChange}
-                className="block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                required
-              />
+              {/* 묶음으로 받으실 모든 분 성함 입력 필드 */}
+              <div className="w-full lg:w-1/2 px-3 mb-4 lg:mb-0">
+                <label
+                  htmlFor="groupNames"
+                  className="block text-lg font-medium text-gray-700 mb-2 required-label"
+                >
+                  묶음으로 받으실 모든 분 성함
+                </label>
+                <input
+                  type="text"
+                  id="groupNames"
+                  name="groupNames"
+                  value={formData.groupNames}
+                  onChange={handleInputChange}
+                  className="block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  required
+                />
+              </div>
             </div>
-          </div>
+          )}
+
+          {
+            // group2가 아닌 경우에만 주소 입력 필드를 렌더링합니다.
+            formData.deliveryMethod !== "group2" && (
+              // 주소 입력 필드와 관련된 코드를 여기에 넣으세요.
+
+              <div className="flex flex-wrap -mx-3 mb-4">
+                <div className="w-full lg:w-1/2 px-3 mb-4 lg:mb-0">
+                  <label
+                    htmlFor="address"
+                    className="block text-lg font-medium text-gray-700 mb-2 required-label"
+                  >
+                    받는 분 주소
+                  </label>
+
+                  <input
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-4 required-label"
+                    type="text"
+                    name="address"
+                    value={formData.address}
+                    placeholder="주소를 검색하세요 "
+                    required
+                  />
+                  <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    type="button"
+                    onClick={handleAddressSearch}
+                  >
+                    주소 검색
+                  </button>
+                </div>
+
+                {/* 상세 주소 입력 필드 */}
+                <div className="w-full lg:w-1/2 px-3 mb-4 lg:mb-0">
+                  <label
+                    htmlFor="detailedAddress"
+                    className="block text-lg font-medium text-gray-700 mb-2 required-label"
+                  >
+                    상세주소
+                  </label>
+                  <input
+                    type="text"
+                    id="detailedAddress"
+                    name="detailedAddress"
+                    value={formData.detailedAddress}
+                    onChange={handleInputChange}
+                    className="block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    required
+                  />
+                </div>
+              </div>
+            )
+          }
         </>
       )}
 

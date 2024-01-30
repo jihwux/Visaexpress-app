@@ -12,13 +12,13 @@ export default function Header() {
         <Link href="/" legacyBehavior>
           <a className="text-2xl font-bold tracking-tight hover:text-gray-500 transition duration-300">
             {/* 로고 이미지 사용시 아래 코드 주석 해제 */}
-            {/* <Image
-              src="/logo.webp" // 로고 이미지 경로
+            <Image
+              src="/logo.jpg" // 로고 이미지 경로
               alt="로고"
-              width={40} // 로고의 너비
-              height={40} // 로고의 높이
-            /> */}
-            VisaExpress
+              width={220} // 로고의 너비
+              height={220} // 로고의 높이
+            />
+            {/* VisaExpress */}
           </a>
         </Link>
         {/* 모바일 메뉴 버튼 */}
@@ -108,19 +108,19 @@ export default function Header() {
         <div className="hidden md:flex space-x-6">
           <Link href="/visa" legacyBehavior>
             <a className="text-lg hover:text-gray-500 transition duration-300">
-            비자 신청하기
+              비자 신청하기
             </a>
           </Link>
 
           <Link href="/visachecklist" legacyBehavior>
             <a className="text-lg hover:text-gray-500 transition duration-300">
-            비자 신청 서류
+              비자 신청 서류
             </a>
           </Link>
 
           <Link href="/price" legacyBehavior>
             <a className="text-lg hover:text-gray-500 transition duration-300">
-            비자 신청 가격
+              비자 신청 가격
             </a>
           </Link>
 

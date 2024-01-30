@@ -218,16 +218,16 @@ const Price = () => {
             <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider">
               입국 가능 횟수
             </th>
-            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider">
+            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider text-red-500">
               일반
             </th>
-            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider">
+            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider text-red-500">
               급행
             </th>
-            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider">
+            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider text-red-500">
               특급
             </th>
-            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider">
+            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider text-red-500">
               초특급
             </th>
           </tr>
@@ -238,7 +238,7 @@ const Price = () => {
               {detail.map((cell, cellIndex) => (
                 <td
                   key={cellIndex}
-                  className="px-5 py-5 border-b border-gray-200 bg-white text-sm"
+                  className="px-5 py-5 border-b border-gray-200 bg-white text-sm "
                 >
                   {cell}
                 </td>
@@ -268,7 +268,7 @@ const Price = () => {
           <div className="w-full md:w-1/4 mb-4 md:mb-0">
             <ul className="border-b md:border-b-0 md:border-r-2 border-gray-200">
               {Object.keys(visaCategories).map((key) => (
-                <li key={key} className="mb-1">
+                <li key={key} className="mb-1 ">
                   <button
                     onClick={() => setActiveTab(key)}
                     className={`block w-full text-left px-4 py-2 rounded-r-full transition duration-300 ease-in-out focus:outline-none ${

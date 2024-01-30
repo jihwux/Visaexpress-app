@@ -41,7 +41,6 @@ export default async (req, res) => {
           message: "결제 검증 성공",
           data: paymentDataResult.response,
         });
-        console.log("ㄹㄹㄴㅇㄹㄴㄹㄴ");
       } else {
         // 결제 정보가 존재하지 않음
         res
@@ -60,4 +59,3 @@ export default async (req, res) => {
 };
 
 // ...
- 
