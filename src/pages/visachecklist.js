@@ -222,15 +222,6 @@ const Visachecklist = () => {
       // 다른 링크 레이블과 한글 파일명을 여기에 추가할 수 있습니다.
     };
 
-    // 이 함수를 사용하여 텍스트를 렌더링합니다.
-    // const textToRender = "▶미성년자가 현 여권에 중국 입룩 기록(중국 비자면+입국 도장)이 있을 겨우, 추가 서류 필요 없음.\n\n▶1.미성년자가 중국 다녀온 기록(비자면+도장)이 있지만 구여권에 있는 경우,\n구여권 및 여권발급기록증명서(국문) 원본 제출 必.\n\n2.중국 다녀온 기록이 없거나, 구여권 폐기로 증빙할 수 없는 경우,\n(1) 아이 이름 기준으로 발급된 가족관계증명서(상세)원본, 주민등록번호 다 보이게 발급 필수.\n(2) 아이 아버지 기본증명서(상세) 원본, 주민등록번호 다 보이게 발급 필수.\n(3) 아이 어머님 기본증명서(상세) 원본, 주민등록번호 다 보이게 발급 필수.\n\n*미성년자 부모 중 귀화자 또는 중국 국적자가 있을 경우, 사전 문의 필수.";
-    // const formattedText = formatTextWithLineBreaks(textToRender);
-
-    // // JSX 안에서 렌더링합니다.
-    // <div className="formatted-text-container">
-    //   {formattedText}
-    // </div>
-
     return text.split("\n").map((line, index, array) => {
       // 연속된 두 개의 빈 줄을 감지하고, 두 개의 <br /> 태그를 렌더링합니다.
       if (line === "" && index < array.length - 1) {
@@ -251,15 +242,18 @@ const Visachecklist = () => {
       // ...
 
       // 링크 레이블과 매핑된 객체를 순회하며 해당하는 레이블을 찾습니다.
+      // 링크 레이블과 매핑된 객체를 순회하며 해당하는 레이블을 찾습니다.
+      // ... 기존 코드 ...
+
+      // 링크 생성 로직
       for (const [label, { key, filename }] of Object.entries(linkMappings)) {
         if (line.includes(label)) {
           const url = downloadLinks[key];
-          // URL이 존재하면 링크를 생성합니다.
           return url ? (
             <a
               key={index}
               href={url}
-              download={filename}
+              download={filename} // 'download' 속성에 한글 파일명을 지정
               target="_blank"
               rel="noopener noreferrer"
               className="text-red-500 hover:text-red-800 hover:underline hover:underline-2 hover:underline-red-300"
@@ -274,6 +268,8 @@ const Visachecklist = () => {
           );
         }
       }
+
+      // ... 기존 코드 ...
       // 해당되는 레이블이 없는 경우 원래 텍스트를 반환합니다.
       return <span key={index}>{line}</span>;
     });
