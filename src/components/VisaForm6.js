@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Location from "../pages/location";
 
-// 자식 컴포넌트에서 상태를 다루는 로직
-// ...import React, { useState } from 'react';
-
 const VisaForm6 = ({ onFormDataChange }) => {
   const [formData, setFormData] = useState({
     deliveryMethod: "",
@@ -122,17 +119,6 @@ const VisaForm6 = ({ onFormDataChange }) => {
       [name]: value,
     }));
   };
-
-  //   const handleAddressSearch = () => {
-  //     new window.daum.Postcode({
-  //       oncomplete: function (data) {
-  //         // 검색 결과에서 얻은 주소를 처리하는 로직
-  //         setDeliveryDetails({ ...deliveryDetails, address: data.roadAddress });
-  //       },
-  //     }).open();
-  //   };
-
-  // ...
 
   const address = {
     mail: {
@@ -281,16 +267,16 @@ const VisaForm6 = ({ onFormDataChange }) => {
               formData.deliveryMethod === "group2" && (
                 <div className="w-full lg:w-1/2 px-3 mb-4 lg:mb-0">
                   <label
-                    htmlFor="representativePassportNumber"
+                    htmlFor="passportNumber"
                     className="block text-lg font-medium text-gray-700 mb-2 required-label"
                   >
                     대표자 여권번호
                   </label>
                   <input
                     type="text"
-                    id="representativePassportNumber"
-                    name="representativePassportNumber"
-                    value={formData.representativePassportNumber}
+                    id="passportNumber"
+                    name="passportNumber"
+                    value={formData.passportNumber}
                     onChange={handleInputChange}
                     className="block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     required
@@ -326,7 +312,7 @@ const VisaForm6 = ({ onFormDataChange }) => {
               {/* 대표자 여권번호 입력 필드 */}
               <div className="w-full lg:w-1/2 px-3 mb-4 lg:mb-0">
                 <label
-                  htmlFor="representativePassportNumber"
+                  htmlFor="passportNumber"
                   className="block text-lg font-medium text-gray-700 mb-2 required-label"
                 >
                   대표자 여권번호
@@ -334,7 +320,7 @@ const VisaForm6 = ({ onFormDataChange }) => {
                 <input
                   type="text"
                   id="passportNumber"
-                  name="representativePassportNumber"
+                  name="passportNumber"
                   value={formData.passportNumber}
                   onChange={handleInputChange}
                   className="block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"

@@ -3,6 +3,7 @@ import nodemailer from "nodemailer";
 import mjml2html from "mjml";
 
 export default async (req, res) => {
+  console.error("asd");
   const labels = {
     visaType: "비자 유형",
     stayDuration: "체류 기간",
@@ -17,7 +18,6 @@ export default async (req, res) => {
     placeOfBirth: "출생지",
     residenceAddress: "거주지 주소",
     visitPlace: "중국 방문 장소",
-    // detailedAddress: "상세 주소",
     chinaContact: "중국 내 연락처",
     maritalStatus: "결혼 상태",
     startDate: "입사일",
@@ -45,7 +45,6 @@ export default async (req, res) => {
     criminalRecord: "범죄 기록",
     hasRecord: "기록 보유 여부",
     emergencyContact: "긴급 연락처",
-
     contact: "연락처",
     form4: "가족 리스트",
     form1: "신청 비자 정보",
@@ -87,6 +86,7 @@ export default async (req, res) => {
     quick: "착불 퀵 배송",
     direct: "직접 수령 (11시~5시)",
     group: "2인 이상 묶음 익일 등기 받기(5000원)",
+    group2: "2인 이상 묶음 대표자 외",
     express: "익일 특급 등기 배송(5000원)",
     visit: "직접 방문 (11시~4시)",
     mail: "등기로 발송",
@@ -98,7 +98,10 @@ export default async (req, res) => {
     ResidencePermit: "중국 입국 30일 이내 거류증으로 변경",
     "180DayMultiple": "초청장허가만큼 최대180일",
     normal: "보통",
-    express: "급행",
+    form6: {
+      express: "익일 특급 등기 배송(5000원)",
+      // ...form6 관련 다른 매핑
+    },
     special: "특급",
     superSpecial: "초특급",
     married: "기혼",
@@ -109,27 +112,79 @@ export default async (req, res) => {
 
   const renderObjectToTableRows = (obj, labels, parentKey = "") => {
     if (Array.isArray(obj)) {
-      // 부모 키에 따라 레이블을 결정합니다.
-      const itemLabel = labels[parentKey];
+      if (typeof obj === "object" && parentKey === "") {
+        // "다른 나라 방문 여부"가 false일 경우 "방문 국가" 테이블 행을 렌더링하지 않습니다.
+        if (obj.hasVisitedCountries === false) {
+          delete obj.countries; // "방문 국가" 데이터를 삭제합니다.
+        }
+
+        const isEmptyArray =
+          obj.length === 0 ||
+          obj.every((item) => Object.values(item).every((value) => !value));
+
+        if (isEmptyArray) {
+          return `
+              <tr>
+                <td colspan="2" style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">
+                  <strong>${labels[parentKey] || parentKey}</strong>
+                </td>
+                <td style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">없음</td>
+              </tr>
+            `;
+        }
+      }
+
       return obj
-        .map(
-          (item, index) => `
-        <tr>
-          <td colspan="2" style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;"><strong>${itemLabel} ${
+        .map((item, index) => {
+          // 렌더링할 항목이 실제로 있는지 확인합니다.
+          const hasItems = Object.values(item).some((value) => value);
+          if (!hasItems) return ""; // 항목이 없으면 빈 문자열을 반환합니다.
+
+          return `
+              <tr>
+                <td colspan="2" style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">
+                  <strong>${labels[parentKey] || parentKey} ${
             index + 1
-          }</strong></td>
-        </tr>
-        ${renderObjectToTableRows(item, labels)}
-      `
-        )
+          }</strong>
+                </td>
+              </tr>
+              ${Object.entries(item)
+                .map(([key, value]) => {
+                  if (!value) return ""; // 값이 없으면 항목을 렌더링하지 않습니다.
+                  if (typeof value === "boolean") {
+                    value = value ? "예" : "아니오";
+                  }
+
+                  return `
+                    <tr>
+                      <td style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">${
+                        labels[key] || key
+                      }</td>
+                      <td style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">${value}</td>
+                    </tr>
+                  `;
+                })
+                .join("")}
+            `;
+        })
         .join("");
     } else if (typeof obj === "object") {
       return Object.entries(obj)
         .map(([key, value]) => {
-          // 빈 값이면 테이블 행을 생성하지 않습니다.
-          if (!value) return "";
-
-          // 한글로 매핑이 필요한 키에 대해서 처리합니다.
+          // 불리언 값은 "예" 또는 "아니오"로 변환합니다.
+          if (typeof value === "boolean") {
+            value = value ? "예" : "아니오";
+          }
+          if (
+            parentKey === "hasVisitedCountries" &&
+            obj["hasVisitedCountries"] === false
+          ) {
+            return ""; // "방문 국가" 섹션을 렌더링하지 않습니다.
+          }
+          // false 값은 유효하게 처리합니다.
+          if (value === null || value === undefined || value === "") {
+            value = value === false ? "아니오" : "";
+          }
           if (
             key === "deliveryMethod" ||
             key === "visaApplicationMethod" ||
@@ -143,14 +198,15 @@ export default async (req, res) => {
           const label = labels[key] || key;
           const displayValue =
             typeof value === "object"
-              ? renderObjectToTableRows(value, labels, key) // 'parentKey'로 현재 키를 넘깁니다.
+              ? renderObjectToTableRows(value, labels, key, obj) // 부모 객체를 전달합니다.
               : value;
+          if (!value && value !== "아니오") return "";
           return `
-          <tr>
-            <td style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">${label}</td>
-            <td style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">${displayValue}</td>
-          </tr>
-        `;
+            <tr>
+              <td style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">${label}</td>
+              <td style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">${displayValue}</td>
+            </tr>
+          `;
         })
         .join("");
     } else {
@@ -223,7 +279,7 @@ export default async (req, res) => {
   const contactNumber = formData.form2.contactNumber || "연락처 정보 없음";
 
   // 이메일 전송을 위한 설정
-  const mailOptions = {
+  const adminMailOptions = {
     from: "jhxxx7@gmail.com",
     to: "jhxxx7@gmail.com",
     subject: `${fullName}님의 비자신청서 - 연락처: ${contactNumber}`,
@@ -232,20 +288,35 @@ export default async (req, res) => {
 
   // 이메일 전송 로직...
   // 이메일 전송
-  transporter.sendMail(mailOptions, (error, info) => {
+  transporter.sendMail(adminMailOptions, (error, info) => {
     if (error) {
-      console.error("Send Mail error: ", error.message); // 에러 메시지 출력
-      console.error(error); // 에러 객체 전체 출력
-      res.status(500).send("Email send failed.");
+      console.error("Send Mail error: ", error.message);
+      res.status(500).send("Email send to admin failed.");
     } else {
-      console.log("Email sent: ", info.response);
-      console.log(formData); // 전체 formData 출력
-      console.log("Form1:", formData.form1); // formData의 form1 객체 출력
-      console.log("Full Name from Form1:", formData.form1?.fullName); // form1의 fullName 필드 출력
-      console.log("Contact Number from Form1:", formData.form1?.contactNumber); // form1의 contactNumber 필드 출력
-      res.status(200).send("Email sent successfully.");
+      console.log("Email sent to admin: ", info.response);
+
+      // 고객에게 이메일 전송
+      const customerEmail = formData.form2.email; // 고객의 이메일 주소를 폼 데이터에서 추출
+      const customerMailOptions = {
+        from: "jhxxx7@gmail.com",
+        to: "jhxxx7@gmail.com", // 고객 이메일 주소ss
+        subject:
+          "귀하의 비자 신청서가 접수되었습니다. 신청해 주셔서 감사합니다",
+        html: html, // 이 부분은 MJML에서 변환된 HTML을 사용해야 합니다.
+      };
+
+      transporter.sendMail(customerMailOptions, (error, info) => {
+        if (error) {
+          console.error("Send Mail error: ", error.message);
+          res.status(500).send("Email send to customer failed.");
+        } else {
+          console.log("Email sent to customer: ", info.response);
+          console.log(formData); // 전체 formData 출력
+        }
+      });
     }
   });
 };
 
 // 상태값과 레이블을 매핑하는 객체
+// 관리자에게 이메일 전송

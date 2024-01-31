@@ -29,16 +29,18 @@ const VisaApplicationForm = () => {
     // 기존 로그 출력
     console.log(visaFormData.form1.calculatedPrice);
     console.log(visaFormData.form6);
-  
+
     // ".required-label" 클래스를 가진 모든 레이블 선택
     const requiredLabels = document.querySelectorAll(".required-label");
-  
+
     requiredLabels.forEach((label) => {
       let nextElement = label.nextElementSibling;
-  
+
       // FIELDSET 요소인 경우 (라디오 버튼 그룹)
       if (nextElement && nextElement.tagName === "FIELDSET") {
-        const radioButtons = nextElement.querySelectorAll('input[type="radio"]');
+        const radioButtons = nextElement.querySelectorAll(
+          'input[type="radio"]'
+        );
         if (radioButtons.length > 0) {
           // 라디오 버튼 그룹에 대해 required 속성을 추가합니다.
           radioButtons.forEach((radio) => {
@@ -48,7 +50,7 @@ const VisaApplicationForm = () => {
       }
       // DIV 요소인 경우 (SELECT 태그를 포함할 가능성이 있는 경우)
       else if (nextElement && nextElement.tagName === "DIV") {
-        const selectElement = nextElement.querySelector('select');
+        const selectElement = nextElement.querySelector("select");
         // SELECT 요소가 존재하는 경우 required 속성을 추가합니다.
         if (selectElement) {
           selectElement.setAttribute("required", true);
@@ -58,8 +60,8 @@ const VisaApplicationForm = () => {
       else if (
         nextElement &&
         (nextElement.tagName === "INPUT" ||
-         nextElement.tagName === "SELECT" ||
-         nextElement.tagName === "TEXTAREA")
+          nextElement.tagName === "SELECT" ||
+          nextElement.tagName === "TEXTAREA")
       ) {
         nextElement.setAttribute("required", true);
       }
@@ -107,18 +109,15 @@ const VisaApplicationForm = () => {
       serviceType: visaFormData.form1.serviceType,
     }));
   }, [visaFormData.form1, visaFormData.form6]); // form1 또는 form6의 변화를 감지합니다.
- 
 
   const IMP_UID = "imp31516312"; // 실제 가맹점 식별코드로 변경해야 함
   // const IMP_UID = "imp21001741"; // 실제 가맹점 식별코드로 변경해야 함
   const [paymentParams, setPaymentParams] = useState({
     pg: "kakaopay.TC0ONETIME",
-
     pay_method: "card",
     name: visaFormData.form1.visaType,
     merchant_uid: `merchant_${Date.now()}`,
     amount: visaFormData.form1.calculatedPrice,
-
     buyer_name: "홍길동",
     buyer_email: "buyer@example.com",
     buyer_tel: "02-1670-5176",
@@ -129,10 +128,7 @@ const VisaApplicationForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // if (!isFormDataValid(visaFormData)) {
-    //   alert("모든 내용을 입력해주세요.");
-    //   return;
-    // }
+
     console.log(visaFormData);
 
     try {
@@ -151,22 +147,17 @@ const VisaApplicationForm = () => {
           merchant_uid: `merchant_${Date.now()}`,
           amount: visaFormData.form1.calculatedPrice,
         },
-      });       
-
-       
-
-
-
+      });
       router.push("/success"); // 성공 시 페이지 이동
     } catch (error) {
-     // 에러가 발생했을 때 호출되는 함수 내부
-console.error("결제 또는 검증 실패: ", error.message);
+      // 에러가 발생했을 때 호출되는 함수 내부
+      console.error("결제 또는 검증 실패: ", error.message);
 
-// 페이지 이동과 함께 쿼리 파라미터로 에러 메시지 전달
-router.push({
-  pathname: '/fail',
-  query: { error: error.message },
-});
+      // 페이지 이동과 함께 쿼리 파라미터로 에러 메시지 전달
+      router.push({
+        pathname: "/fail",
+        query: { error: error.message },
+      });
     }
 
     const response = await fetch("/api/sendEmail", {
@@ -188,15 +179,8 @@ router.push({
     }
     // API 라우트에 전체 폼 데이터를 POST 요청으로 전송합니다.
   };
-  // const isFormDataValid = (formData) => {
-  //   for (const key of Object.keys(formData)) {
-  //     // formData의 각 섹션이 빈 객체인지 확인합니다.
-  //     if (Object.keys(formData[key]).length === 0) {
-  //       return false; // 빈 객체가 있으면 false를 반환합니다.
-  //     }
-  //   }
-  //   return true;
-  // };
+
+  // 고객이 신청 현황을 조회하는데 접수 > 처리중 > 완료 이렇게 확인할 수 있어야해. 근데 관리자모드가 없어서 자동으로 1일 혹은 몇시간이 지나면 알아서 상태가 업데이트되게 하려고해. 이게 가능할까?
 
   return (
     <div>
