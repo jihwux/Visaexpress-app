@@ -30,27 +30,6 @@ const PaymentSuccessPage = () => {
           <p>서비스 유형: {serviceType}</p> */}
           <p>결제 금액: {amount}</p>
           <p>이런식으로 모든 신청정보가 나오게 됩니다.</p>
-
-          <div className="w-full lg:w-1/2 mb-4 lg:mb-0 pt-10">
-            <label
-              htmlFor="representativePassportNumber"
-              className="block text-lg font-medium text-gray-700 mb-2 "
-            >
-              신청 정보를 받을 이메일을 적어주세요.
-            </label>
-            <input
-              type="text"
-              id="representativePassportNumber"
-              name="representativePassportNumber"
-              className="block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              required
-            />
-          </div>
-        </div>
-        <div className="mt-8 flex flex-col sm:flex-row sm:justify-center gap-4">
-          <a className="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded ">
-            제출
-          </a>
         </div>
 
         <div className="mt-8 flex flex-col sm:flex-row sm:justify-center gap-4">
