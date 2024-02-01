@@ -12,7 +12,7 @@ export default async (req, res) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         imp_key: process.env.IMP_API_KEY_TEST, // REST API 키
-        imp_secret: process.env.IMP_API_KEY_TEST, // REST API Secret
+        imp_secret: process.env.IMP_API_SECRET_TEST, // REST API Secret
       }),
     });
     const tokenResult = await getToken.json();
