@@ -112,8 +112,7 @@ const VisaApplicationForm = () => {
   }, [visaFormData.form1, visaFormData.form2, visaFormData.form6]); // form1 또는 form6의 변화를 감지합니다.
 
   // const IMP_UID = "imp31516312"; // 실제 가맹점 식별코드로 변경해야 함
-  const IMP_UID = process.env.IMP_UID_TEST; // 실제 가맹점 식별코드로 변경해야 함
-
+  const IMP_UID = process.env.NEXT_PUBLIC_IMP_UID_TEST;
   const [paymentParams, setPaymentParams] = useState({
     pg: "kakaopay.TC0ONETIME",
     pay_method: "card",
@@ -181,7 +180,13 @@ const VisaApplicationForm = () => {
     }
     // API 라우트에 전체 폼 데이터를 POST 요청으로 전송합니다.
   };
+  // 총합 계산 로직
+  const totalAmount =
+    (visaFormData?.form1?.calculatedPrice || 0) +
+    (visaFormData?.form6?.expressFee || 0);
 
+  // 총합을 콤마가 포함된 형태로 표시
+  const totalAmountFormatted = totalAmount.toLocaleString("ko-KR");
   // 고객이 신청 현황을 조회하는데 접수 > 처리중 > 완료 이렇게 확인할 수 있어야해. 근데 관리자모드가 없어서 자동으로 1일 혹은 몇시간이 지나면 알아서 상태가 업데이트되게 하려고해. 이게 가능할까?
 
   return (
@@ -241,13 +246,7 @@ const VisaApplicationForm = () => {
           <div className="flex justify-between mt-3 pt-3 border-t-2 border-gray-200">
             <span className="font-semibold">총합:</span>
             <span className="text-red-600 font-bold">
-              {visaFormData?.form1?.calculatedPrice ||
-              visaFormData?.form6?.expressFee
-                ? `${(
-                    (visaFormData?.form1?.calculatedPrice ?? 0) +
-                    (visaFormData?.form6?.expressFee ?? 0)
-                  ).toLocaleString()}원`
-                : "0원"}
+              {totalAmount > 0 ? `${totalAmountFormatted}원` : "0원"}
             </span>
           </div>
         </div>
