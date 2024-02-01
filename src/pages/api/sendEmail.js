@@ -72,15 +72,8 @@ export default async (req, res) => {
     group: "2인 이상 묶음 익일 등기 받기(5000원)",
     express: "익일 특급 등기 배송(5000원)",
   };
-  // 객체를 HTML 테이블 행으로 변환하는 함수
 
   const formData = req.body;
-  // formData의 각 항목을 순회하면서 HTML 테이블로 변환합니다.// 레이블 매핑 객체
-
-  // 객체를 HTML 테이블 행으로 변환하는 함수
-  // 레이블 매핑 객체
-
-  // 객체 또는 배열을 HTML 테이블 행으로 변환하는 함수
 
   const deliveryMethodKoreanMap = {
     quick: "착불 퀵 배송",
