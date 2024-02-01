@@ -4,12 +4,12 @@ const VisaForm5 = ({ onFormDataChange }) => {
   const [formData, setFormData] = useState({
     hasVisitedCountries: false,
     hasCriminalRecord: false,
-    criminalDetails: "",
     hasVisaRejectionOrIllegalStay: false,
+    criminalDetails: "",
     rejectionReason: "",
     illegalStayRecord: "",
     countries: [{ name: "" }],
-    emergencyContact: { name: "", relation: "", contact: "" },
+    emergencyContact: { name: "", relation: "", contact: "", email: "" },
   });
 
   const onChange = (fieldName, value) => {
@@ -254,6 +254,15 @@ const VisaForm5 = ({ onFormDataChange }) => {
             className="flex-grow border border-gray-300 rounded-md shadow-sm py-2 px-3 sm:text-sm "
             required
           />
+          {/* <input
+            type="email" // 이메일 타입으로 설정
+            name="emergencyContact.email" // 경로를 email로 설정
+            placeholder="이메일 주소"
+            value={formData.emergencyContact.email} // formData에서 이메일 값을 바인딩
+            onChange={(e) => onChange("emergencyContact.email", e.target.value)} // onChange 이벤트 핸들러 경로 수정
+            className="flex-grow border border-gray-300 rounded-md shadow-sm py-2 px-3 sm:text-sm"
+            required
+          /> */}
         </div>
       </div>
     </div>

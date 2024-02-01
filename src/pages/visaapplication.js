@@ -24,48 +24,48 @@ const VisaApplicationForm = () => {
       console.log("All agreements have been agreed."); // 모든 약관 동의 로그
     }
   }, [router]);
-  // useEffect(() => {
-  //   // 기존 로그 출력
-  //   console.log(visaFormData.form1.calculatedPrice);
-  //   console.log(visaFormData.form6);
+  useEffect(() => {
+    // 기존 로그 출력
+    console.log(visaFormData.form1.calculatedPrice);
+    console.log(visaFormData.form6);
 
-  //   // ".required-label" 클래스를 가진 모든 레이블 선택
-  //   const requiredLabels = document.querySelectorAll(".required-label");
+    // ".required-label" 클래스를 가진 모든 레이블 선택
+    const requiredLabels = document.querySelectorAll(".required-label");
 
-  //   requiredLabels.forEach((label) => {
-  //     let nextElement = label.nextElementSibling;
+    requiredLabels.forEach((label) => {
+      let nextElement = label.nextElementSibling;
 
-  //     // FIELDSET 요소인 경우 (라디오 버튼 그룹)
-  //     if (nextElement && nextElement.tagName === "FIELDSET") {
-  //       const radioButtons = nextElement.querySelectorAll(
-  //         'input[type="radio"]'
-  //       );
-  //       if (radioButtons.length > 0) {
-  //         // 라디오 버튼 그룹에 대해 required 속성을 추가합니다.
-  //         radioButtons.forEach((radio) => {
-  //           radio.setAttribute("required", true);
-  //         });
-  //       }
-  //     }
-  //     // DIV 요소인 경우 (SELECT 태그를 포함할 가능성이 있는 경우)
-  //     else if (nextElement && nextElement.tagName === "DIV") {
-  //       const selectElement = nextElement.querySelector("select");
-  //       // SELECT 요소가 존재하는 경우 required 속성을 추가합니다.
-  //       if (selectElement) {
-  //         selectElement.setAttribute("required", true);
-  //       }
-  //     }
-  //     // INPUT, SELECT, TEXTAREA 태그인 경우
-  //     else if (
-  //       nextElement &&
-  //       (nextElement.tagName === "INPUT" ||
-  //         nextElement.tagName === "SELECT" ||
-  //         nextElement.tagName === "TEXTAREA")
-  //     ) {
-  //       nextElement.setAttribute("required", true);
-  //     }
-  //   });
-  // }, []);
+      // FIELDSET 요소인 경우 (라디오 버튼 그룹)
+      if (nextElement && nextElement.tagName === "FIELDSET") {
+        const radioButtons = nextElement.querySelectorAll(
+          'input[type="radio"]'
+        );
+        if (radioButtons.length > 0) {
+          // 라디오 버튼 그룹에 대해 required 속성을 추가합니다.
+          radioButtons.forEach((radio) => {
+            radio.setAttribute("required", true);
+          });
+        }
+      }
+      // DIV 요소인 경우 (SELECT 태그를 포함할 가능성이 있는 경우)
+      else if (nextElement && nextElement.tagName === "DIV") {
+        const selectElement = nextElement.querySelector("select");
+        // SELECT 요소가 존재하는 경우 required 속성을 추가합니다.
+        if (selectElement) {
+          selectElement.setAttribute("required", true);
+        }
+      }
+      // INPUT, SELECT, TEXTAREA 태그인 경우
+      else if (
+        nextElement &&
+        (nextElement.tagName === "INPUT" ||
+          nextElement.tagName === "SELECT" ||
+          nextElement.tagName === "TEXTAREA")
+      ) {
+        nextElement.setAttribute("required", true);
+      }
+    });
+  }, []);
   const [visaFormData, setVisaFormData] = useState({
     form1: {},
     form2: {},
@@ -110,8 +110,8 @@ const VisaApplicationForm = () => {
     }));
   }, [visaFormData.form1, visaFormData.form2, visaFormData.form6]); // form1 또는 form6의 변화를 감지합니다.
 
-  const IMP_UID = "imp21001741"; // 실제 가맹점 식별코드로 변경해야 함
-  // const IMP_UID = process.env.NEXT_PUBLIC_IMP_UID_TEST;
+  // const IMP_UID = "imp21001741"; // 실제 가맹점 식별코드로 변경해야 함
+  const IMP_UID = process.env.NEXT_PUBLIC_IMP_UID_TEST;
   const [paymentParams, setPaymentParams] = useState({
     pg: "kakaopay.TC0ONETIME",
     pay_method: "card",

@@ -25,11 +25,11 @@ const PaymentSuccessPage = () => {
         <div className="mt-6">
           <h3 className="text-lg font-semibold">결제 내역:</h3>
           <p>비자 타입: {name}</p>
-          {/* <p>체류 기간: {stayDuration}</p>
+          <p>체류 기간: {stayDuration}</p>
           <p>비자 기간: {visaDuration}</p>
-          <p>서비스 유형: {serviceType}</p> */}
+          <p>서비스 유형: {serviceType}</p>
           <p>결제 금액: {amount}</p>
-          <p>이런식으로 모든 신청정보가 나오게 됩니다.</p>
+          <p>신청서에 작성하신 이메일로 모든 신청정보가 전송되었습니다.</p>
         </div>
 
         <div className="mt-8 flex flex-col sm:flex-row sm:justify-center gap-4">

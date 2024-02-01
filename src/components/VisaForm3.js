@@ -9,28 +9,26 @@ const VisaForm3 = ({ onFormDataChange }) => {
     supervisorContact: "",
     // companyAddress: "",
     maritalStatus: "", // 결혼 상태
-    educationLevel: ''
+    educationLevel: "",
+    schoolName: "",
+    schoolAddress: "",
   });
 
   const handleEmploymentInfoChange = (e) => {
     const { name, value } = e.target;
     const newEmploymentInfo = { ...employmentInfo, [name]: value };
     setEmploymentInfo(newEmploymentInfo);
-    onFormDataChange({ ...newEmploymentInfo, ...educationInfo });
+    // 상위 컴포넌트에 전체 폼 데이터를 전달
+    onFormDataChange({ ...newEmploymentInfo });
   };
 
-  const [educationInfo, setEducationInfo] = useState({
-    schoolName: "",
-    educationLevel: "",
-    schoolAddress: "",
-  });
-
-  const handleEducationInfoChange = (e) => {
-    const { name, value } = e.target;
-    const newEducationInfo = { ...educationInfo, [name]: value };
-    setEducationInfo(newEducationInfo);
-    onFormDataChange({ ...employmentInfo, ...newEducationInfo });
-  };
+  // const handleEducationInfoChange = (e) => {
+  //   const { name, value } = e.target;
+  //   const newEducationInfo = { ...educationInfo, [name]: value };
+  //   setEducationInfo(newEducationInfo);
+  //   // 상위 컴포넌트에 전체 폼 데이터를 전달
+  //   onFormDataChange({ , educationInfo: newEducationInfo });
+  // };
   const handleMaritalStatusChange = (e) => {
     const newFormDetails = { ...employmentInfo, maritalStatus: e.target.value };
     setEmploymentInfo(newFormDetails);
@@ -179,8 +177,8 @@ const VisaForm3 = ({ onFormDataChange }) => {
             type="text"
             id="schoolName"
             name="schoolName"
-            value={educationInfo.schoolName}
-            onChange={handleEducationInfoChange}
+            value={employmentInfo.schoolName}
+            onChange={handleEmploymentInfoChange}
             className="block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
@@ -195,8 +193,8 @@ const VisaForm3 = ({ onFormDataChange }) => {
             type="text"
             id="schoolAddress"
             name="schoolAddress"
-            value={educationInfo.schoolAddress}
-            onChange={handleEducationInfoChange}
+            value={employmentInfo.schoolAddress}
+            onChange={handleEmploymentInfoChange}
             className="block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>

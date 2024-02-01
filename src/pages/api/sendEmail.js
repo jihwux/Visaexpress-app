@@ -103,81 +103,128 @@ export default async (req, res) => {
     widowed: "사별",
   };
 
+  // const renderObjectToTableRows = (obj, labels, parentKey = "") => {
+  //   if (Array.isArray(obj)) {
+  //     if (typeof obj === "object" && parentKey === "") {
+  //       if (obj.hasVisitedCountries === false) {
+  //         delete obj.countries; // "방문 국가" 데이터를 삭제합니다.
+  //       }
+  //       const isEmptyArray =
+  //         obj.length === 0 ||
+  //         obj.every((item) => Object.values(item).every((value) => !value));
+
+  //       if (isEmptyArray) {
+  //         return `
+  //             <tr>
+  //               <td colspan="2" style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">
+  //                 <strong>${labels[parentKey] || parentKey}</strong>
+  //               </td>
+  //               <td style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">없음</td>
+  //             </tr>
+  //           `;
+  //       }
+  //     }
+  //     return obj
+  //       .map((item, index) => {
+  //         const hasItems = Object.values(item).some((value) => value);
+  //         if (!hasItems) return ""; // 항목이 없으면 빈 문자열을 반환합니다.
+
+  //         return `
+  //             <tr>
+  //               <td colspan="2" style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">
+  //                 <strong>${labels[parentKey] || parentKey} ${
+  //           index + 1
+  //         }</strong>
+  //               </td>
+  //             </tr>
+  //             ${Object.entries(item)
+  //               .map(([key, value]) => {
+  //                 if (!value) return "";
+  //                 if (typeof value === "boolean") {
+  //                   value = value ? "예" : "아니오";
+  //                 }
+  //                 return `
+  //                   <tr>
+  //                     <td style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">${
+  //                       labels[key] || key
+  //                     }</td>
+  //                     <td style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">${value}</td>
+  //                   </tr>
+  //                 `;
+  //               })
+  //               .join("")}
+  //           `;
+  //       })
+  //       .join("");
+  //   } else if (typeof obj === "object") {
+  //     return Object.entries(obj)
+  //       .map(([key, value]) => {
+  //         // 불리언 값은 "예" 또는 "아니오"로 변환합니다.
+  //         if (typeof value === "boolean") {
+  //           value = value ? "예" : "아니오";
+  //         }
+  //         if (
+  //           parentKey === "hasVisitedCountries" &&
+  //           obj["hasVisitedCountries"] === false
+  //         ) {
+  //           return ""; // "방문 국가" 섹션을 렌더링하지 않습니다.
+  //         }
+  //         // false 값은 유효하게 처리합니다.
+  //         if (value === null || value === undefined || value === "") {
+  //           value = value === false ? "아니오" : "";
+  //         }
+  //         if (
+  //           key === "deliveryMethod" ||
+  //           key === "visaApplicationMethod" ||
+  //           key === "visaDuration" ||
+  //           key === "serviceType" ||
+  //           key === "maritalStatus"
+  //         ) {
+  //           value = deliveryMethodKoreanMap[value] || value;
+  //         }
+
+  //         const label = labels[key] || key;
+  //         const displayValue =
+  //           typeof value === "object"
+  //             ? renderObjectToTableRows(value, labels, key, obj) // 부모 객체를 전달합니다.
+  //             : value;
+  //         if (!value && value !== "아니오") return "";
+  //         return `
+  //           <tr>
+  //             <td style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">${label}</td>
+  //             <td style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">${displayValue}</td>
+  //           </tr>
+  //         `;
+  //       })
+  //       .join("");
+  //   }
+  // };
+
   const renderObjectToTableRows = (obj, labels, parentKey = "") => {
-    if (Array.isArray(obj)) {
-      if (typeof obj === "object" && parentKey === "") {
-        // "다른 나라 방문 여부"가 false일 경우 "방문 국가" 테이블 행을 렌더링하지 않습니다.
-        if (obj.hasVisitedCountries === false) {
-          delete obj.countries; // "방문 국가" 데이터를 삭제합니다.
-        }
-
-        const isEmptyArray =
-          obj.length === 0 ||
-          obj.every((item) => Object.values(item).every((value) => !value));
-
-        if (isEmptyArray) {
-          return `
-              <tr>
-                <td colspan="2" style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">
-                  <strong>${labels[parentKey] || parentKey}</strong>
-                </td>
-                <td style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">없음</td>
-              </tr>
-            `;
-        }
+    // 객체에 대한 처리
+    if (typeof obj === "object" && !Array.isArray(obj)) {
+      // "다른 나라 방문 여부"가 false라면 "방문 국가" 데이터를 렌더링하지 않습니다.
+      if (obj.hasVisitedCountries === false) {
+        // "방문 국가" 데이터를 삭제합니다.
+        delete obj.countries;
       }
 
-      return obj
-        .map((item, index) => {
-          // 렌더링할 항목이 실제로 있는지 확인합니다.
-          const hasItems = Object.values(item).some((value) => value);
-          if (!hasItems) return ""; // 항목이 없으면 빈 문자열을 반환합니다.
-
-          return `
-              <tr>
-                <td colspan="2" style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">
-                  <strong>${labels[parentKey] || parentKey} ${
-            index + 1
-          }</strong>
-                </td>
-              </tr>
-              ${Object.entries(item)
-                .map(([key, value]) => {
-                  if (!value) return ""; // 값이 없으면 항목을 렌더링하지 않습니다.
-                  if (typeof value === "boolean") {
-                    value = value ? "예" : "아니오";
-                  }
-
-                  return `
-                    <tr>
-                      <td style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">${
-                        labels[key] || key
-                      }</td>
-                      <td style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">${value}</td>
-                    </tr>
-                  `;
-                })
-                .join("")}
-            `;
-        })
-        .join("");
-    } else if (typeof obj === "object") {
       return Object.entries(obj)
         .map(([key, value]) => {
+          // "방문 국가"가 렌더링되지 않도록 조건을 추가합니다.
+          if (key === "countries" && obj.hasVisitedCountries === false) {
+            return ""; // "방문 국가" 섹션을 렌더링하지 않습니다.
+          }
+
           // 불리언 값은 "예" 또는 "아니오"로 변환합니다.
           if (typeof value === "boolean") {
             value = value ? "예" : "아니오";
-          }
-          if (
-            parentKey === "hasVisitedCountries" &&
-            obj["hasVisitedCountries"] === false
-          ) {
-            return ""; // "방문 국가" 섹션을 렌더링하지 않습니다.
           }
           // false 값은 유효하게 처리합니다.
           if (value === null || value === undefined || value === "") {
             value = value === false ? "아니오" : "";
           }
+          // 특정 키에 대한 한국어 매핑
           if (
             key === "deliveryMethod" ||
             key === "visaApplicationMethod" ||
@@ -187,19 +234,80 @@ export default async (req, res) => {
           ) {
             value = deliveryMethodKoreanMap[value] || value;
           }
-
+          // 레이블과 값을 사용하여 테이블 행을 생성합니다.
           const label = labels[key] || key;
           const displayValue =
             typeof value === "object"
-              ? renderObjectToTableRows(value, labels, key, obj) // 부모 객체를 전달합니다.
+              ? renderObjectToTableRows(value, labels, key)
               : value;
           if (!value && value !== "아니오") return "";
+
           return `
             <tr>
               <td style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">${label}</td>
               <td style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">${displayValue}</td>
             </tr>
           `;
+        })
+        .join("");
+    }
+
+    // 배열에 대한 처리
+    if (Array.isArray(obj)) {
+      // 배열이 비어 있거나 모든 항목이 빈 값인 경우 처리
+
+      if (parentKey === "countries" && obj.hasVisitedCountries === false) {
+        const isEmptyOrBlankObjects =
+          obj.length === 0 ||
+          obj.every((item) => Object.keys(item).length === 0);
+        if (isEmptyOrBlankObjects) {
+          return ""; // "방문 국가" 섹션을 렌더링하지 않습니다.
+        }
+      }
+
+      const isEmptyArray =
+        obj.length === 0 ||
+        obj.every((item) => Object.values(item).every((value) => !value));
+      if (isEmptyArray) {
+        return `
+          <tr>
+            <td colspan="2" style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">
+              <strong>${labels[parentKey] || parentKey}</strong>
+            </td>
+            <td style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">없음</td>
+          </tr>
+        `;
+      }
+      // 배열 요소들에 대한 렌더링 로직
+      return obj
+        .map((item, index) => {
+          const hasItems = Object.values(item).some((value) => value);
+          if (!hasItems) return "";
+
+          return `
+          <tr>
+            <td colspan="2" style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">
+              <strong>${labels[parentKey] || parentKey} ${index + 1}</strong>
+            </td>
+          </tr>
+          ${Object.entries(item)
+            .map(([key, value]) => {
+              if (!value) return "";
+              if (typeof value === "boolean") {
+                value = value ? "예" : "아니오";
+              }
+
+              return `
+                <tr>
+                  <td style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">${
+                    labels[key] || key
+                  }</td>
+                  <td style="padding: 10px; border-bottom:1px solid #dddddd; background-color:#ffffff;">${value}</td>
+                </tr>
+              `;
+            })
+            .join("")}
+        `;
         })
         .join("");
     } else {
@@ -210,8 +318,9 @@ export default async (req, res) => {
         </tr>
       `;
     }
-  };
 
+    // 기타 데이터 타입에 대한 처리...
+  };
   // formData의 각 항목을 순회하면서 HTML 테이블로 변환합니다.
   const tableRows = Object.entries(formData)
     .map(([key, value]) => {

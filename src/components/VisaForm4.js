@@ -43,20 +43,33 @@ const VisaForm4 = ({ onFormDataChange }) => {
       residence: "",
     },
   ]);
+  const isMemberNotEmpty = (member) => {
+    const { relation, ...rest } = member;
+    return Object.values(rest).some((value) => value.trim() !== "");
+  };
 
   const handleFamilyMemberChange = (index, e) => {
     const updatedMembers = familyMembers.map((member, idx) =>
       idx === index ? { ...member, [e.target.name]: e.target.value } : member
     );
-    setFamilyMembers(updatedMembers);
-    onFormDataChange(updatedMembers);
+
+    // 'relation'을 제외한 필드 중 하나라도 비어 있지 않은 객체들만 필터링합니다.
+    const filteredMembers = updatedMembers.filter(isMemberNotEmpty);
+
+    setFamilyMembers(filteredMembers); // 빈 객체가 제외된 배열을 상태로 설정합니다.
+    onFormDataChange(filteredMembers); // 필터링된 가족 구성원 정보를 상위 컴포넌트로 전달합니다.
   };
 
   const addFamilyMember = () => {
+    // 자녀 구성원의 수를 계산합니다.
+    const childCount = familyMembers.filter((member) =>
+      member.relation.startsWith("자녀")
+    ).length;
+
     setFamilyMembers([
       ...familyMembers,
       {
-        relation: "자녀+", // 새로운 가족 구성원의 관계를 '자녀+'로 설정
+        relation: `자녀${childCount + 1}`, // 자녀의 숫자를 기반으로 관계 값을 설정합니다.
         englishName: "",
         nationality: "",
         dob: "",
