@@ -134,6 +134,23 @@ const VisaApplicationForm = () => {
     try {
       const result = await initiatePayment(IMP_UID, paymentParams);
       console.log("결제 및 검증 성공: ", result.message);
+      const response = await fetch("/api/sendEmail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(visaFormData), // 전체 폼 데이터를 JSON으로 변환
+      });
+
+      if (!response.ok) {
+        console.error("Failed to send email");
+        const errorData = await response.text(); // 또는 response.json() 이 될 수도 있습니다.
+        console.error("Error response from server:", errorData);
+        // 오류 메시지 표시 또는 추가 액션
+      } else {
+        console.log("Email sent successfully");
+        // alert("Email 확인 하세요 담당자님 ");
+      }
       // 결제 성공 후 성공 페이지로 넘어갈 때 쿼리 파라미터를 포함시킵니다.
       router.push({
         pathname: "/success",
@@ -160,23 +177,6 @@ const VisaApplicationForm = () => {
       });
     }
 
-    const response = await fetch("/api/sendEmail", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(visaFormData), // 전체 폼 데이터를 JSON으로 변환
-    });
-
-    if (!response.ok) {
-      console.error("Failed to send email");
-      const errorData = await response.text(); // 또는 response.json() 이 될 수도 있습니다.
-      console.error("Error response from server:", errorData);
-      // 오류 메시지 표시 또는 추가 액션
-    } else {
-      console.log("Email sent successfully");
-      // alert("Email 확인 하세요 담당자님 ");
-    }
     // API 라우트에 전체 폼 데이터를 POST 요청으로 전송합니다.
   };
   // 총합 계산 로직

@@ -379,6 +379,7 @@ export default async (req, res) => {
   // fullName과 contactNumber 추출
   const fullName = formData.form2.fullName || "고객";
   const contactNumber = formData.form2.contactNumber || "연락처 정보 없음";
+  const customerEmail = formData.form5.emergencyContact.email; // 비상 연락처에서 받은 고객의 이메일 주소
 
   // 이메일 전송을 위한 설정
   const adminMailOptions = {
@@ -398,13 +399,16 @@ export default async (req, res) => {
       console.log("Email sent to admin: ", info.response);
 
       // 고객에게 이메일 전송
-      const customerEmail = formData.form2.email; // 고객의 이메일 주소를 폼 데이터에서 추출
+      // 관리자에게 이메일 전송 로직...
+
+      // 고객에게 이메일 전송
+      const customerEmail = formData.emergencyContact.email; // 비상 연락처에서 받은 고객의 이메일 주소
       const customerMailOptions = {
         from: "jhxxx7@gmail.com",
-        to: "jhxxx7@gmail.com", // 고객 이메일 주소ss
+        to: customerEmail, // 고객 이메일 주소로 'to' 속성 수정
         subject:
           "귀하의 비자 신청서가 접수되었습니다. 신청해 주셔서 감사합니다",
-        html: html, // 이 부분은 MJML에서 변환된 HTML을 사용해야 합니다.
+        html: html, // MJML에서 변환된 HTML 사용
       };
 
       transporter.sendMail(customerMailOptions, (error, info) => {
