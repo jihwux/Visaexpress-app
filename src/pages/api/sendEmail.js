@@ -377,11 +377,17 @@ export default async (req, res) => {
   // 폼 제출 로직...
 
   // fullName과 contactNumber 추출
+  // fullName과 contactNumber 추출
   const fullName = formData.form2.fullName || "고객";
   const contactNumber = formData.form2.contactNumber || "연락처 정보 없음";
   const customerEmail = formData.form5.emergencyContact.email; // 비상 연락처에서 받은 고객의 이메일 주소
 
+  // 콘솔에 fullName, contactNumber, customerEmail 값을 출력합니다.
+  console.log("fullName:", fullName);
+  console.log("contactNumber:", contactNumber);
+  console.log("customerEmail:", customerEmail);
   // 이메일 전송을 위한 설정
+  console.log("formData:", formData);
   const adminMailOptions = {
     from: "jhxxx7@gmail.com",
     to: "jhxxx7@gmail.com",
@@ -402,7 +408,6 @@ export default async (req, res) => {
       // 관리자에게 이메일 전송 로직...
 
       // 고객에게 이메일 전송
-      const customerEmail = formData.emergencyContact.email; // 비상 연락처에서 받은 고객의 이메일 주소
       const customerMailOptions = {
         from: "jhxxx7@gmail.com",
         to: customerEmail, // 고객 이메일 주소로 'to' 속성 수정
