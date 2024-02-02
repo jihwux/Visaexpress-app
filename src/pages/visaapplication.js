@@ -134,6 +134,21 @@ const VisaApplicationForm = () => {
     try {
       const result = await initiatePayment(IMP_UID, paymentParams);
       console.log("결제 및 검증 성공: ", result.message);
+
+      // 결제 성공 후 성공 페이지로 넘어갈 때 쿼리 파라미터를 포함시킵니다.
+      router.push({
+        pathname: "/success",
+        query: {
+          // 결제 성공과 관련된 데이터를 쿼리 파라미터로 전달합니다.
+          // 예를 들어, orderId와 paymentAmount를 전달한다고 가정합니다.
+          name: visaFormData.form1.visaType,
+          stayDuration: visaFormData.form1.stayDuration,
+          visaDuration: visaFormData.form1.visaDuration,
+          serviceType: visaFormData.form1.serviceType,
+          merchant_uid: `merchant_${Date.now()}`,
+          amount: visaFormData.form1.calculatedPrice,
+        },
+      });
       const response = await fetch("/api/sendEmail", {
         method: "POST",
         headers: {
@@ -151,21 +166,6 @@ const VisaApplicationForm = () => {
         console.log("Email sent successfully");
         // alert("Email 확인 하세요 담당자님 ");
       }
-      // 결제 성공 후 성공 페이지로 넘어갈 때 쿼리 파라미터를 포함시킵니다.
-      router.push({
-        pathname: "/success",
-        query: {
-          // 결제 성공과 관련된 데이터를 쿼리 파라미터로 전달합니다.
-          // 예를 들어, orderId와 paymentAmount를 전달한다고 가정합니다.
-          name: visaFormData.form1.visaType,
-          stayDuration: visaFormData.form1.stayDuration,
-          visaDuration: visaFormData.form1.visaDuration,
-          serviceType: visaFormData.form1.serviceType,
-          merchant_uid: `merchant_${Date.now()}`,
-          amount: visaFormData.form1.calculatedPrice,
-        },
-      });
-      router.push("/success"); // 성공 시 페이지 이동
     } catch (error) {
       // 에러가 발생했을 때 호출되는 함수 내부
       console.error("결제 또는 검증 실패: ", error.message);
