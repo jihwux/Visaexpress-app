@@ -9,13 +9,21 @@ const descriptions = [
 ];
 
 // 테스트 데이터
+// 기존 테스트 데이터
 const customerData = {
-  "1@example.com": 0, // 정보 확인 단계
-  "2@example.com": 1, // 정보 확인 단계
-  "3@example.com": 2, // 정보 확인 단계
-  "4@example.com": 3, // 정보 확인 단계
+  "1@example.com": 0,
+  "2@example.com": 1,
+  "3@example.com": 2,
+  "4@example.com": 3,
 };
 
+// 추가 테스트 데이터
+const additionalCustomerData = {
+  "5@example.com": 1,
+  "6@example.com": 2,
+  "7@example.com": 0,
+  "8@example.com": 3,
+};
 export default function ApplicationTracker() {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
@@ -24,22 +32,36 @@ export default function ApplicationTracker() {
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true); // 로딩 시작
 
-    // 3초 후 데이터 검색 로직 실행
+    // 이메일이 customerData에 있는지 확인
+    const isEmailPresent = customerData.hasOwnProperty(email);
+
+    // 이메일이 있으면 8초 이상, 없으면 10초 이상 걸리도록 시간 설정
+    const randomDelay = isEmailPresent
+      ? Math.random() * (12000 - 8000) + 8000
+      : Math.random() * (15000 - 10000) + 10000;
+
+    // 데이터 검색 로직 실행 예약
     setTimeout(() => {
-      const step = customerData[email];
-      if (step !== undefined) {
+      if (isEmailPresent) {
+        const step = customerData[email];
         setCurrentStep(step);
       } else {
         alert("해당 이메일의 고객 정보를 찾을 수 없습니다.");
         setCurrentStep(null);
       }
       setIsLoading(false); // 로딩 종료
-    }, 5000);
+    }, randomDelay);
+
+    // 10초 이상 걸릴 경우 사용자에게 알림 표시
+    if (!isEmailPresent) {
+      setTimeout(() => {
+        alert("메일 서버와 연동이 길어지고 있습니다. 잠시만 기다려 주세요.");
+      }, 10000);
+    }
   };
 
   return (

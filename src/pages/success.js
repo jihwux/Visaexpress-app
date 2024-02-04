@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link"; // Next.js의 Link 컴포넌트를 가져옵니다.
 import { useRouter } from "next/router";
 
 const PaymentSuccessPage = () => {
   const router = useRouter();
+  const {
+    paymentSuccess,
+    name,
+    amount,
+    stayDuration,
+    visaDuration,
+    serviceType,
+  } = router.query;
 
-  const { name, amount, stayDuration, visaDuration, serviceType } =
-    router.query;
+  useEffect(() => {
+    // 페이지가 로드될 때 결제 성공 토큰이 없다면 홈으로 리다이렉트
+    if (!paymentSuccess) {
+      router.push("/");
+    }
+  }, [paymentSuccess, router]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
@@ -50,3 +62,4 @@ const PaymentSuccessPage = () => {
 };
 
 export default PaymentSuccessPage;
+// pages/success.js

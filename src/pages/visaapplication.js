@@ -8,8 +8,11 @@ import VisaForm5 from "@/components/VisaForm5";
 import VisaForm6 from "@/components/VisaForm6";
 import { initiatePayment } from "@/components/Payment";
 
+// 필요한 React hooks와 Next.js router를 import 합니다.
+
 const VisaApplicationForm = () => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false); // 로딩 상태 관리
 
   const [params, setParams] = useState();
   const [result, setResult] = useState();
@@ -111,7 +114,7 @@ const VisaApplicationForm = () => {
   }, [visaFormData.form1, visaFormData.form2, visaFormData.form6]); // form1 또는 form6의 변화를 감지합니다.
 
   // const IMP_UID = "imp21001741"; // 실제 가맹점 식별코드로 변경해야 함
-  const IMP_UID = process.env.NEXT_PUBLIC_IMP_UID_TEST;
+  const IMP_UID = process.env.NEXT_PUBLIC_IMP_UID;
   const [paymentParams, setPaymentParams] = useState({
     pg: "kakaopay.TC0ONETIME",
     pay_method: "card",
@@ -128,27 +131,12 @@ const VisaApplicationForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    console.log(visaFormData);
+    setIsLoading(true); // 로딩 시작
 
     try {
       const result = await initiatePayment(IMP_UID, paymentParams);
       console.log("결제 및 검증 성공: ", result.message);
 
-      // 결제 성공 후 성공 페이지로 넘어갈 때 쿼리 파라미터를 포함시킵니다.
-      router.push({
-        pathname: "/success",
-        query: {
-          // 결제 성공과 관련된 데이터를 쿼리 파라미터로 전달합니다.
-          // 예를 들어, orderId와 paymentAmount를 전달한다고 가정합니다.
-          name: visaFormData.form1.visaType,
-          stayDuration: visaFormData.form1.stayDuration,
-          visaDuration: visaFormData.form1.visaDuration,
-          serviceType: visaFormData.form1.serviceType,
-          merchant_uid: `merchant_${Date.now()}`,
-          amount: visaFormData.form1.calculatedPrice,
-        },
-      });
       const response = await fetch("/api/sendEmail", {
         method: "POST",
         headers: {
@@ -158,25 +146,40 @@ const VisaApplicationForm = () => {
       });
 
       if (!response.ok) {
-        console.error("Failed to send email");
-        const errorData = await response.text(); // 또는 response.json() 이 될 수도 있습니다.
-        console.error("Error response from server:", errorData);
-        // 오류 메시지 표시 또는 추가 액션
-      } else {
-        console.log("Email sent successfully");
-        // alert("Email 확인 하세요 담당자님 ");
+        throw new Error("Failed to send email");
       }
+
+      console.log("Email sent successfully");
+      setTimeout(() => {
+        // 성공 페이지로 이동 전 3초간 대기
+        router.push({
+          pathname: "/success",
+          query: {
+            paymentSuccess: "true", // 결제 성공 토큰 추가
+            name: visaFormData.form1.visaType,
+            stayDuration: visaFormData.form1.stayDuration,
+            visaDuration: visaFormData.form1.visaDuration,
+            serviceType: visaFormData.form1.serviceType,
+            merchant_uid: `merchant_${Date.now()}`,
+            amount: visaFormData.form1.calculatedPrice,
+          },
+        });
+        setIsLoading(false); // 로딩 상태 해제
+      }, 3000);
     } catch (error) {
-      // 에러가 발생했을 때 호출되는 함수 내부
-      console.error("결제 또는 검증 실패: ", error.message);
-
-      // 페이지 이동과 함께 쿼리 파라미터로 에러 메시지 전달
-      router.push({
-        pathname: "/fail",
-        query: { error: error.message },
-      });
+      console.error(
+        "결제 또는 검증 실패 혹은 이메일 전송 실패: ",
+        error.message
+      );
+      setIsLoading(false); // 로딩 상태 해제
+      setTimeout(() => {
+        // 실패 페이지로 이동 전 즉시 실행
+        router.push({
+          pathname: "/fail",
+          query: { error: error.message },
+        });
+      }, 0);
     }
-
     // API 라우트에 전체 폼 데이터를 POST 요청으로 전송합니다.
   };
   // 총합 계산 로직
@@ -190,6 +193,11 @@ const VisaApplicationForm = () => {
 
   return (
     <div>
+      {isLoading && (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 z-50 flex justify-center items-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
+        </div>
+      )}
       <form
         onSubmit={handleSubmit}
         className="max-w-6xl mx-auto my-20 p-6 bg-white shadow-md rounded-lg"
