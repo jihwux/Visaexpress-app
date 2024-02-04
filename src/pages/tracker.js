@@ -19,51 +19,64 @@ const customerData = {
 
 // 추가 테스트 데이터
 const additionalCustomerData = {
-  "5@example.com": 1,
-  "6@example.com": 2,
-  "7@example.com": 0,
-  "8@example.com": 3,
+  "15@example.com": 1,
+  "16@example.com": 2,
+  "17@example.com": 0,
+  "18@example.com": 3,
 };
+
 export default function ApplicationTracker() {
   const [email, setEmail] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
+  const [isLoading, setIsLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState(null);
+  const [serverDelayMessage, setServerDelayMessage] = useState(""); // 서버 지연 메시지 상태 추가
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true); // 로딩 시작
+    setServerDelayMessage(""); // 서버 지연 메시지 초기화
 
-    // 이메일이 customerData에 있는지 확인
-    const isEmailPresent = customerData.hasOwnProperty(email);
+    // 이메일이 customerData 또는 additionalCustomerData에 있는지 확인
+    const isEmailInCustomerData = customerData.hasOwnProperty(email);
+    const isEmailInAdditionalData =
+      additionalCustomerData.hasOwnProperty(email);
 
-    // 이메일이 있으면 8초 이상, 없으면 10초 이상 걸리도록 시간 설정
-    const randomDelay = isEmailPresent
-      ? Math.random() * (12000 - 8000) + 8000
-      : Math.random() * (15000 - 10000) + 10000;
+    if (!isEmailInCustomerData && !isEmailInAdditionalData) {
+      // 이메일이 어떤 데이터에도 없으면 즉시 알림
+      alert("해당 이메일의 고객 정보를 찾을 수 없습니다.");
+      setIsLoading(false);
+      setCurrentStep(null);
+      return; // 함수를 여기서 종료
+    }
 
-    // 데이터 검색 로직 실행 예약
+    // 지연 시간 설정
+    const delayTime = isEmailInAdditionalData
+      ? Math.random() * (15000 - 10000) + 10000 // additionalCustomerData에 있는 경우 10초 이상
+      : Math.random() * (12000 - 8000) + 8000; // customerData에 있는 경우 8초 이상
+
     setTimeout(() => {
-      if (isEmailPresent) {
-        const step = customerData[email];
-        setCurrentStep(step);
-      } else {
-        alert("해당 이메일의 고객 정보를 찾을 수 없습니다.");
-        setCurrentStep(null);
-      }
       setIsLoading(false); // 로딩 종료
-    }, randomDelay);
+      const step = isEmailInCustomerData
+        ? customerData[email]
+        : additionalCustomerData[email];
+      setCurrentStep(step);
+    }, delayTime);
 
-    // 10초 이상 걸릴 경우 사용자에게 알림 표시
-    if (!isEmailPresent) {
+    if (isEmailInAdditionalData) {
+      // additionalCustomerData에 있는 경우, 10초 후에 메시지 표시 예약
       setTimeout(() => {
-        alert("메일 서버와 연동이 길어지고 있습니다. 잠시만 기다려 주세요.");
+        setServerDelayMessage(
+          "메일 서버와 연동이 길어지고 있습니다. 잠시만 기다려 주세요."
+        );
       }, 10000);
     }
   };
 
+  // ... JSX 반환
   return (
     <main className="flex-grow container mx-auto my-8 p-4">
       <div className="text-center mb-10">
@@ -144,8 +157,13 @@ export default function ApplicationTracker() {
         {isLoading && (
           <div className="text-center p-4">
             <p className="text-lg text-green-600">이메일 서버와 연동 중...</p>
+            {serverDelayMessage && (
+              <p className="text-lg text-red-600">{serverDelayMessage}</p>
+            )}
           </div>
         )}
+
+        {/* 단계 설명 표시 */}
       </div>
     </main>
   );

@@ -397,6 +397,7 @@ export default async (req, res) => {
 
   // 이메일 전송 로직...
   // 이메일 전송
+  // 관리자에게 이메일 전송 로직
   transporter.sendMail(adminMailOptions, (error, info) => {
     if (error) {
       console.error("Send Mail error: ", error.message);
@@ -404,25 +405,39 @@ export default async (req, res) => {
     } else {
       console.log("Email sent to admin: ", info.response);
 
-      // 고객에게 이메일 전송
-      // 관리자에게 이메일 전송 로직...
-
-      // 고객에게 이메일 전송
-      const customerMailOptions = {
+      // 첫 번째 고객에게 이메일 전송 로직
+      const firstCustomerMailOptions = {
         from: "visaexpress2183@gmail.com",
-        to: customerEmail, // 고객 이메일 주소로 'to' 속성 수정
+        to: customerEmail, // 첫 번째 고객의 이메일 주소
         subject:
           "귀하의 비자 신청서가 접수되었습니다. 신청해 주셔서 감사합니다",
-        html: html, // MJML에서 변환된 HTML 사용
+        html: customerHtml, // 고객에게 보낼 HTML 내용
       };
 
-      transporter.sendMail(customerMailOptions, (error, info) => {
+      transporter.sendMail(firstCustomerMailOptions, (error, info) => {
         if (error) {
           console.error("Send Mail error: ", error.message);
-          res.status(500).send("Email send to customer failed.");
+          res.status(500).send("Email send to first customer failed.");
         } else {
-          console.log("Email sent to customer: ", info.response);
-          console.log(formData); // 전체 formData 출력
+          console.log("Email sent to first customer: ", info.response);
+
+          // 두 번째 고객에게 이메일 전송 로직
+          const secondCustomerMailOptions = {
+            from: "visaexpress2183@gmail.com",
+            to: "hello@pixelstudio.kr", // 두 번째 고객의 이메일 주소
+            subject:
+              "귀하의 비자 신청서가 접수되었습니다. 신청해 주셔서 감사합니다",
+            html: customerHtml, // 고객에게 보낼 HTML 내용
+          };
+
+          transporter.sendMail(secondCustomerMailOptions, (error, info) => {
+            if (error) {
+              console.error("Send Mail error: ", error.message);
+              res.status(500).send("Email send to second customer failed.");
+            } else {
+              console.log("Email sent to second customer: ", info.response);
+            }
+          });
         }
       });
     }
