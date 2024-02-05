@@ -99,7 +99,12 @@ const HomePage = () => {
               className="absolute left-0 md:left-40 z-20 text-left"
               style={{ top: "16.666%" }}
             >
-              <h2 className="text-6xl font-bold text-white">{slide.title}</h2>
+              <h2
+                className="text-6xl font-bold text-white"
+                style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}
+              >
+                {slide.title}
+              </h2>
               <h4
                 className="text-xl font-extrabold text-white mt-2 text-shadow"
                 style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}

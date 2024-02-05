@@ -2,10 +2,9 @@ import VisaAdditionalInfoPage from "@/components/dropdown";
 import React, { useState, useEffect } from "react";
 
 import Link from "next/link";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
 // 컴포넌트 내부
-
 
 const VisaPage = () => {
   const router = useRouter();
@@ -121,25 +120,18 @@ const VisaPage = () => {
                   필요서류 조회하기
                 </button> */}
                 <button
-  onClick={() => router.push('/visachecklist')}
-  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out"
->
-  필요서류 조회하기
-</button>
+                  onClick={() => router.push("/visachecklist")}
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out"
+                >
+                  필요서류 조회하기
+                </button>
 
-                
-
-
-
-
-
-
-<button
-  onClick={() => router.push('/price')}
-  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out"
->
-  가격표
-</button>
+                <button
+                  onClick={() => router.push("/price")}
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out"
+                >
+                  가격표
+                </button>
               </div>
             </div>
             {/* <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
@@ -169,8 +161,7 @@ const VisaPage = () => {
                 <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out">
                   <h3 className="text-lg font-semibold">보통 신청</h3>
                   <p className="text-gray-700 mt-2">
-                    전 과정은 평일 기준 7일이 소요되며, 지문 등록이 면제될 경우
-                    총 평일 기준으로 발급 기간은 4일입니다.
+                    전 과정은 서류 접수일 부터 평일 기준 약 7일 소요됩니다.
                   </p>
                 </div>
 
@@ -178,8 +169,8 @@ const VisaPage = () => {
                 <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out">
                   <h3 className="text-lg font-semibold">급행 신청</h3>
                   <p className="text-gray-700 mt-2">
-                    전 과정은 평일 기준 6일이 소요되며, 지문 등록이 면제될 경우
-                    총 평일 기준으로 3일입니다.
+                    {" "}
+                    전 과정은 서류 접수일 부터 평일 기준 약 6일 소요됩니다.
                   </p>
                 </div>
 
@@ -187,8 +178,7 @@ const VisaPage = () => {
                 <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out">
                   <h3 className="text-lg font-semibold">특급 신청</h3>
                   <p className="text-gray-700 mt-2">
-                    전 과정은 평일 기준 5일이 소요되며, 지문 등록이 면제될 경우
-                    총 평일 기준으로 2일입니다.
+                    전 과정은 서류 접수일 부터 평일 기준 약 5일 소요됩니다.
                   </p>
                 </div>
 
@@ -196,9 +186,8 @@ const VisaPage = () => {
                 <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out">
                   <h3 className="text-lg font-semibold">초특급 신청</h3>
                   <p className="text-gray-700 mt-2">
-                    전 과정은 평일 기준 3일이 소요되며, 평일 12시 전 서류 도착
-                    시, 2일이며 지문 등록이 면제될 경우 총 평일 기준으로
-                    2일입니다.
+                    전 과정은 서류 접수일 부터 평일 기준 약 2-3일
+                    소요됩니다.(12시전 서류도착시 평일기준 2일 소요됩니다)
                   </p>
                 </div>
               </div>

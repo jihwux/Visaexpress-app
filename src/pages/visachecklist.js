@@ -290,7 +290,6 @@ const Visachecklist = () => {
   return (
     <main className="flex-grow container mx-auto my-8">
       <div className="container mx-auto px-4 pt-10">
-        {/* 제목 */}
         <div className="mb-8">
           <h1 className="text-3xl font-semibold text-gray-800 leading-tight">
             필요 서류 확인
@@ -299,10 +298,10 @@ const Visachecklist = () => {
             비자 유형에 필요한 서류 목록입니다.
           </p>
         </div>
-        <div className="flex flex-row">
-          {/* 탭 메뉴 */}
-          <div className="w-1/4">
-            <ul className="space-y-2 border-r-2 border-gray-200">
+        {/* Flex layout changes to column direction on small screens */}
+        <div className="flex flex-col md:flex-row">
+          <div className="md:w-1/4">
+            <ul className="space-y-2 border-r-2 border-gray-200 md:block">
               {Object.keys(requiredDocumentsData).map((key) => (
                 <li key={key} className="last:mb-0">
                   <button
@@ -319,24 +318,21 @@ const Visachecklist = () => {
               ))}
             </ul>
           </div>
-          <div className="w-full md:w-3/4 p-4">
+          <div className="md:w-3/4 p-4">
             {activeTab && (
               <div className="overflow-x-auto">
-                <table className="min-w-full md:table-fixed">
+                <table className="min-w-full">
                   <thead className="bg-gray-50">
                     <tr>
-                      {/* 항상 '필요 서류' 헤더를 보여줍니다. */}
-                      <th className="px-6 py-3 text-left text-s font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         필요 서류
                       </th>
-
-                      {/* 'Minor'와 'Naturalized' 탭이 아닐 때 '서류 규정'과 '기타 상세' 헤더를 보여줍니다. */}
                       {activeTab !== "Minor" && activeTab !== "Naturalized" && (
                         <>
-                          <th className="px-6 py-3 text-left text-s font-medium text-gray-500 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             서류 규정
                           </th>
-                          <th className="px-6 py-3 text-left text-s font-medium text-gray-500 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             기타 상세
                           </th>
                         </>
@@ -350,7 +346,7 @@ const Visachecklist = () => {
                           <td className="px-6 py-4 whitespace-normal text-sm font-medium text-gray-900">
                             {renderWithLineBreaksAndLinks(
                               document,
-                              requiredDocumentsData[activeTab].downloadLinks // 활성 탭에 맞는 downloadLinks를 사용합니다.
+                              requiredDocumentsData[activeTab].downloadLinks
                             )}
                           </td>
                           {activeTab !== "Minor" &&
@@ -361,7 +357,7 @@ const Visachecklist = () => {
                                     requiredDocumentsData[activeTab]
                                       ?.documentRegulations[index] || "",
                                     requiredDocumentsData[activeTab]
-                                      .downloadLinks // 활성 탭에 맞는 downloadLinks를 사용합니다.
+                                      .downloadLinks
                                   )}
                                 </td>
                                 <td className="px-6 py-4 whitespace-normal text-sm text-gray-500">
@@ -369,7 +365,7 @@ const Visachecklist = () => {
                                     requiredDocumentsData[activeTab]
                                       ?.otherDetails[index] || "",
                                     requiredDocumentsData[activeTab]
-                                      .downloadLinks // 활성 탭에 맞는 downloadLinks를 사용합니다.
+                                      .downloadLinks
                                   )}
                                 </td>
                               </>
@@ -378,6 +374,7 @@ const Visachecklist = () => {
                       )
                     )}
                   </tbody>
+
                   <tfoot className="bg-gray-100">
                     <tr>
                       <td colSpan="100%" className="px-6 py-3">
