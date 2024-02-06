@@ -57,7 +57,7 @@ export default function ApplicationTracker() {
     // 지연 시간 설정
     const delayTime = isEmailInAdditionalData
       ? Math.random() * (15000 - 10000) + 10000 // additionalCustomerData에 있는 경우 10초 이상
-      : Math.random() * (12000 - 8000) + 8000; // customerData에 있는 경우 8초 이상
+      : Math.random() * (12000 - 18000) + 18000; // customerData에 있는 경우 8초 이상
 
     setTimeout(() => {
       setIsLoading(false); // 로딩 종료
