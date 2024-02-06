@@ -116,7 +116,7 @@ const VisaApplicationForm = () => {
   // const IMP_UID = "imp21001741"; // 실제 가맹점 식별코드로 변경해야 함
   const IMP_UID = process.env.NEXT_PUBLIC_IMP_UID;
   const [paymentParams, setPaymentParams] = useState({
-    pg: "kakaopay.TC0ONETIME",
+    pg: "html5_inicis.INIBillTst",
     pay_method: "card",
     name: visaFormData.form1.visaType,
     merchant_uid: `merchant_${Date.now()}`,

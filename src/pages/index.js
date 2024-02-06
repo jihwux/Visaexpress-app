@@ -63,17 +63,17 @@ const HomePage = () => {
   const slides = [
     {
       image: "/a2.png",
-      title: "중국으로의 여정",
+      title: "중국 여행 준비",
       subtitle: "문화와 역사가 살아 숨 쉬는 곳",
     },
     {
       image: "/a3.png",
-      title: "함께하면 쉽게",
+      title: "함께 하면 쉽게",
       subtitle: "중국 진출의 꿈 비자익스프레스와 함께하세요.",
     },
     {
       image: "/a4.png",
-      title: "간편한 비자 절차",
+      title: "쉬운 비자 발급",
       subtitle: "빠르고 쉬운 비자 신청으로 여행 준비 완료",
     },
   ];
