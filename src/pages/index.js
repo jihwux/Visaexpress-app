@@ -63,7 +63,7 @@ const HomePage = () => {
   const slides = [
     {
       image: "/a2.png",
-      title: "중국 여행 준비",
+      title: "테스트서버",
       subtitle: "문화와 역사가 살아 숨 쉬는 곳",
     },
     {
@@ -84,7 +84,7 @@ const HomePage = () => {
         modules={[Autoplay, Pagination, Navigation]}
         pagination={{ clickable: true }}
         navigation={true}
-        autoplay={{ delay: 4000, disableOnInteraction: false }}
+        autoplay={{ delay: 40000, disableOnInteraction: false }}
         loop={true}
         className="h-screen md:h-3/4 lg:h-screen" // 모바일에서는 화면 높이, 더 큰 화면에서는 3/4 높이
       >
