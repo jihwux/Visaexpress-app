@@ -63,7 +63,7 @@ const HomePage = () => {
   const slides = [
     {
       image: "/a2.png",
-      title: "테스트서버",
+      title: "중국 여행 준비",
       subtitle: "문화와 역사가 살아 숨 쉬는 곳",
     },
     {
