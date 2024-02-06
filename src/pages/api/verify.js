@@ -5,13 +5,11 @@ export default async (req, res) => {
 
   if (req.method === "POST") {
     const { imp_uid } = req.body; // 클라이언트로부터 받은 imp_uid
-    // const imp_uid = " imp21001741";
-    // 아임포트 토큰 발급 받기
     const getToken = await fetch("https://api.iamport.kr/users/getToken", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        imp_key: process.env.IMP_API_KEY, // REST API 키
+        imp_key: process.env.IMP_API_KEY_TEST, // REST API 키
         imp_secret: process.env.IMP_API_SECRET_TEST, // REST API Secret
       }),
     });

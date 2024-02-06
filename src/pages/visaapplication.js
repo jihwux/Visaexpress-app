@@ -17,58 +17,58 @@ const VisaApplicationForm = () => {
   const [params, setParams] = useState();
   const [result, setResult] = useState();
 
-  // useEffect(() => {
-  //   const agreements = JSON.parse(localStorage.getItem("agreements") || "{}");
-  //   const allAgreed = Object.values(agreements).every((value) => value);
+  useEffect(() => {
+    const agreements = JSON.parse(localStorage.getItem("agreements") || "{}");
+    const allAgreed = Object.values(agreements).every((value) => value);
 
-  //   if (!allAgreed) {
-  //     router.push("/agree");
-  //   } else {
-  //     console.log("All agreements have been agreed."); // 모든 약관 동의 로그
-  //   }
-  // }, [router]);
-  // useEffect(() => {
-  //   // 기존 로그 출력
-  //   console.log(visaFormData.form1.calculatedPrice);
-  //   console.log(visaFormData.form6);
+    if (!allAgreed) {
+      router.push("/agree");
+    } else {
+      console.log("All agreements have been agreed."); // 모든 약관 동의 로그
+    }
+  }, [router]);
+  useEffect(() => {
+    // 기존 로그 출력
+    console.log(visaFormData.form1.calculatedPrice);
+    console.log(visaFormData.form6);
 
-  //   // ".required-label" 클래스를 가진 모든 레이블 선택
-  //   const requiredLabels = document.querySelectorAll(".required-label");
+    // ".required-label" 클래스를 가진 모든 레이블 선택
+    const requiredLabels = document.querySelectorAll(".required-label");
 
-  //   requiredLabels.forEach((label) => {
-  //     let nextElement = label.nextElementSibling;
+    requiredLabels.forEach((label) => {
+      let nextElement = label.nextElementSibling;
 
-  //     // FIELDSET 요소인 경우 (라디오 버튼 그룹)
-  //     if (nextElement && nextElement.tagName === "FIELDSET") {
-  //       const radioButtons = nextElement.querySelectorAll(
-  //         'input[type="radio"]'
-  //       );
-  //       if (radioButtons.length > 0) {
-  //         // 라디오 버튼 그룹에 대해 required 속성을 추가합니다.
-  //         radioButtons.forEach((radio) => {
-  //           radio.setAttribute("required", true);
-  //         });
-  //       }
-  //     }
-  //     // DIV 요소인 경우 (SELECT 태그를 포함할 가능성이 있는 경우)
-  //     else if (nextElement && nextElement.tagName === "DIV") {
-  //       const selectElement = nextElement.querySelector("select");
-  //       // SELECT 요소가 존재하는 경우 required 속성을 추가합니다.
-  //       if (selectElement) {
-  //         selectElement.setAttribute("required", true);
-  //       }
-  //     }
-  //     // INPUT, SELECT, TEXTAREA 태그인 경우
-  //     else if (
-  //       nextElement &&
-  //       (nextElement.tagName === "INPUT" ||
-  //         nextElement.tagName === "SELECT" ||
-  //         nextElement.tagName === "TEXTAREA")
-  //     ) {
-  //       nextElement.setAttribute("required", true);
-  //     }
-  //   });
-  // }, []);
+      // FIELDSET 요소인 경우 (라디오 버튼 그룹)
+      if (nextElement && nextElement.tagName === "FIELDSET") {
+        const radioButtons = nextElement.querySelectorAll(
+          'input[type="radio"]'
+        );
+        if (radioButtons.length > 0) {
+          // 라디오 버튼 그룹에 대해 required 속성을 추가합니다.
+          radioButtons.forEach((radio) => {
+            radio.setAttribute("required", true);
+          });
+        }
+      }
+      // DIV 요소인 경우 (SELECT 태그를 포함할 가능성이 있는 경우)
+      else if (nextElement && nextElement.tagName === "DIV") {
+        const selectElement = nextElement.querySelector("select");
+        // SELECT 요소가 존재하는 경우 required 속성을 추가합니다.
+        if (selectElement) {
+          selectElement.setAttribute("required", true);
+        }
+      }
+      // INPUT, SELECT, TEXTAREA 태그인 경우
+      else if (
+        nextElement &&
+        (nextElement.tagName === "INPUT" ||
+          nextElement.tagName === "SELECT" ||
+          nextElement.tagName === "TEXTAREA")
+      ) {
+        nextElement.setAttribute("required", true);
+      }
+    });
+  }, []);
   const [visaFormData, setVisaFormData] = useState({
     form1: {},
     form2: {},
@@ -104,7 +104,7 @@ const VisaApplicationForm = () => {
 
     setPaymentParams((currentParams) => ({
       ...currentParams,
-      amount: totalAmount,
+      amount: "100",
       name: visaFormData.form1.visaType,
       stayDuration: visaFormData.form1.stayDuration,
       visaDuration: visaFormData.form1.visaDuration,
@@ -128,7 +128,6 @@ const VisaApplicationForm = () => {
     // buyer_postcode: "04783",
     m_redirect_url: "/success", // 필요시 주석 해제 후 사용
   });
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true); // 로딩 시작
@@ -150,37 +149,34 @@ const VisaApplicationForm = () => {
       }
 
       console.log("Email sent successfully");
-      setTimeout(() => {
-        // 성공 페이지로 이동 전 3초간 대기
-        router.push({
-          pathname: "/success",
-          query: {
-            paymentSuccess: "true", // 결제 성공 토큰 추가
-            name: visaFormData.form1.visaType,
-            stayDuration: visaFormData.form1.stayDuration,
-            visaDuration: visaFormData.form1.visaDuration,
-            serviceType: visaFormData.form1.serviceType,
-            merchant_uid: `merchant_${Date.now()}`,
-            amount: visaFormData.form1.calculatedPrice,
-          },
-        });
-        setIsLoading(false); // 로딩 상태 해제
-      }, 3000);
+
+      // 성공 페이지로 이동
+      await router.push({
+        pathname: "/success",
+        query: {
+          paymentSuccess: "true", // 결제 성공 토큰 추가
+          name: visaFormData.form1.visaType,
+          stayDuration: visaFormData.form1.stayDuration,
+          visaDuration: visaFormData.form1.visaDuration,
+          serviceType: visaFormData.form1.serviceType,
+          merchant_uid: `merchant_${Date.now()}`,
+          amount: visaFormData.form1.calculatedPrice,
+        },
+      });
     } catch (error) {
       console.error(
         "결제 또는 검증 실패 혹은 이메일 전송 실패: ",
         error.message
       );
-      setIsLoading(false); // 로딩 상태 해제
-      setTimeout(() => {
-        // 실패 페이지로 이동 전 즉시 실행
-        router.push({
-          pathname: "/fail",
-          query: { error: error.message },
-        });
-      }, 0);
+      // 실패 페이지로 이동
+      await router.push({
+        pathname: "/fail",
+        query: { error: error.message },
+      });
+    } finally {
+      // 성공하든 실패하든 로딩 상태 해제
+      setIsLoading(false);
     }
-    // API 라우트에 전체 폼 데이터를 POST 요청으로 전송합니다.
   };
   // 총합 계산 로직
   const totalAmount =

@@ -93,7 +93,6 @@ export default async (req, res) => {
     normal: "보통",
     form6: {
       express: "익일 특급 등기 배송(5000원)",
-      // ...form6 관련 다른 매핑
     },
     special: "특급",
     superSpecial: "초특급",
@@ -269,14 +268,6 @@ export default async (req, res) => {
   const { html } = mjml2html(mjmlContent);
 
   // 이메일 전송을 위한 설정
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: "jhxxx7@gmail.com", // Gmail 주소
-      // pass: "cian rywl mwvb ohmv", // Gmail 비밀번호 또는 앱 비밀번호
-      pass: "vhkg itnl wzbr urbb", // Gmail 비밀번호 또는 앱 비밀번호
-    },
-  });
 
   // 폼 제출 로직...
 
@@ -292,61 +283,66 @@ export default async (req, res) => {
   console.log("customerEmail:", customerEmail);
   // 이메일 전송을 위한 설정
   console.log("formData:", formData);
-  const adminMailOptions = {
-    from: "jhxxx7@gmail.com",
-    to: "jhxxx7@gmail.com",
-    subject: `${fullName}님의 비자신청서 - 연락처: ${contactNumber}`,
-    html: html, // 이 부분은 MJML에서 변환된 HTML을 사용해야 합니다.
-  };
 
   // 이메일 전송 로직...
   // 이메일 전송
   // 관리자에게 이메일 전송 로직
-  transporter.sendMail(adminMailOptions, (error, info) => {
-    if (error) {
-      console.error("Send Mail error: ", error.message);
-      res.status(500).send("Email send to admin failed.");
-    } else {
-      console.log("Email sent to admin: ", info.response);
+  if (req.method !== "POST") {
+    res.setHeader("Allow", ["POST"]);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
+    return;
+  }
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "jhxxx7@gmail.com",
+      pass: "vhkg itnl wzbr urbb",
+    },
+  });
 
-      // 첫 번째 고객에게 이메일 전송 로직
-      const firstCustomerMailOptions = {
-        from: "jhxxx7@gmail.com",
-        to: customerEmail, // 첫 번째 고객의 이메일 주소
-        subject:
-          "귀하의 비자 신청서가 접수되었습니다. 신청해 주셔서 감사합니다",
-        html: customerHtml, // 고객에게 보낼 HTML 내용
-      };
+  const adminMailOptions = {
+    from: "jhxxx7@gmail.com",
+    to: "jhxxx7@gmail.com",
+    subject: `${fullName}님의 비자신청서 - 연락처: ${contactNumber}`,
+    html: html,
+  };
 
-      transporter.sendMail(firstCustomerMailOptions, (error, info) => {
+  const firstCustomerMailOptions = {
+    from: "jhxxx7@gmail.com",
+    to: customerEmail,
+    subject: "귀하의 비자 신청서가 접수되었습니다. 신청해 주셔서 감사합니다",
+    html: html,
+  };
+
+  const secondCustomerMailOptions = {
+    from: "jhxxx7@gmail.com",
+    to: "hello@pixelstudio.kr",
+    subject: "귀하의 비자 신청서가 접수되었습니다. 신청해 주셔서 감사합니다",
+    html: html,
+  };
+
+  const sendMailAsync = (mailOptions) => {
+    return new Promise((resolve, reject) => {
+      transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-          console.error("Send Mail error: ", error.message);
-          res.status(500).send("Email send to first customer failed.");
+          console.error("Send Mail error: ", error);
+          reject(error);
         } else {
-          console.log("Email sent to first customer: ", info.response);
-
-          // 두 번째 고객에게 이메일 전송 로직
-          const secondCustomerMailOptions = {
-            from: "jhxxx7@gmail.com",
-            to: "hello@pixelstudio.kr", // 두 번째 고객의 이메일 주소
-            subject:
-              "귀하의 비자 신청서가 접수되었습니다. 신청해 주셔서 감사합니다",
-            html: customerHtml, // 고객에게 보낼 HTML 내용
-          };
-
-          transporter.sendMail(secondCustomerMailOptions, (error, info) => {
-            if (error) {
-              console.error("Send Mail error: ", error.message);
-              res.status(500).send("Email send to second customer failed.");
-            } else {
-              console.log("Email sent to second customer: ", info.response);
-            }
-          });
+          console.log("Email sent: ", info.response);
+          resolve(info);
         }
       });
-    }
-  });
-};
+    });
+  };
 
-// 상태값과 레이블을 매핑하는 객체
-// 관리자에게 이메일 전송
+  try {
+    await sendMailAsync(adminMailOptions);
+    await sendMailAsync(firstCustomerMailOptions);
+    // await sendMailAsync(secondCustomerMailOptions);
+    res.status(200).json({ message: "All emails sent successfully" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Email send failed", error: error.message });
+  }
+};
