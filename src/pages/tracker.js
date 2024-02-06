@@ -90,7 +90,7 @@ export default function ApplicationTracker() {
         <form onSubmit={handleSubmit} className="mb-8 flex">
           <input
             type="email"
-            placeholder="이메일을 입력하세요"
+            placeholder="Key 입력하세요"
             className="flex-grow p-2 border border-gray-300 rounded-l-md"
             value={email}
             onChange={handleEmailChange}
