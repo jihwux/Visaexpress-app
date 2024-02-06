@@ -23,6 +23,7 @@ const additionalCustomerData = {
   "16@example.com": 2,
   "17@example.com": 0,
   "18@example.com": 3,
+  "visaexpress2183@naver.com": 1,
 };
 
 export default function ApplicationTracker() {
