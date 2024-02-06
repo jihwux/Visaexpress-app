@@ -57,7 +57,7 @@ export default function ApplicationTracker() {
     // 지연 시간 설정
     const delayTime = isEmailInAdditionalData
       ? Math.random() * (15000 - 10000) + 10000 // additionalCustomerData에 있는 경우 10초 이상
-      : Math.random() * (12000 - 18000) + 18000; // customerData에 있는 경우 8초 이상
+      : Math.random() * (12000 - 18000) + 8000; // customerData에 있는 경우 8초 이상
 
     setTimeout(() => {
       setIsLoading(false); // 로딩 종료
@@ -83,7 +83,7 @@ export default function ApplicationTracker() {
       <div className="text-center mb-10">
         <h1 className="text-4xl font-bold text-gray-800">진행 상황 추적</h1>
         <p className="text-md text-gray-500 mt-2">
-          아래에 이메일을 입력하여 신청 상태를 확인하세요.
+          아래에 임시Key를 입력하여 신청 상태를 확인하세요.
         </p>
       </div>
       <div className="w-full max-w-md mx-auto">
