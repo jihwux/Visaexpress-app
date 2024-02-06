@@ -114,7 +114,7 @@ const VisaApplicationForm = () => {
   }, [visaFormData.form1, visaFormData.form2, visaFormData.form6]); // form1 또는 form6의 변화를 감지합니다.
 
   // const IMP_UID = "imp21001741"; // 실제 가맹점 식별코드로 변경해야 함
-  const IMP_UID = process.env.NEXT_PUBLIC_IMP_UID_TEST;
+  const IMP_UID = process.env.NEXT_PUBLIC_IMP_UID;
   const [paymentParams, setPaymentParams] = useState({
     pg: "html5_inicis.INIpayTest",
     pay_method: "card",

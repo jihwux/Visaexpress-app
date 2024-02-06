@@ -38,43 +38,44 @@ export default function ApplicationTracker() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsLoading(true); // 로딩 시작
-    setServerDelayMessage(""); // 서버 지연 메시지 초기화
+    alert("임시키 발급으로 대체 중");
+    // setIsLoading(true); // 로딩 시작
+    // setServerDelayMessage(""); // 서버 지연 메시지 초기화
 
-    // 이메일이 customerData 또는 additionalCustomerData에 있는지 확인
-    const isEmailInCustomerData = customerData.hasOwnProperty(email);
-    const isEmailInAdditionalData =
-      additionalCustomerData.hasOwnProperty(email);
+    // // 이메일이 customerData 또는 additionalCustomerData에 있는지 확인
+    // const isEmailInCustomerData = customerData.hasOwnProperty(email);
+    // const isEmailInAdditionalData =
+    //   additionalCustomerData.hasOwnProperty(email);
 
-    if (!isEmailInCustomerData && !isEmailInAdditionalData) {
-      // 이메일이 어떤 데이터에도 없으면 즉시 알림
-      alert("해당 이메일의 고객 정보를 찾을 수 없습니다.");
-      setIsLoading(false);
-      setCurrentStep(null);
-      return; // 함수를 여기서 종료
-    }
+    // if (!isEmailInCustomerData && !isEmailInAdditionalData) {
+    //   // 이메일이 어떤 데이터에도 없으면 즉시 알림
+    //   alert("해당 이메일의 고객 정보를 찾을 수 없습니다.");
+    //   setIsLoading(false);
+    //   setCurrentStep(null);
+    //   return; // 함수를 여기서 종료
+    // }
 
-    // 지연 시간 설정
-    const delayTime = isEmailInAdditionalData
-      ? Math.random() * (15000 - 10000) + 10000 // additionalCustomerData에 있는 경우 10초 이상
-      : Math.random() * (12000 - 18000) + 8000; // customerData에 있는 경우 8초 이상
+    // // 지연 시간 설정
+    // const delayTime = isEmailInAdditionalData
+    //   ? Math.random() * (15000 - 10000) + 10000 // additionalCustomerData에 있는 경우 10초 이상
+    //   : Math.random() * (12000 - 18000) + 8000; // customerData에 있는 경우 8초 이상
 
-    setTimeout(() => {
-      setIsLoading(false); // 로딩 종료
-      const step = isEmailInCustomerData
-        ? customerData[email]
-        : additionalCustomerData[email];
-      setCurrentStep(step);
-    }, delayTime);
+    // setTimeout(() => {
+    //   setIsLoading(false); // 로딩 종료
+    //   const step = isEmailInCustomerData
+    //     ? customerData[email]
+    //     : additionalCustomerData[email];
+    //   setCurrentStep(step);
+    // }, delayTime);
 
-    if (isEmailInAdditionalData) {
-      // additionalCustomerData에 있는 경우, 10초 후에 메시지 표시 예약
-      setTimeout(() => {
-        setServerDelayMessage(
-          "메일 서버와 연동이 길어지고 있습니다. 잠시만 기다려 주세요."
-        );
-      }, 10000);
-    }
+    // if (isEmailInAdditionalData) {
+    //   // additionalCustomerData에 있는 경우, 10초 후에 메시지 표시 예약
+    //   setTimeout(() => {
+    //     setServerDelayMessage(
+    //       "메일 서버와 연동이 길어지고 있습니다. 잠시만 기다려 주세요."
+    //     );
+    //   }, 10000);
+    // }
   };
 
   // ... JSX 반환
@@ -89,7 +90,7 @@ export default function ApplicationTracker() {
       <div className="w-full max-w-md mx-auto">
         <form onSubmit={handleSubmit} className="mb-8 flex">
           <input
-            type="email"
+            // type="email"
             placeholder="Key 입력하세요"
             className="flex-grow p-2 border border-gray-300 rounded-l-md"
             value={email}
