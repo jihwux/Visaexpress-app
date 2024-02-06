@@ -272,8 +272,9 @@ export default async (req, res) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "visaexpress2183@gmail.com", // Gmail 주소
-      pass: "cian rywl mwvb ohmv", // Gmail 비밀번호 또는 앱 비밀번호
+      user: "jhxxx7@gmail.com", // Gmail 주소
+      // pass: "cian rywl mwvb ohmv", // Gmail 비밀번호 또는 앱 비밀번호
+      pass: "vhkg itnl wzbr urbb", // Gmail 비밀번호 또는 앱 비밀번호
     },
   });
 
@@ -292,8 +293,8 @@ export default async (req, res) => {
   // 이메일 전송을 위한 설정
   console.log("formData:", formData);
   const adminMailOptions = {
-    from: "visaexpress2183@gmail.com",
-    to: "visaexpress2183@gmail.com",
+    from: "jhxxx7@gmail.com",
+    to: "jhxxx7@gmail.com",
     subject: `${fullName}님의 비자신청서 - 연락처: ${contactNumber}`,
     html: html, // 이 부분은 MJML에서 변환된 HTML을 사용해야 합니다.
   };
@@ -310,7 +311,7 @@ export default async (req, res) => {
 
       // 첫 번째 고객에게 이메일 전송 로직
       const firstCustomerMailOptions = {
-        from: "visaexpress2183@gmail.com",
+        from: "jhxxx7@gmail.com",
         to: customerEmail, // 첫 번째 고객의 이메일 주소
         subject:
           "귀하의 비자 신청서가 접수되었습니다. 신청해 주셔서 감사합니다",
@@ -326,7 +327,7 @@ export default async (req, res) => {
 
           // 두 번째 고객에게 이메일 전송 로직
           const secondCustomerMailOptions = {
-            from: "visaexpress2183@gmail.com",
+            from: "jhxxx7@gmail.com",
             to: "hello@pixelstudio.kr", // 두 번째 고객의 이메일 주소
             subject:
               "귀하의 비자 신청서가 접수되었습니다. 신청해 주셔서 감사합니다",
