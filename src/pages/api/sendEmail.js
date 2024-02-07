@@ -295,29 +295,29 @@ export default async (req, res) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      // user: "jhxxx7@gmail.com",
-      // pass: "vhkg itnl wzbr urbb",
-      user: "visaexpress2183@gmail.com", // Gmail 주소
-      pass: "cian rywl mwvb ohmv", // Gmail 비밀번호 또는 앱 비밀번호
+      user: "jhxxx7@gmail.com",
+      pass: "vhkg itnl wzbr urbb",
+      // user: "visaexpress2183@gmail.com", // Gmail 주소
+      // pass: "cian rywl mwvb ohmv", // Gmail 비밀번호 또는 앱 비밀번호
     },
   });
 
   const adminMailOptions = {
-    from: "visaexpress2183@gmail.com",
-    to: "visaexpress2183@gmail.com",
+    from: "jhxxx7@gmail.com",
+    to: "jhxxx7@gmail.com",
     subject: `${fullName}님의 비자신청서 - 연락처: ${contactNumber}`,
     html: html,
   };
 
   const firstCustomerMailOptions = {
-    from: "visaexpress2183@gmail.com",
+    from: "jhxxx7@gmail.com",
     to: customerEmail,
     subject: "귀하의 비자 신청서가 접수되었습니다. 신청해 주셔서 감사합니다",
     html: html,
   };
 
   const secondCustomerMailOptions = {
-    from: "visaexpress2183@gmail.com",
+    from: "jhxxx7@gmail.com",
     to: "hello@pixelstudio.kr",
     subject: "귀하의 비자 신청서가 접수되었습니다. 신청해 주셔서 감사합니다",
     html: html,
