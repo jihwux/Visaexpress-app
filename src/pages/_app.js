@@ -5,6 +5,7 @@ import Layout from "@/components/Layout";
 // import Header from "@/components/Header";
 // import Footer from "@/components/footer";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/react";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -29,7 +30,7 @@ function MyApp({ Component, pageProps }) {
         />
       </Head>
       <Layout>
-        <Component {...pageProps} />
+        <Component {...pageProps} /> <Analytics />
       </Layout>
     </>
   );
