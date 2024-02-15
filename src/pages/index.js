@@ -338,7 +338,8 @@ const HomePage = () => {
                   </p>
                 </div>
                 {/* 운영 시간 정보 */}
-                <div className="mt-4 md:mt-0 md:ml-4">
+                <div className="mt-4 md:mt-0 md:ml-4 flex md:block pt-2">
+                  {" "}
                   <p className="text-gray-400 text-sm font-bold md:block md:text-md whitespace-nowrap">
                     평일 11:00 ~ 18:00
                   </p>

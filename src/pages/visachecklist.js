@@ -318,25 +318,23 @@ const Visachecklist = () => {
               ))}
             </ul>
           </div>
-          <div className="md:w-3/4 p-4">
+          <div className="md:w-4/4 w-4/4 ">
             {activeTab && (
               <div className="overflow-x-auto md:overflow-x-visible">
                 {" "}
                 {/* 모바일에서는 스크롤, 더 큰 화면에서는 스크롤 없음 */}
-                <table className="min-w-max md:min-w-full ">
-                  {" "}
-                  {/* min-w-max 클래스 적용 */}
+                <table className="w-full table-auto">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-3 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                         필요 서류
                       </th>
                       {activeTab !== "Minor" && activeTab !== "Naturalized" && (
                         <>
-                          <th className="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          <th className="px-3 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                             서류 규정
                           </th>
-                          <th className="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          <th className="px-3 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                             기타 상세
                           </th>
                         </>
@@ -347,7 +345,7 @@ const Visachecklist = () => {
                     {requiredDocumentsData[activeTab]?.requiredDocuments.map(
                       (document, index) => (
                         <tr key={`document-${index}`}>
-                          <td className="px-6 py-4 whitespace-normal text-sm font-medium text-gray-900">
+                          <td className="px-3 py-4 text-sm font-medium text-gray-900">
                             {renderWithLineBreaksAndLinks(
                               document,
                               requiredDocumentsData[activeTab].downloadLinks
@@ -356,7 +354,7 @@ const Visachecklist = () => {
                           {activeTab !== "Minor" &&
                             activeTab !== "Naturalized" && (
                               <>
-                                <td className="px-6 py-4 whitespace-normal text-sm text-gray-500">
+                                <td className="px-3 py-4 text-sm text-gray-900">
                                   {renderWithLineBreaksAndLinks(
                                     requiredDocumentsData[activeTab]
                                       ?.documentRegulations[index] || "",
@@ -364,7 +362,7 @@ const Visachecklist = () => {
                                       .downloadLinks
                                   )}
                                 </td>
-                                <td className="px-6 py-4 whitespace-normal text-sm text-gray-500">
+                                <td className="px-3 py-4 text-sm text-gray-900">
                                   {renderWithLineBreaksAndLinks(
                                     requiredDocumentsData[activeTab]
                                       ?.otherDetails[index] || "",
