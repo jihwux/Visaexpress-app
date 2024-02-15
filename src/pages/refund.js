@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const RefundPolicyPage = ({ setShowModal }) => {
+  const router = useRouter();
+  const isRefundPolicyPage = router.pathname === "/refund";
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
       <div className="w-full max-w-2xl bg-white rounded-lg shadow-md p-6 md:p-8">
@@ -60,12 +64,21 @@ const RefundPolicyPage = ({ setShowModal }) => {
           </p>
         </div>
         <div className="mt-8 flex flex-col sm:flex-row sm:justify-center gap-4">
-          <button
-            onClick={() => setShowModal(false)}
-            className="w-full sm:w-auto bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
-          >
-            닫기
-          </button>
+          {isRefundPolicyPage && (
+            <Link href="/visa" legacyBehavior>
+              <a className="w-full sm:w-auto bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
+                닫기
+              </a>
+            </Link>
+          )}
+          {!isRefundPolicyPage && (
+            <button
+              onClick={() => setShowModal(false)}
+              className="w-full sm:w-auto bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+            >
+              닫기
+            </button>
+          )}
           <Link href="/" legacyBehavior>
             <a className="w-full sm:w-auto bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
               홈으로

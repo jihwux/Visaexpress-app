@@ -6,7 +6,11 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white text-gray-1000 py-4 shadow-lg">
+    <header
+      className="bg-white text-gray-800 py-4 shadow-lg"
+      style={{ fontWeight: "bold" }}
+    >
+      {/* 헤더 내용 */}
       <div className="container mx-auto flex justify-between items-center px-6">
         {/* 로고 링크 */}
         <Link href="/" legacyBehavior>

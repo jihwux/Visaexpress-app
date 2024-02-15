@@ -171,7 +171,9 @@ const HomePage = () => {
             해결하세요.
           </p>
         </div>
-        <div className="flex flex-wrap -mx-4 ">
+
+        {/* ... */}
+        <div className="flex flex-wrap justify-center -mx-12 md:-mx-4">
           {[
             {
               title: "신청 정보 조회",
@@ -184,7 +186,7 @@ const HomePage = () => {
               buttonText: "자세히 보기",
             },
             {
-              title: "전화 상담",
+              title: "빠른 전화 상담",
               link: "tel:+1234567890",
               buttonText: "전화 걸기",
             }, // 전화번호 예시
@@ -194,8 +196,11 @@ const HomePage = () => {
               buttonText: "+ 친구 추가",
             },
           ].map((item, index, arr) => (
-            <div key={index} className="p-4 w-full md:w-1/2">
+            <div key={index} className="p-4 w-1/2 md:w-1/2 lg:w-1/4">
               <div
+                className={`group flex flex-col items-center p-8 md:p-12 rounded-lg shadow-lg transition transform hover:-translate-y-2 hover:shadow-2xl ${
+                  index % 4 === 3 ? "bg-yellow-300" : "bg-white"
+                }`}
                 className={`group flex flex-col items-center p-8 md:p-12 rounded-lg shadow-lg transition transform hover:-translate-y-2 hover:shadow-2xl ${
                   index === arr.length - 1 ? "bg-yellow-300" : "bg-white"
                 }`}
@@ -265,10 +270,6 @@ const HomePage = () => {
               <p className="mt-2">현재 단수/더블 비자 지문 면제</p>
             </div>
           </div>
-
-          {/* ...여기에 다른 카드들의 코드... */}
-
-          {/* 환불규정 카드 */}
           <div className="p-4 w-full md:w-1/3">
             <div className="group flex flex-col items-start p-8 bg-white rounded-lg shadow-lg cursor-pointer">
               <h3 className="font-bold text-lg">*환불규정</h3>
@@ -276,11 +277,6 @@ const HomePage = () => {
                 <button onClick={() => setShowModal(true)}>자세히 보기</button>{" "}
               </p>
             </div>
-
-            {/* 환불 규정 모달 */}
-
-            {/* 환불 규정 모달 */}
-
             {showModal && (
               <div
                 className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center"
@@ -317,40 +313,45 @@ const HomePage = () => {
       <div className="container mx-auto px-16 py-8 bg-gray-100 pb-20">
         <div className="md:flex justify-between items-start">
           <div className="flex-1">
-            <div className="flex items-center mb-4">
-              <FontAwesomeIcon
-                icon={faPhoneAlt}
-                className="text-gray-600 h-5 w-5 self-center"
-                style={{ transform: "rotate(90deg)" }}
-              />
-              <h2 className="font-bold text-xl ml-2">상담 신청 및 문의</h2>
-            </div>
-            <div className="flex items-center">
-              <div>
-                <p className="text-red-500 text-2xl font-bold">
-                  <a href="tel:070-8028-3829" className="hover:underline">
-                    070-8028-3829
-                  </a>
-                </p>
-                <p className="text-red-500 text-2xl font-bold">
-                  <a href="tel:010-7775-2183" className="hover:underline">
-                    010-7775-2183
-                  </a>
-                </p>
+            <div className="mb-4">
+              {/* FontAwesome 아이콘과 상담 신청 및 문의 제목 */}
+              <div className="flex items-center">
+                <FontAwesomeIcon
+                  icon={faPhoneAlt}
+                  className="text-gray-600 h-5 w-5 self-center"
+                  style={{ transform: "rotate(90deg)" }}
+                />
+                <h2 className="font-bold text-xl ml-2">상담 신청 및 문의</h2>
               </div>
-              <div className="ml-4">
-                <p className="text-gray-400 text-mg font-bold">
-                  평일 11:00 ~ 18:00
-                </p>
-                <p className="text-gray-400 text-mg font-bold">
-                  (주말 및 공휴일 휴무)
-                </p>
+              {/* 전화번호 */}
+              <div className="flex flex-col md:flex-row pt-4">
+                <div>
+                  <p className="text-red-500 text-2xl font-bold">
+                    <a href="tel:070-8028-3829" className="hover:underline">
+                      070-8028-3829
+                    </a>
+                  </p>
+                  <p className="text-red-500 text-2xl font-bold">
+                    <a href="tel:010-7775-2183" className="hover:underline">
+                      010-7775-2183
+                    </a>
+                  </p>
+                </div>
+                {/* 운영 시간 정보 */}
+                <div className="mt-4 md:mt-0 md:ml-4">
+                  <p className="text-gray-400 text-sm font-bold md:block md:text-md">
+                    평일 11:00 ~ 18:00
+                  </p>
+                  <p className="text-gray-400 text-sm font-bold md:block md:text-md">
+                    (주말 및 공휴일 휴무)
+                  </p>
+                </div>
               </div>
             </div>
           </div>
           <div
             className="md:flex-grow-0 md:flex-shrink-0 md:border-l md:border-gray-300 mx-5"
-            style={{ height: "100px" }}
+            style={{ height: "30px" }}
           ></div>
           <div className="flex-1">
             <h2 className="font-bold text-xl">입금 계좌</h2>
