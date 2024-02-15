@@ -318,7 +318,7 @@ const Visachecklist = () => {
               ))}
             </ul>
           </div>
-          <div className="md:w-4/4 w-4/4 ">
+          <div className="md:w-4/4 ">
             {activeTab && (
               <div className="overflow-x-auto md:overflow-x-visible">
                 {" "}
@@ -345,7 +345,7 @@ const Visachecklist = () => {
                     {requiredDocumentsData[activeTab]?.requiredDocuments.map(
                       (document, index) => (
                         <tr key={`document-${index}`}>
-                          <td className="px-3 py-4 text-sm font-medium text-gray-900">
+                          <td className="px-3 py-4 text-xs font-medium text-gray-900">
                             {renderWithLineBreaksAndLinks(
                               document,
                               requiredDocumentsData[activeTab].downloadLinks
@@ -354,7 +354,7 @@ const Visachecklist = () => {
                           {activeTab !== "Minor" &&
                             activeTab !== "Naturalized" && (
                               <>
-                                <td className="px-3 py-4 text-sm text-gray-900">
+                                <td className="px-3 py-4 text-xs text-gray-900">
                                   {renderWithLineBreaksAndLinks(
                                     requiredDocumentsData[activeTab]
                                       ?.documentRegulations[index] || "",
@@ -362,7 +362,7 @@ const Visachecklist = () => {
                                       .downloadLinks
                                   )}
                                 </td>
-                                <td className="px-3 py-4 text-sm text-gray-900">
+                                <td className="px-3 py-4 text-xs text-gray-900">
                                   {renderWithLineBreaksAndLinks(
                                     requiredDocumentsData[activeTab]
                                       ?.otherDetails[index] || "",
