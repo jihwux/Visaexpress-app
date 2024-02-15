@@ -339,10 +339,10 @@ const HomePage = () => {
                 </div>
                 {/* 운영 시간 정보 */}
                 <div className="mt-4 md:mt-0 md:ml-4">
-                  <p className="text-gray-400 text-sm font-bold md:block md:text-md">
+                  <p className="text-gray-400 text-sm font-bold md:block md:text-md whitespace-nowrap">
                     평일 11:00 ~ 18:00
                   </p>
-                  <p className="text-gray-400 text-sm font-bold md:block md:text-md">
+                  <p className="text-gray-400 text-sm font-bold md:block md:text-md whitespace-nowrap">
                     (주말 및 공휴일 휴무)
                   </p>
                 </div>
