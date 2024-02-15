@@ -86,15 +86,16 @@ const HomePage = () => {
         navigation={true}
         autoplay={{ delay: 40000, disableOnInteraction: false }}
         loop={true}
-        className="h-screen md:h-3/4 lg:h-screen" // 모바일에서는 화면 높이, 더 큰 화면에서는 3/4 높이
+        className="h-[700px] md:h-[750px]" // 모바일에서는 500px, 중간 화면 크기에서는 300px 높이 설정
       >
         {slides.map((slide, index) => (
-          <SwiperSlide key={index}>
+          <SwiperSlide key={index} className="h-full">
             <img
               src={slide.image}
               alt={slide.title}
               className="w-full h-full object-cover"
             />
+
             <div
               className="absolute left-0 md:left-40 z-20 text-left"
               style={{ top: "16.666%" }}
@@ -306,7 +307,7 @@ const HomePage = () => {
                   </button>
 
                   {/* RefundPolicyPage 컴포넌트 내용 */}
-                  <RefundPolicyPage />
+                  <RefundPolicyPage setShowModal={setShowModal} />
                 </div>
               </div>
             )}

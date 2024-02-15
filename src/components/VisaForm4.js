@@ -81,6 +81,17 @@ const VisaForm4 = ({ onFormDataChange }) => {
   return (
     <div>
       {/* <h2 className="text-2xl font-semibold mb-4 text-center">가족사항</h2> */}
+      <div className="py-4">
+        <div
+          className="border-s-4 border-red-500 text-red-700 p-4"
+          role="alert"
+        >
+          <p className="">
+            ※ 가족 사항이 있을 경우 반드시 기입해주시기 바랍니다. 미 기재시 신청
+            거부 될 수 있습니다.
+          </p>
+        </div>{" "}
+      </div>
       {familyMembers.map((member, index) => (
         <div
           key={index}

@@ -6,7 +6,7 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white text-gray-800 py-4 shadow-lg">
+    <header className="bg-white text-gray-1000 py-4 shadow-lg">
       <div className="container mx-auto flex justify-between items-center px-6">
         {/* 로고 링크 */}
         <Link href="/" legacyBehavior>
@@ -73,28 +73,28 @@ export default function Header() {
             <ul className="flex flex-col space-y-4 p-4">
               <li>
                 <Link href="/visa" legacyBehavior>
-                  <a className="text-lg hover:text-gray-500 transition duration-300">
+                  <a className="text-lg hover:text-gray-1000 transition duration-300">
                     비자 신청하기
                   </a>
                 </Link>
               </li>
               <li>
                 <Link href="/visachecklist" legacyBehavior>
-                  <a className="text-lg hover:text-gray-500 transition duration-300">
+                  <a className="text-lg hover:text-gray-1000 transition duration-300">
                     비자 신청 서류
                   </a>
                 </Link>
               </li>
               <li>
                 <Link href="/price" legacyBehavior>
-                  <a className="text-lg hover:text-gray-500 transition duration-300">
+                  <a className="text-lg hover:text-gray-1000 transition duration-300">
                     비자 신청 가격
                   </a>
                 </Link>
               </li>
               <li>
                 <Link href="/location" legacyBehavior>
-                  <a className="text-lg hover:text-gray-500 transition duration-300">
+                  <a className="text-lg hover:text-gray-1000 transition duration-300">
                     오시는 길
                   </a>
                 </Link>
@@ -107,25 +107,25 @@ export default function Header() {
         {/* PC 메뉴 내용 */}
         <div className="hidden md:flex space-x-6">
           <Link href="/visa" legacyBehavior>
-            <a className="text-lg hover:text-gray-500 transition duration-300">
+            <a className="text-lg hover:text-gray-900 transition duration-300">
               비자 신청하기
             </a>
           </Link>
 
           <Link href="/visachecklist" legacyBehavior>
-            <a className="text-lg hover:text-gray-500 transition duration-300">
+            <a className="text-lg hover:text-gray-900 transition duration-300">
               비자 신청 서류
             </a>
           </Link>
 
           <Link href="/price" legacyBehavior>
-            <a className="text-lg hover:text-gray-500 transition duration-300">
+            <a className="text-lg hover:text-gray-900 transition duration-300">
               비자 신청 가격
             </a>
           </Link>
 
           <Link href="/location" legacyBehavior>
-            <a className="text-lg hover:text-gray-500 transition duration-300">
+            <a className="text-lg hover:text-gray-900 transition duration-300">
               오시는 길
             </a>
           </Link>

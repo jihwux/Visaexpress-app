@@ -76,8 +76,9 @@ const AdminPage = () => {
           <h2 className="text-3xl font-bold text-gray-900 mb-6">
             관리자 대시보드
           </h2>
-          <p className="mb-6">
-            어서오세요, 관리자님! 여기에서 관리자 기능을 사용할 수 있습니다.
+          <p className="block text-sm font-medium mb-6">
+            비자익스프레스 관리자 패널, 여기에서 관리자 기능을 사용할 수
+            있습니다.
           </p>
           <AdminTab /> {/* 관리자 기능 탭 메뉴를 렌더링 */}
         </div>

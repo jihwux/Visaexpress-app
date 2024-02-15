@@ -320,8 +320,12 @@ const Visachecklist = () => {
           </div>
           <div className="md:w-3/4 p-4">
             {activeTab && (
-              <div className="overflow-x-auto">
-                <table className="min-w-full">
+              <div className="overflow-x-auto md:overflow-x-visible">
+                {" "}
+                {/* 모바일에서는 스크롤, 더 큰 화면에서는 스크롤 없음 */}
+                <table className="min-w-max md:min-w-full ">
+                  {" "}
+                  {/* min-w-max 클래스 적용 */}
                   <thead className="bg-gray-50">
                     <tr>
                       <th className="whitespace-nowrap px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -374,47 +378,48 @@ const Visachecklist = () => {
                       )
                     )}
                   </tbody>
-
-                  <tfoot className="bg-gray-100">
-                    <tr>
-                      <td colSpan="100%" className="px-6 py-3">
-                        <div className="font-medium text-gray-900">
-                          서류 보내실 곳:
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colSpan="100%" className="px-6 py-1">
-                        <div className="text-gray-600">
-                          서울특별시 영등포구 경인로77길49, 상가 2층 201-4호
-                          (리버뷰 신안인스빌)
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colSpan="100%" className="px-6 py-1">
-                        <div className="text-gray-600">
-                          비자익스프레스{" "}
-                          <a
-                            href="tel:070-8028-3829"
-                            className="text-red-500 hover:text-red-800"
-                          >
-                            070-8028-3829
-                          </a>
-                          <span> </span>
-                          <a
-                            href="tel:010-7775-2183"
-                            className="text-red-500 hover:text-red-800"
-                          >
-                            010-7775-2183
-                          </a>{" "}
-                        </div>
-                      </td>
-                    </tr>
-                  </tfoot>
                 </table>
               </div>
             )}
+            <div className="md:w-3/4 ">
+              {/* 기존 테이블 코드 */}
+              <table className="min-w-full">
+                {/* thead, tbody 등의 테이블 내용 */}
+              </table>
+
+              {/* 테이블 아래 배치할 정보 */}
+              <div className="bg-gray-100 mt-4">
+                <div className=" py-3">
+                  <div className="font-medium text-gray-900">
+                    서류 보내실 곳:
+                  </div>
+                </div>
+                <div className=" py-1">
+                  <div className="text-gray-600">
+                    서울특별시 영등포구 경인로77길49, 상가 2층 201-4호 (리버뷰
+                    신안인스빌)
+                  </div>
+                </div>
+                <div className=" py-1">
+                  <div className="text-gray-600">
+                    비자익스프레스
+                    <a
+                      href="tel:070-8028-3829"
+                      className="text-red-500 hover:text-red-800"
+                    >
+                      &nbsp; 070-8028-3829
+                    </a>
+                    <span> </span>
+                    <a
+                      href="tel:010-7775-2183"
+                      className="text-red-500 hover:text-red-800"
+                    >
+                      010-7775-2183
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

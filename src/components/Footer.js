@@ -23,6 +23,7 @@ export default function Footer() {
                 href="tel:070-8028-3829"
                 className="text-blue-400 hover:text-blue-300"
               >
+                {" "}
                 070-8028-3829{" "}
               </a>{" "}
             </p>
@@ -33,6 +34,7 @@ export default function Footer() {
                 href="mailto:visaexpress2183@naver.com"
                 className="text-blue-400 hover:text-blue-300"
               >
+                {" "}
                 visaexpress2183@naver.com
               </a>
             </p>
