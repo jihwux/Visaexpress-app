@@ -103,7 +103,6 @@ export default function Header() {
                   </a>
                 </Link>
               </li>
-
               {/* 추가 메뉴 항목들을 여기에 배치 */}
             </ul>
           </nav>

@@ -63,27 +63,29 @@ const RefundPolicyPage = ({ setShowModal }) => {
             불가함을 알려 드립니다.
           </p>
         </div>
-        <div className="mt-8 flex flex-col sm:flex-row sm:justify-center gap-4">
+        <div className="flex flex-col sm:flex-row sm:justify-center pt-10">
           {isRefundPolicyPage && (
-            <Link href="/visa" legacyBehavior>
-              <a className="w-full sm:w-auto bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
-                닫기
-              </a>
-            </Link>
+            <div>
+              <Link href="/visa" legacyBehavior>
+                <a className="my-2 sm:mx-2 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
+                  닫기
+                </a>
+              </Link>
+              <Link href="/" legacyBehavior>
+                <a className="my-2 sm:mx-2 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
+                  홈으로
+                </a>
+              </Link>
+            </div>
           )}
           {!isRefundPolicyPage && (
             <button
               onClick={() => setShowModal(false)}
-              className="w-full sm:w-auto bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+              className="my-2 sm:mx-2 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
             >
               닫기
             </button>
           )}
-          <Link href="/" legacyBehavior>
-            <a className="w-full sm:w-auto bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
-              홈으로
-            </a>
-          </Link>
         </div>
       </div>
     </div>
