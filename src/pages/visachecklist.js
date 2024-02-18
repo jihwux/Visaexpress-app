@@ -290,7 +290,7 @@ const Visachecklist = () => {
   return (
     <main className="flex-grow container mx-auto my-8">
       <div className="container mx-auto  pt-10">
-        <div className="mb-8">
+        <div className="mb-8 p-2">
           <h1 className="text-3xl font-semibold text-gray-800 leading-tight">
             필요 서류 확인
           </h1>
@@ -318,7 +318,7 @@ const Visachecklist = () => {
               ))}
             </ul>
           </div>
-          <div className="md:w-4/4 ">
+          <div className="md:w-4/4 pt-5">
             {activeTab && (
               <div className="overflow-x-auto md:overflow-x-visible">
                 {" "}
@@ -386,7 +386,7 @@ const Visachecklist = () => {
               </table>
 
               {/* 테이블 아래 배치할 정보 */}
-              <div className="bg-gray-100 mt-4">
+              <div className="bg-gray-100 mt-4 p-2">
                 <div className=" py-3">
                   <div className="font-medium text-gray-900">
                     서류 보내실 곳:

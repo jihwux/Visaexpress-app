@@ -161,7 +161,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-14 py-8 text-center ">
+      <div className="container mx-auto px-12 py-8 text-center ">
         <div className="mb-4 pt-10 text-left  ">
           <h1 className="text-3xl font-semibold text-gray-800 leading-tight">
             신청 상담 및 조회

@@ -254,7 +254,7 @@ const Price = () => {
     <main className="flex-grow container mx-auto my-8">
       <div className="container mx-auto  pt-10">
         {/* 제목 */}
-        <div className="mb-8">
+        <div className="mb-8 p-2">
           <h1 className="text-3xl font-semibold text-gray-800 leading-tight">
             비자 가격 정보
           </h1>
@@ -268,7 +268,7 @@ const Price = () => {
           <div className="w-full md:w-1/4 mb-4 md:mb-0">
             <ul className="border-b md:border-b-0 md:border-r-2 border-gray-200">
               {Object.keys(visaCategories).map((key) => (
-                <li key={key} className="mb-1 ">
+                <li key={key} className="mb-1">
                   <button
                     onClick={() => setActiveTab(key)}
                     className={`block w-full text-left px-4 py-2 rounded-r-full transition duration-300 ease-in-out focus:outline-none ${
@@ -284,7 +284,7 @@ const Price = () => {
             </ul>
           </div>
           {/* 탭 콘텐츠 */}
-          <div className="w-full md:w-3/4 p-4">
+          <div className="w-full md:w-3/4 pt-4">
             {activeTab && renderTable(visaPricing[activeTab])}
           </div>
         </div>
