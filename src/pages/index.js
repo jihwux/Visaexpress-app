@@ -196,7 +196,7 @@ const HomePage = () => {
               buttonText: "+ 친구 추가",
             },
           ].map((item, index, arr) => (
-            <div key={index} className="p-4 w-1/2 md:w-1/3 lg:w-1/4">
+            <div key={index} className="p-3 w-1/2 md:w-1/3 lg:w-1/4">
               <div
                 className={`group flex flex-col items-center p-8 rounded-lg shadow-lg transition transform hover:-translate-y-2 hover:shadow-2xl ${
                   index === arr.length - 1 ? "bg-yellow-300" : "bg-white"
@@ -266,11 +266,8 @@ const HomePage = () => {
                     top: "50%",
                     left: "50%",
                     position: "absolute",
-                  }} // 모달 중앙 정렬
+                  }}
                 >
-                  {/* 모달 내용 */}
-
-                  {/* 모달 닫기 버튼 */}
                   <button
                     onClick={() => setShowModal(false)}
                     className="absolute top-0 right-0 mt-4 mr-4 text-2xl leading-none p-2 text-gray-400 hover:text-gray-500"

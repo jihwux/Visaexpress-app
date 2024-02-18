@@ -13,7 +13,7 @@ export default function Footer() {
               제2023-서울영등포-1087호
             </p>
 
-            <p className="whitespace-nowrap overflow-hidden overflow-ellipsis">
+            <p className="  overflow-hidden overflow-ellipsis">
               주소: 서울특별시 영등포구 경인로77길49, 109동 상가 2층
               201-4호(문래동4가 리버뷰 신안인스빌)
             </p>
