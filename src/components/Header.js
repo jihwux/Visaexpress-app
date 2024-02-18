@@ -5,6 +5,9 @@ import Image from "next/image"; // 로고 이미지를 사용하려면 이 주�
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  {
+    /* 메뉴 항목 */
+  }
   return (
     <header
       className="bg-white text-gray-800 py-4 shadow-lg"
@@ -29,7 +32,7 @@ export default function Header() {
         <div className="md:hidden">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="text-gray-800 focus:outline-none"
+            className="p-2 text-gray-800 focus:outline-none"
           >
             {/* 햄버거 메뉴 아이콘 */}
             <svg
@@ -50,18 +53,21 @@ export default function Header() {
           </button>
         </div>
         {/* 메뉴 내용 */}
+
         <div
           className={`fixed inset-y-0 right-0 transform ${
             isMenuOpen ? "translate-x-0" : "translate-x-full"
-          } w-64 bg-white shadow-xl transition-transform duration-300 ease-in-out z-30 md:hidden`}
+          } w-64 bg-white shadow-xl transition-transform duration-300 ease-in-out z-30`}
         >
+          {/* 메뉴 닫기 버튼 */}
           {/* 메뉴 닫기 버튼 */}
           <button
             onClick={() => setIsMenuOpen(false)}
-            className="text-gray-800 focus:outline-none absolute top-5 right-5"
+            className="p-3 bg-gray-300 rounded-full shadow-lg text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 absolute top-3 right-3 z-50"
           >
+            {/* SVG 코드는 동일하게 유지 */}
             <svg
-              className="w-8 h-8"
+              className="w-6 h-6"
               fill="none"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -73,41 +79,29 @@ export default function Header() {
             </svg>
           </button>
           {/* 메뉴 항목 */}
-          <nav>
-            <ul className="flex flex-col space-y-4 p-4">
-              <li>
-                <Link href="/visa" legacyBehavior>
-                  <a className="text-lg hover:text-gray-1000 transition duration-300">
-                    비자 신청하기
-                  </a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/visachecklist" legacyBehavior>
-                  <a className="text-lg hover:text-gray-1000 transition duration-300">
-                    비자 신청 서류
-                  </a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/price" legacyBehavior>
-                  <a className="text-lg hover:text-gray-1000 transition duration-300">
-                    비자 신청 가격
-                  </a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/location" legacyBehavior>
-                  <a className="text-lg hover:text-gray-1000 transition duration-300">
-                    오시는 길
-                  </a>
-                </Link>
-              </li>
-              {/* 추가 메뉴 항목들을 여기에 배치 */}
+          <nav className="relative">
+            <ul className="flex flex-col space-y-2 p-4">
+              {[
+                { href: "/visa", label: "비자 신청하기" },
+                { href: "/visachecklist", label: "비자 신청 서류" },
+                { href: "/price", label: "비자 신청 가격" },
+                { href: "/location", label: "오시는 길" },
+                // 추가 메뉴 항목들...
+              ].map((item, index) => (
+                <li key={index}>
+                  <Link href={item.href} legacyBehavior>
+                    <a
+                      onClick={() => setIsMenuOpen(false)}
+                      className="block px-4 py-3 text-lg font-medium text-gray-800 bg-white rounded-md shadow-sm hover:shadow-md transition duration-200 ease-in-out"
+                    >
+                      {item.label}
+                    </a>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </nav>
         </div>
-        {/* PC 메뉴 내용 */}
         <div className="hidden md:flex space-x-6">
           <Link href="/visa" legacyBehavior>
             <a className="text-lg hover:text-gray-900 transition duration-300">
