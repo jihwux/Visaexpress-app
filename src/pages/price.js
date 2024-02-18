@@ -254,7 +254,7 @@ const Price = () => {
     <main className="flex-grow container mx-auto my-8">
       <div className="container mx-auto  pt-10">
         {/* 제목 */}
-        <div className="mb-8 p-2">
+        <div className="mb-8 p-2 ">
           <h1 className="text-3xl font-semibold text-gray-800 leading-tight">
             비자 가격 정보
           </h1>
@@ -284,7 +284,7 @@ const Price = () => {
             </ul>
           </div>
           {/* 탭 콘텐츠 */}
-          <div className="w-full md:w-3/4 pt-4">
+          <div className="w-full md:w-3/4 pt-4   pb-4">
             {activeTab && renderTable(visaPricing[activeTab])}
           </div>
         </div>
