@@ -201,10 +201,19 @@ const VisaApplicationForm = () => {
         {/* 폼 내용 s*/}
         {/* 폼 내용 */}
         {/* 예시: 비자 종류 선택 필드 */}
-        <h2 className="text-2xl font-semibold mb-4 text-center">
-          중국 비자 신청서
-        </h2>
-
+        {/* 폼 내용 */}
+        <div className="flex justify-start items-center  space-x-2 pt-6">
+          <div className="flex justify-start items-center mb-4">
+            <h2 className="text-3xl lg:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-600 to-pink-400">
+              비자 신청서
+              <span className="text-3xl lg:text-5xl text-red-600">.</span>
+            </h2>
+          </div>
+        </div>
+        <p className="text-xs lg:text-sm text-gray-600">
+          ※ 맨 아래 이메일을 입력하시고 메모를 해놓으시면, 신청내역을 메일에서
+          확인할 수 있습니다.
+        </p>
         {/* <VisaForm1 formDetails={formDetails} handleChange={handleChange} /> */}
         <VisaForm1
           handleChange={(data) => handleVisaFormChange("form1", data)}

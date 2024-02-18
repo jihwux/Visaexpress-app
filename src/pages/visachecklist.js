@@ -320,21 +320,21 @@ const Visachecklist = () => {
           </div>
           <div className="md:w-4/4 pt-5">
             {activeTab && (
-              <div className="overflow-x-auto md:overflow-x-visible">
+              <div className="overflow-x-auto md:overflow-x-visible px-0 md:px-10 ">
                 {" "}
                 {/* 모바일에서는 스크롤, 더 큰 화면에서는 스크롤 없음 */}
                 <table className="w-full table-auto">
                   <thead className="bg-gray-50 ">
                     <tr>
-                      <th className="text-center whitespace-nowrap px-3 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
+                      <th className="text-center whitespace-nowrap px-3 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider md:text-sm">
                         필요 서류
                       </th>
                       {activeTab !== "Minor" && activeTab !== "Naturalized" && (
                         <>
-                          <th className="text-center whitespace-nowrap px-3 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
+                          <th className="text-center whitespace-nowrap px-3 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider md:text-sm">
                             서류 규정
                           </th>
-                          <th className="text-center whitespace-nowrap px-3 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
+                          <th className="text-center whitespace-nowrap px-3 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider md:text-sm">
                             기타 상세
                           </th>
                         </>
@@ -345,7 +345,7 @@ const Visachecklist = () => {
                     {requiredDocumentsData[activeTab]?.requiredDocuments.map(
                       (document, index) => (
                         <tr key={`document-${index}`}>
-                          <td className="px-3 py-4 text-xs font-medium text-gray-900">
+                          <td className="px-3 py-4 text-xs md:text-sm font-medium text-gray-900">
                             {renderWithLineBreaksAndLinks(
                               document,
                               requiredDocumentsData[activeTab].downloadLinks
@@ -354,7 +354,7 @@ const Visachecklist = () => {
                           {activeTab !== "Minor" &&
                             activeTab !== "Naturalized" && (
                               <>
-                                <td className="px-3 py-4 text-xs text-gray-900">
+                                <td className="px-3 py-4 text-xs md:text-sm text-gray-900">
                                   {renderWithLineBreaksAndLinks(
                                     requiredDocumentsData[activeTab]
                                       ?.documentRegulations[index] || "",
@@ -362,7 +362,7 @@ const Visachecklist = () => {
                                       .downloadLinks
                                   )}
                                 </td>
-                                <td className="px-3 py-4 text-xs text-gray-900">
+                                <td className="px-3 py-4 text-xs md:text-sm text-gray-900">
                                   {renderWithLineBreaksAndLinks(
                                     requiredDocumentsData[activeTab]
                                       ?.otherDetails[index] || "",
@@ -386,7 +386,7 @@ const Visachecklist = () => {
               </table>
 
               {/* 테이블 아래 배치할 정보 */}
-              <div className="bg-gray-100 mt-4 p-2">
+              <div className="bg-gray-100 mt-4 p-10">
                 <div className=" py-3">
                   <div className="font-medium text-gray-900">
                     서류 보내실 곳:
