@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import AdminTrack from "@/components/AdminTrack";
 // 가정된 각 기능별 컴포넌트
-const Dashboard = () => <AdminTrack />;
-const UserManagement = () => <div className="p-4">사용자 관리 화면</div>;
-const SystemSettings = () => <div className="p-4">시스템 설정 화면</div>;
-const Statistics = () => <div className="p-4">통계 화면</div>;
+const Dashboard = () => <div className="p-4">상태 조회 및 업데이트</div>;
+const UserManagement = () => <AdminTrack />;
+// const SystemSettings = () => <div className="p-4"></div>;
+const Statistics = () => <div className="p-4">애널리틱스 도구</div>;
 
 const AdminTab = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -48,9 +48,9 @@ const AdminTab = () => {
     <div className="flex h-screen bg-gray-100">
       <div className="w-1/5 bg-white shadow-xl">
         <TabItem tab="dashboard" title="대시보드" />
-        <TabItem tab="userManagement" title="사용자 관리" />
-        <TabItem tab="systemSettings" title="시스템 설정" />
-        <TabItem tab="statistics" title="통계" />
+        <TabItem tab="userManagement" title="상태 조회 및 업데이트" />
+        {/* <TabItem tab="systemSettings" title="" /> */}
+        <TabItem tab="statistics" title="애널리틱스 도구" />
       </div>
       <div className="flex-1 p-4 overflow-auto">
         {renderTabContent(activeTab)}

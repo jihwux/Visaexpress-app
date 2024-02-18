@@ -66,7 +66,7 @@ const AdminTrack = () => {
       </div>
       <div className="mb-4">
         <label className="block text-sm font-medium mb-1">현재 상태</label>
-        <div className="-2 bg-gray-100 rounded-md">
+        <div className="-2  rounded-md">
           {currentStatus || "상태를 조회하세요"}
         </div>
       </div>

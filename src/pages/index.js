@@ -122,7 +122,7 @@ const HomePage = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className="container mx-auto px-4 py-8 text-center">
+      <div className="container mx-auto px-4 py-8 text-center hidden md:block">
         <div className="mb-4 pt-10 text-left px-10 ">
           {/* <div className="mb-4 pt-10 text-left px-4 "> */}
 
@@ -164,25 +164,25 @@ const HomePage = () => {
       <div className="container mx-auto px-14 py-8 text-center ">
         <div className="mb-4 pt-10 text-left  ">
           <h1 className="text-3xl font-semibold text-gray-800 leading-tight">
-            신청 추적 및 상담
+            신청 상담 및 조회
           </h1>
           <p className="text-md text-gray-600 mt-2">
-            모든 준비는 비자익스프레스에서, 간단하게 문의부터 추적까지 한 번에
-            해결하세요.
+            모든 준비는 비자익스프레스에서, 간단하게 문의와 필요 서류, 가격
+            조회를 한 번에 해결하세요.
           </p>
         </div>
 
         {/* ... */}
-        <div className="flex flex-wrap justify-center -mx-12 md:-mx-4">
+        <div className="flex flex-wrap justify-center -mx-12 md:-mx-4 text-xs ">
           {[
-            {
-              title: "신청 정보 조회",
-              link: "/tracker",
-              buttonText: "자세히 보기",
-            },
             {
               title: "신청 서류 조회",
               link: "/visachecklist",
+              buttonText: "자세히 보기",
+            },
+            {
+              title: "신청 가격 조회",
+              link: "/price",
               buttonText: "자세히 보기",
             },
             {
@@ -196,63 +196,40 @@ const HomePage = () => {
               buttonText: "+ 친구 추가",
             },
           ].map((item, index, arr) => (
-            <div key={index} className="p-4 w-1/2 md:w-1/2 lg:w-1/4">
+            <div key={index} className="p-4 w-1/2 md:w-1/3 lg:w-1/4">
               <div
-                className={`group flex flex-col items-center p-8 md:p-12 rounded-lg shadow-lg transition transform hover:-translate-y-2 hover:shadow-2xl ${
-                  index % 4 === 3 ? "bg-yellow-300" : "bg-white"
-                }`}
-                className={`group flex flex-col items-center p-8 md:p-12 rounded-lg shadow-lg transition transform hover:-translate-y-2 hover:shadow-2xl ${
+                className={`group flex flex-col items-center p-8 rounded-lg shadow-lg transition transform hover:-translate-y-2 hover:shadow-2xl ${
                   index === arr.length - 1 ? "bg-yellow-300" : "bg-white"
                 }`}
               >
                 <h3
-                  className={`font-bold text-2xl md:text-3xl ${
+                  className={`font-bold text-sm md:text-2xl lg:text-3xl ${
                     index === arr.length - 1 ? "text-black" : "text-gray-800"
                   }`}
                 >
                   {item.title}
                 </h3>
                 <p className="mt-3">
-                  {item.title === "전화 상담" ? (
-                    <a
-                      href={item.link}
-                      className={`hover:underline text-lg md:text-xl font-semibold ${
-                        index === arr.length - 1
-                          ? "text-black hover:text-white"
-                          : "text-red-500 hover:text-red-700"
-                      }`}
-                      target={item.title === "전화 상담" ? "_blank" : ""}
-                      rel={
-                        item.title === "전화 상담" ? "noopener noreferrer" : ""
-                      }
-                    >
-                      {item.buttonText}
-                    </a>
-                  ) : (
-                    <a
-                      href={item.link}
-                      className={`hover:underline text-lg md:text-xl font-semibold ${
-                        index === arr.length - 1
-                          ? "text-black hover:text-white"
-                          : "text-red-500 hover:text-red-700"
-                      }`}
-                      target={item.title === "카카오톡 상담" ? "_blank" : ""}
-                      rel={
-                        item.title === "카카오톡 상담"
-                          ? "noopener noreferrer"
-                          : ""
-                      }
-                    >
-                      {item.buttonText}
-                    </a>
-                  )}
+                  <a
+                    href={item.link}
+                    className={`hover:underline text-base md:text-lg lg:text-xl font-semibold ${
+                      index === arr.length - 1
+                        ? "text-black hover:text-white text-sm"
+                        : "text-red-500 hover:text-red-700 text-sm"
+                    }`}
+                    target={item.title === "전화 상담" ? "_blank" : ""}
+                    rel={
+                      item.title === "전화 상담" ? "noopener noreferrer" : ""
+                    }
+                  >
+                    {item.buttonText}
+                  </a>
                 </p>
               </div>
             </div>
           ))}
         </div>
       </div>
-
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-wrap  px-10 -mx-4">
           <div className="p-4 w-full md:w-1/3">
@@ -263,7 +240,6 @@ const HomePage = () => {
               </p>
             </div>
           </div>
-
           <div className="p-4 w-full md:w-1/3">
             <div className="group flex flex-col items-start p-8 bg-white rounded-lg shadow-lg">
               <h3 className="font-bold text-lg">공지사항</h3>
@@ -365,7 +341,6 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      {/* '비자 신청하기' 버튼 */}
     </div>
   );
 };

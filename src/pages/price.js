@@ -29,7 +29,7 @@ const Price = () => {
       [
         "L 관광 복수",
         "6개월",
-        "30일 / 60일",
+        "30일/60일",
         "2회",
         "160,000",
         "210,000",
@@ -203,31 +203,31 @@ const Price = () => {
 
   const renderTable = (visaType) => (
     <div className="overflow-x-auto bg-white shadow rounded-lg">
-      <table className="min-w-full leading-normal">
+      <table className="w-full min-w-full leading-normal">
         <thead>
           <tr>
-            <th className="whitespace-nowrap px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider">
+            <th className="whitespace-nowrap text-center px-1 py-1 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider md:px-5 md:py-3">
               비자 종류
             </th>
-            <th className="whitespace-nowrap px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider">
+            <th className="whitespace-nowrap text-center px-1 py-1 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider md:px-5 md:py-3">
               비자 유효기간
             </th>
-            <th className="whitespace-nowrap px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider">
+            <th className="whitespace-nowrap text-center px-1 py-1 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider md:px-5 md:py-3">
               체류 기간
             </th>
-            <th className="whitespace-nowrap px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider">
+            <th className="whitespace-nowrap text-center px-1 py-1 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider md:px-5 md:py-3">
               입국 가능 횟수
             </th>
-            <th className="whitespace-nowrap px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider text-red-500">
+            <th className="whitespace-nowrap text-center px-1 py-1 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider text-red-500 md:px-5 md:py-3">
               일반
             </th>
-            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider text-red-500">
+            <th className="px-5 whitespace-nowrap text-center py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider text-red-500">
               급행
             </th>
-            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider text-red-500">
+            <th className="px-5 whitespace-nowrap text-center py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider text-red-500">
               특급
             </th>
-            <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider text-red-500">
+            <th className="px-5 whitespace-nowrap text-center py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider text-red-500">
               초특급
             </th>
           </tr>
@@ -238,7 +238,7 @@ const Price = () => {
               {detail.map((cell, cellIndex) => (
                 <td
                   key={cellIndex}
-                  className="px-5 py-5 border-b border-gray-200 bg-white text-sm "
+                  className="text-center px-1 py-3 text-xs whitespace-nowrap md:px-5 md:py-5 border-b border-gray-200 bg-white"
                 >
                   {cell}
                 </td>
@@ -252,7 +252,7 @@ const Price = () => {
 
   return (
     <main className="flex-grow container mx-auto my-8">
-      <div className="container mx-auto px-4 pt-10">
+      <div className="container mx-auto  pt-10">
         {/* 제목 */}
         <div className="mb-8">
           <h1 className="text-3xl font-semibold text-gray-800 leading-tight">

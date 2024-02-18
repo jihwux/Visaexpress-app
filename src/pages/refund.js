@@ -71,11 +71,11 @@ const RefundPolicyPage = ({ setShowModal }) => {
                   닫기
                 </a>
               </Link>
-              <Link href="/" legacyBehavior>
+              {/* <Link href="/" legacyBehavior>
                 <a className="my-2 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
                   홈으로
                 </a>
-              </Link>
+              </Link> */}
             </div>
           )}
 

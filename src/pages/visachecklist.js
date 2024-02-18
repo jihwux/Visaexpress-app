@@ -289,7 +289,7 @@ const Visachecklist = () => {
 
   return (
     <main className="flex-grow container mx-auto my-8">
-      <div className="container mx-auto px-4 pt-10">
+      <div className="container mx-auto  pt-10">
         <div className="mb-8">
           <h1 className="text-3xl font-semibold text-gray-800 leading-tight">
             필요 서류 확인
@@ -324,17 +324,17 @@ const Visachecklist = () => {
                 {" "}
                 {/* 모바일에서는 스크롤, 더 큰 화면에서는 스크롤 없음 */}
                 <table className="w-full table-auto">
-                  <thead className="bg-gray-50">
+                  <thead className="bg-gray-50 ">
                     <tr>
-                      <th className="px-3 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
+                      <th className="text-center whitespace-nowrap px-3 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                         필요 서류
                       </th>
                       {activeTab !== "Minor" && activeTab !== "Naturalized" && (
                         <>
-                          <th className="px-3 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
+                          <th className="text-center whitespace-nowrap px-3 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                             서류 규정
                           </th>
-                          <th className="px-3 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
+                          <th className="text-center whitespace-nowrap px-3 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                             기타 상세
                           </th>
                         </>
