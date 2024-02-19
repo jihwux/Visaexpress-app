@@ -33,7 +33,7 @@ function MyApp({ Component, pageProps }) {
         />
         <meta
           name="google-site-verification"
-          content="NQWDsuv5lGlukn4F4rUJ_UqwWsoCvCkh6-TzDtl51EM"
+          content="JG9S7NRRJsEG6d1I8I2qr4dRBIRR66E2sV9teYW4NN0"
         />
         <meta
           name="description"
