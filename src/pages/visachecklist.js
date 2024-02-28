@@ -386,7 +386,7 @@ const Visachecklist = () => {
               </table>
 
               {/* 테이블 아래 배치할 정보 */}
-              <div className="bg-gray-100 mt-4 p-10">
+              <div className="bg-gray-100 mt-4 p-5">
                 <div className=" py-3">
                   <div className="font-medium text-gray-900">
                     서류 보내실 곳:

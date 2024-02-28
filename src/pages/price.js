@@ -202,7 +202,7 @@ const Price = () => {
   };
 
   const renderTable = (visaType) => (
-    <div className="overflow-x-auto bg-white rounded-lg">
+    <div className="overflow-x-auto  rounded-lg">
       <table className="w-full min-w-full leading-normal">
         <thead>
           <tr>
@@ -247,9 +247,7 @@ const Price = () => {
           ))}
         </tbody>
       </table>
-
-      {/* 테이블 아래 배치할 정보 */}
-      <div className="bg-gray-100 ">
+      <div className="bg-gray-100 w-max">
         <div className=" py-3"></div>
         <div className=" py-1">
           <div className="text-gray-600">
@@ -273,6 +271,10 @@ const Price = () => {
           </div>
         </div>
       </div>
+
+      {/* <div className="bg-gray-100 w-full min-w-full leading-normal"> */}
+      {/* </div> */}
+      {/* 테이블 아래 배치할 정보 */}
     </div>
   );
 

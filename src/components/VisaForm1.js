@@ -451,11 +451,12 @@ const VisaForm1 = ({ handleChange }) => {
         </div>
       </div>
       {/* ... 다른 필요한 필드 추가 */}
+
       <fieldset className="mb-4">
         <legend className="block text-lg font-medium text-gray-700 mb-2 required-label">
           서비스 종류
         </legend>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row  gap-4">
           <label className="flex items-center">
             <input
               type="radio"
@@ -466,7 +467,7 @@ const VisaForm1 = ({ handleChange }) => {
               className="form-radio h-5 w-5 text-indigo-600"
               required
             />
-            <span className="ml-2">일반(7-8일)</span>
+            <span className="ml-2 text-sm">일반(7-8일)</span>
           </label>
           <label className="flex items-center">
             <input
@@ -478,7 +479,7 @@ const VisaForm1 = ({ handleChange }) => {
               className="form-radio h-5 w-5 text-indigo-600"
               required
             />
-            <span className="ml-2">급행(6일)</span>
+            <span className="ml-2 text-sm">급행(6일)</span>
           </label>
           <label className="flex items-center">
             <input
@@ -490,7 +491,7 @@ const VisaForm1 = ({ handleChange }) => {
               className="form-radio h-5 w-5 text-indigo-600"
               required
             />
-            <span className="ml-2">특급(5일)</span>
+            <span className="ml-2 text-sm">특급(5일)</span>
           </label>
           <label className="flex items-center">
             <input
@@ -502,10 +503,13 @@ const VisaForm1 = ({ handleChange }) => {
               className="form-radio h-5 w-5 text-indigo-600"
               required
             />
-            <span className="ml-2">초특급(12시전 서류 접수 시 2일)</span>
+            <span className="ml-2 text-sm">
+              초특급(12시전 서류 접수 시 2일)
+            </span>
           </label>
         </div>
       </fieldset>
+
       {/* 혼인 상황 필드 */}
     </div>
   );
