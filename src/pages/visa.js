@@ -145,9 +145,15 @@ const VisaPage = () => {
                 비자 발급 서비스 유형(서비스 제공기간)
               </h1>
               <p className="mt-4 text-gray-600 text-lg">
-                - 회사접수-중국비자센터 사전심사-지문등록 및
-                비자센터접수-영사관심사-발급
-                <br />- 영사관 보류 시 별도 시간소요됩니다.
+                - 비자 발급일은 대사관의 심사 기준에 따르며, 대사관 비자 보류로
+                인해 추가로 1-2일의 지연이 발생할 수 있습니다. <br /> - 비자
+                발급일부터{" "}
+                <strong className="text-red-600">
+                  출국일까지 최소 1~2일의 여유를 두고 신청{" "}
+                </strong>{" "}
+                해주시기 바랍니다.
+                <br />- 대사관 비자 발급 지연으로 인한 개인 일정의 차질에
+                대해서는 <strong>환불 및 배상이 불가</strong>합니다.
               </p>
               <div className="text-right py-4">
                 <Link href="/refund" legacyBehavior>
@@ -161,7 +167,7 @@ const VisaPage = () => {
                 <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out">
                   <h3 className="text-lg font-semibold">보통 신청</h3>
                   <p className="text-gray-700 mt-2">
-                    전 과정은 서류 접수일 부터 평일 기준 약 7일 소요됩니다.
+                    전 과정은 서류 접수일 부터 평일 기준 약 7-8일 소요됩니다.
                   </p>
                 </div>
 

@@ -466,7 +466,7 @@ const VisaForm1 = ({ handleChange }) => {
               className="form-radio h-5 w-5 text-indigo-600"
               required
             />
-            <span className="ml-2">보통</span>
+            <span className="ml-2">일반(7-8일)</span>
           </label>
           <label className="flex items-center">
             <input
@@ -478,7 +478,7 @@ const VisaForm1 = ({ handleChange }) => {
               className="form-radio h-5 w-5 text-indigo-600"
               required
             />
-            <span className="ml-2">급행</span>
+            <span className="ml-2">급행(6일)</span>
           </label>
           <label className="flex items-center">
             <input
@@ -490,7 +490,7 @@ const VisaForm1 = ({ handleChange }) => {
               className="form-radio h-5 w-5 text-indigo-600"
               required
             />
-            <span className="ml-2">특급</span>
+            <span className="ml-2">특급(5일)</span>
           </label>
           <label className="flex items-center">
             <input
@@ -502,7 +502,7 @@ const VisaForm1 = ({ handleChange }) => {
               className="form-radio h-5 w-5 text-indigo-600"
               required
             />
-            <span className="ml-2">초특급</span>
+            <span className="ml-2">초특급(12시전 서류 접수 시 2일)</span>
           </label>
         </div>
       </fieldset>

@@ -202,7 +202,7 @@ const Price = () => {
   };
 
   const renderTable = (visaType) => (
-    <div className="overflow-x-auto bg-white shadow rounded-lg">
+    <div className="overflow-x-auto bg-white rounded-lg">
       <table className="w-full min-w-full leading-normal">
         <thead>
           <tr>
@@ -219,16 +219,16 @@ const Price = () => {
               입국 가능 횟수
             </th>
             <th className="whitespace-nowrap text-center px-1 py-1 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider text-red-500 md:px-5 md:py-3">
-              일반
+              일반(7~8일)
             </th>
             <th className="px-5 whitespace-nowrap text-center py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider text-red-500">
-              급행
+              급행(6일)
             </th>
             <th className="px-5 whitespace-nowrap text-center py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider text-red-500">
-              특급
+              특급(5일)
             </th>
             <th className="px-5 whitespace-nowrap text-center py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-800 uppercase tracking-wider text-red-500">
-              초특급
+              초특급(12시전 접수 시 2일)
             </th>
           </tr>
         </thead>
@@ -247,6 +247,32 @@ const Price = () => {
           ))}
         </tbody>
       </table>
+
+      {/* 테이블 아래 배치할 정보 */}
+      <div className="bg-gray-100 ">
+        <div className=" py-3"></div>
+        <div className=" py-1">
+          <div className="text-gray-600">
+            - 비자 발급일은 대사관의 심사 기준에 따르며, 대사관 비자 보류로 인해
+            추가로 1-2일의 지연이 발생할 수 있습니다.
+          </div>
+        </div>
+        <div className=" py-1">
+          <div className="text-gray-600">
+            - 비자 발급일부터{" "}
+            <strong className="text-red-600">
+              출국일까지 최소 1~2일의 여유를 두고 신청{" "}
+            </strong>{" "}
+            해주시기 바랍니다.
+          </div>
+        </div>
+        <div className=" py-1">
+          <div className="text-gray-600">
+            - 대사관 비자 발급 지연으로 인한 개인 일정의 차질에 대해서는{" "}
+            <strong>환불 및 배상이 불가</strong>합니다.
+          </div>
+        </div>
+      </div>
     </div>
   );
 
@@ -283,6 +309,7 @@ const Price = () => {
               ))}
             </ul>
           </div>
+
           {/* 탭 콘텐츠 */}
           <div className="w-full md:w-3/4 pt-4   pb-4">
             {activeTab && renderTable(visaPricing[activeTab])}

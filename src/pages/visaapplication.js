@@ -211,8 +211,8 @@ const VisaApplicationForm = () => {
           </div>
         </div>
         <p className="text-xs lg:text-sm text-gray-600">
-          ※ 맨 아래 이메일을 입력하시고 메모를 해놓으시면, 신청내역을 메일에서
-          확인할 수 있습니다.
+          ※ 현재 카드 결제는 하나카드/삼성카드를 제외한 카드만 결제가
+          가능합니다.
         </p>
         {/* <VisaForm1 formDetails={formDetails} handleChange={handleChange} /> */}
         <VisaForm1
