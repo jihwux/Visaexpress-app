@@ -104,7 +104,7 @@ const VisaApplicationForm = () => {
 
     setPaymentParams((currentParams) => ({
       ...currentParams,
-      amount: totalAmount,
+      amount: 100,
       name: visaFormData.form1.visaType,
       stayDuration: visaFormData.form1.stayDuration,
       visaDuration: visaFormData.form1.visaDuration,
