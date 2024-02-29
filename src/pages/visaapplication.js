@@ -104,7 +104,7 @@ const VisaApplicationForm = () => {
 
     setPaymentParams((currentParams) => ({
       ...currentParams,
-      amount: totalAmount,
+      amount: 100,
       name: visaFormData.form1.visaType,
       stayDuration: visaFormData.form1.stayDuration,
       visaDuration: visaFormData.form1.visaDuration,
@@ -116,7 +116,7 @@ const VisaApplicationForm = () => {
   // const IMP_UID = "imp21001741"; // 실제 가맹점 식별코드로 변경해야 함
   const IMP_UID = process.env.NEXT_PUBLIC_IMP_UID;
   const [paymentParams, setPaymentParams] = useState({
-    pg: "html5_inicis.INIpayTest",
+    pg: "html5_inicis.MOI3017220",
     pay_method: "card",
     name: visaFormData.form1.visaType,
     merchant_uid: `merchant_${Date.now()}`,
@@ -136,19 +136,19 @@ const VisaApplicationForm = () => {
       const result = await initiatePayment(IMP_UID, paymentParams);
       console.log("결제 및 검증 성공: ", result.message);
 
-      const response = await fetch("/api/sendEmail", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(visaFormData), // 전체 폼 데이터를 JSON으로 변환
-      });
+      // const response = await fetch("/api/sendEmail", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(visaFormData), // 전체 폼 데이터를 JSON으로 변환
+      // });
 
-      if (!response.ok) {
-        throw new Error("Failed to send email");
-      }
+      // if (!response.ok) {
+      //   throw new Error("Failed to send email");
+      // }
 
-      console.log("Email sent successfully");
+      // console.log("Email sent successfully");
 
       // 성공 페이지로 이동
       await router.push({
