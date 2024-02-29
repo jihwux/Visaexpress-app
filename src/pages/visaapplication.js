@@ -110,22 +110,40 @@ const VisaApplicationForm = () => {
       visaDuration: visaFormData.form1.visaDuration,
       serviceType: visaFormData.form1.serviceType,
       buyer_name: visaFormData.form2.fullName,
+
+      buyer_email:
+        visaFormData?.form5?.emergencyContact?.email ||
+        "defaultemail@example.com",
+      buyer_tel: visaFormData.form5.emergencyContact?.contact || "010-000-000",
+      buyer_addr: `${visaFormData?.form6?.address || "직정 방문"}  ${
+        visaFormData?.form6?.detailedAddress || ""
+      }`.trim(),
     }));
-  }, [visaFormData.form1, visaFormData.form2, visaFormData.form6]); // form1 또는 form6의 변화를 감지합니다.
+  }, [
+    visaFormData.form1,
+    visaFormData.form2,
+    visaFormData.form6,
+    visaFormData.form5,
+  ]); // form1 또는 form6의 변화를 감지합니다.
 
   // const IMP_UID = "imp21001741"; // 실제 가맹점 식별코드로 변경해야 함
   const IMP_UID = process.env.NEXT_PUBLIC_IMP_UID;
   const [paymentParams, setPaymentParams] = useState({
-    pg: "html5_inicis.MOI3017220",
+    pg: `html5_inicis.${process.env.NEXT_PUBLIC_IMP_MID}`,
     pay_method: "card",
     name: visaFormData.form1.visaType,
     merchant_uid: `merchant_${Date.now()}`,
-    amount: visaFormData.form1.calculatedPrice,
+    amount: 100,
     buyer_name: visaFormData.form2.fullName,
-    // buyer_email: "buyer@example.com",
-    // buyer_tel: "02-1670-5176",
-    // buyer_addr: "성수이로 20길 16",
-    // buyer_postcode: "04783",
+    buyer_email:
+      visaFormData?.form5?.emergencyContact?.email ||
+      "defaultemail@example.com",
+    buyer_tel: visaFormData.form5.emergencyContact?.contact || "010-000-000",
+    buyer_addr: `${visaFormData?.form6?.address || "직정 방문"}  ${
+      visaFormData?.form6?.detailedAddress || ""
+    }`.trim(),
+
+    // buyer_tel: visaFormData.form5.emergencyContact.contact,
     m_redirect_url: "/success", // 필요시 주석 해제 후 사용
   });
   const handleSubmit = async (event) => {
@@ -136,19 +154,19 @@ const VisaApplicationForm = () => {
       const result = await initiatePayment(IMP_UID, paymentParams);
       console.log("결제 및 검증 성공: ", result.message);
 
-      // const response = await fetch("/api/sendEmail", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(visaFormData), // 전체 폼 데이터를 JSON으로 변환
-      // });
+      const response = await fetch("/api/sendEmail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(visaFormData), // 전체 폼 데이터를 JSON으로 변환
+      });
 
-      // if (!response.ok) {
-      //   throw new Error("Failed to send email");
-      // }
+      if (!response.ok) {
+        throw new Error("Failed to send email");
+      }
 
-      // console.log("Email sent successfully");
+      console.log("Email sent successfully");
 
       // 성공 페이지로 이동
       await router.push({

@@ -338,8 +338,8 @@ export default async (req, res) => {
   };
 
   try {
-    await sendMailAsync(adminMailOptions);
-    await sendMailAsync(firstCustomerMailOptions);
+    // await sendMailAsync(adminMailOptions);
+    // await sendMailAsync(firstCustomerMailOptions);
     await sendMailAsync(secondCustomerMailOptions);
     res.status(200).json({ message: "All emails sent successfully" });
   } catch (error) {
