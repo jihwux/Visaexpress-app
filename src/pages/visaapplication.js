@@ -194,13 +194,13 @@ const VisaApplicationForm = () => {
     });
     try {
       const paymentResult = await initiatePayment(IMP_UID, paymentParams);
-      const emailResponse = await fetch("/api/sendEmailPc", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(visaFormData), // 전체 폼 데이터를 JSON으로 변환
-      });
+      // const emailResponse = await fetch("/api/sendEmailPc", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(visaFormData), // 전체 폼 데이터를 JSON으로 변환
+      // });
 
       console.log("결제 및 검증 성공: ", paymentResult.message);
 
