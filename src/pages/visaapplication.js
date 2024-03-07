@@ -107,8 +107,8 @@ const VisaApplicationForm = () => {
 
     setPaymentParams((currentParams) => ({
       ...currentParams,
-      // amount: totalAmount,
-      amount: 100,
+      amount: totalAmount,
+      // amount: 100,
       name: visaFormData.form1.visaType,
       stayDuration: visaFormData.form1.stayDuration,
       visaDuration: visaFormData.form1.visaDuration,
@@ -140,8 +140,8 @@ const VisaApplicationForm = () => {
     pay_method: "card",
     name: visaFormData.form1.visaType,
     merchant_uid: `merchant_${Date.now()}`,
-    // amount: visaFormData.form1.calculatedPrice,
-    amount: 100,
+    amount: visaFormData.form1.calculatedPrice,
+    // amount: 100,
     buyer_name: visaFormData.form2.fullName,
     buyer_email:
       visaFormData?.form5?.emergencyContact?.email ||
