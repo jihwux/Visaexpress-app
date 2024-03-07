@@ -54,16 +54,16 @@ const PaymentResultPage = () => {
       const sendPaymentSuccess = async () => {
         try {
           console.log("visaFormData before sending:", visaFormData); // 전송 전 데이터 확인
-          // const response = await fetch("/api/sendEmail", {
-          //   method: "POST",
-          //   headers: {
-          //     "Content-Type": "application/json",
-          //   },
-          //   body: JSON.stringify({
-          //     visaFormData,
-          //     imp_success: imp_success,
-          //   }),
-          // });
+          const response = await fetch("/api/sendEmail", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              visaFormData,
+              imp_success: imp_success,
+            }),
+          });
 
           const result = await response.json();
           if (response.ok && result.success) {
