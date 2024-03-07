@@ -296,7 +296,7 @@ export default async (req, res) => {
     service: "gmail",
     auth: {
       // user: "jhxxx7@gmail.com",
-      // pass: "vhkg itnl wzbr urbb",
+      // pass: "vhkg itnl wzbr urbb",ws
       user: "visaexpress2183@gmail.com", // Gmail 주소
       pass: "cian rywl mwvb ohmv", // Gmail 비밀번호 또는 앱 비밀번호
     },
