@@ -16,7 +16,6 @@ const VisaApplicationForm = () => {
 
   const [params, setParams] = useState();
   const [result, setResult] = useState();
-
   useEffect(() => {
     const agreements = JSON.parse(localStorage.getItem("agreements") || "{}");
     const allAgreed = Object.values(agreements).every((value) => value);
@@ -97,6 +96,10 @@ const VisaApplicationForm = () => {
     }));
   };
   useEffect(() => {
+    localStorage.setItem("visaFormData", JSON.stringify(visaFormData));
+  }, [visaFormData]);
+
+  useEffect(() => {
     // 발급 비용과 배송비를 합산하여 결제 금액을 업데이트합니다.
     const totalAmount =
       (visaFormData.form1?.calculatedPrice ?? 0) +
@@ -104,7 +107,7 @@ const VisaApplicationForm = () => {
 
     setPaymentParams((currentParams) => ({
       ...currentParams,
-      amount: totalAmount,
+      amount: 100,
       name: visaFormData.form1.visaType,
       stayDuration: visaFormData.form1.stayDuration,
       visaDuration: visaFormData.form1.visaDuration,
@@ -127,13 +130,14 @@ const VisaApplicationForm = () => {
   ]); // form1 또는 form6의 변화를 감지합니다.
 
   // const IMP_UID = "imp21001741"; // 실제 가맹점 식별코드로 변경해야 함
-  const IMP_UID = process.env.NEXT_PUBLIC_IMP_UID;
+  const IMP_UID = process.env.NEXT_PUBLIC_IMP_UID_TEST;
   const [paymentParams, setPaymentParams] = useState({
-    pg: `html5_inicis.${process.env.NEXT_PUBLIC_IMP_MID}`,
+    // pg: `html5_inicis.${process.env.NEXT_PUBLIC_IMP_MID}`,
+    pg: `html5_inicis.INIpayTest`,
     pay_method: "card",
     name: visaFormData.form1.visaType,
     merchant_uid: `merchant_${Date.now()}`,
-    amount: visaFormData.form1.calculatedPrice,
+    amount: 100,
     buyer_name: visaFormData.form2.fullName,
     buyer_email:
       visaFormData?.form5?.emergencyContact?.email ||
@@ -142,19 +146,92 @@ const VisaApplicationForm = () => {
     buyer_addr: `${visaFormData?.form6?.address || "직정 방문"}  ${
       visaFormData?.form6?.detailedAddress || ""
     }`.trim(),
-
+    // m_redirect_url: `http://localhost:3000/success?paymentsuccess=true&name=${encodeURIComponent(
+    //   visaFormData.form1.visaType || ""
+    // )}&stayDuration=${encodeURIComponent(
+    //   visaFormData.form1.stayDuration || ""
+    // )}&visaDuration=${encodeURIComponent(
+    //   visaFormData.form1.visaDuration || ""
+    // )}&serviceType=${encodeURIComponent(
+    //   visaFormData.form1.serviceType || ""
+    // )}&merchant_uid=merchant_${Date.now()}&amount=${encodeURIComponent(
+    //   visaFormData.form1.calculatedPrice || ""
+    // )}`,
+    // m_redirect_url: `http://localhost:3000/paymentreseult`,
+    m_redirect_url: `http://localhost:3000/paymentresult?name=${encodeURIComponent(
+      visaFormData.form1.visaType
+    )}&stayDuration=${encodeURIComponent(
+      visaFormData.form1.stayDuration
+    )}&visaDuration=${encodeURIComponent(
+      visaFormData.form1.visaDuration
+    )}&serviceType=${encodeURIComponent(
+      visaFormData.form1.serviceType
+    )}&merchant_uid=merchant_${Date.now()}&amount=${encodeURIComponent(
+      visaFormData.form1.calculatedPrice
+    )}`,
+    // m_redirect_url: `http://localhost:3000/paymentresult?paymentSuccess=true&name=${encodeURIComponent(
+    //   visaFormData.form1.visaType
+    // )}&stayDuration=${encodeURIComponent(
+    //   visaFormData.form1.stayDuration
+    // )}&visaDuration=${encodeURIComponent(
+    //   visaFormData.form1.visaDuration
+    // )}&serviceType=${encodeURIComponent(
+    //   visaFormData.form1.serviceType
+    // )}&merchant_uid=merchant_${Date.now()}&amount=${encodeURIComponent(
+    //   visaFormData.form1.calculatedPrice
+    // )}`,
+    //
     // buyer_tel: visaFormData.form5.emergencyContact.contact,
-    m_redirect_url: "/success", // 필요시 주석 해제 후 사용
+    // 결제 파라미터 설정
+    // m_redirect_url: `http://localhost:3000/paymentresult?imp_success=${encodeURIComponent(
+    //   "true" // 이 값은 실제 결제 성공 여부에 따라 동적으로 할당되어야 함
+    // )}&merchant_uid=merchant_${Date.now()}&imp_uid=${encodeURIComponent(
+    //   "imp_409682616853" // 이 값은 실제 결제 고유 ID에 따라 동적으로 할당되어야 함
+    // )}`,
+    // m_redirect_url: `http://localhost:3000/paymentresult?paymentSuccess=true&name=${encodeURIComponent(
+    //   visaFormData.form1.visaType
+    // )}&stayDuration=${encodeURIComponent(
+    //   visaFormData.form1.stayDuration
+    // )}&visaDuration=${encodeURIComponent(
+    //   visaFormData.form1.visaDuration
+    // )}&serviceType=${encodeURIComponent(
+    //   visaFormData.form1.serviceType
+    // )}&merchant_uid=merchant_${Date.now()}&amount=${encodeURIComponent(
+    //   visaFormData.form1.calculatedPrice
+    // )}`,
   });
+
+  // 결제 성공 페이지 컴포넌트
+  // 결제 성공 시 실행되는 함수
+  const proceedToPaymentSuccess = () => {
+    const formDataToSave = {
+      name: visaFormData.form1.visaType,
+      stayDuration: visaFormData.form1.stayDuration,
+      visaDuration: visaFormData.form1.visaDuration,
+      serviceType: visaFormData.form1.serviceType,
+      merchant_uid: `merchant_${Date.now()}`,
+      amount: visaFormData.form1.calculatedPrice,
+    };
+
+    localStorage.setItem("mobileData", JSON.stringify(formDataToSave));
+    // localStorage.setItem("visaFormDatas", JSON.stringify(formDataToSaves));
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true); // 로딩 시작
+    console.log("a");
+    proceedToPaymentSuccess();
 
+    const emailResponse = await fetch("/api/sendEmail", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(visaFormData), // 전체 폼 데이터를 JSON으로 변환
+    });
     try {
-      const result = await initiatePayment(IMP_UID, paymentParams);
-      console.log("결제 및 검증 성공: ", result.message);
-
-      const response = await fetch("/api/sendEmail", {
+      const paymentResult = await initiatePayment(IMP_UID, paymentParams);
+      const emailResponse = await fetch("/api/sendEmailPc", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -162,13 +239,21 @@ const VisaApplicationForm = () => {
         body: JSON.stringify(visaFormData), // 전체 폼 데이터를 JSON으로 변환
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to send email");
-      }
+      console.log("결제 및 검증 성공: ", paymentResult.message);
 
+      // 결제 성공 시 이메일 전송
+
+      // 이메일 전송 실패 처리
+      // if (!emailResponse.ok) {
+      //   const errorData = await emailResponse.json();
+      //   console.error("Error Data:", errorData);
+      //   throw new Error(`Email send failed: ${emailResponse.status}`);
+      // }
+
+      // 이메일 전송 성공 로그
       console.log("Email sent successfully");
 
-      // 성공 페이지로 이동
+      //   // 성공 페이지로 리디렉션
       await router.push({
         pathname: "/success",
         query: {
@@ -182,21 +267,24 @@ const VisaApplicationForm = () => {
         },
       });
     } catch (error) {
+      // 결제 또는 검증 실패 혹은 이메일 전송 실패 시 로그
       console.error(
         "결제 또는 검증 실패 혹은 이메일 전송 실패: ",
         error.message
       );
-      // 실패 페이지로 이동
+
+      // 실패 페이지로 리디렉션
       await router.push({
         pathname: "/fail",
         query: { error: error.message },
       });
     } finally {
-      // 성공하든 실패하든 로딩 상태 해제
+      // 로딩 상태 해제
       setIsLoading(false);
     }
   };
   // 총합 계산 로직
+
   const totalAmount =
     (visaFormData?.form1?.calculatedPrice || 0) +
     (visaFormData?.form6?.expressFee || 0);

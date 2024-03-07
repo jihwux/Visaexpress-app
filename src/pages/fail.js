@@ -6,13 +6,13 @@ const PaymentFailPage = () => {
   const router = useRouter();
   const { error } = router.query;
 
-  useEffect(() => {
-    // 결제 과정을 거치지 않고 바로 페이지에 접근했다면 경고창 표시 후 홈으로 리다이렉트
-    if (!error) {
-      alert("잘못된 접근입니다. 홈으로 돌아갑니다.");
-      router.push("/");
-    }
-  }, [error, router]);
+  // useEffect(() => {
+  //   // 결제 과정을 거치지 않고 바로 페이지에 접근했다면 경고창 표시 후 홈으로 리다이렉트
+  //   if (!error) {
+  //     alert("잘못된 접근입니다. 홈으로 돌아갑니다.");
+  //     router.push("/");
+  //   }
+  // }, [error, router]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">

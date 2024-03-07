@@ -12,13 +12,12 @@ const PaymentSuccessPage = () => {
     visaDuration,
     serviceType,
   } = router.query;
-
-  useEffect(() => {
-    // 페이지가 로드될 때 결제 성공 토큰이 없다면 홈으로 리다이렉트
-    if (!paymentSuccess) {
-      router.push("/");
-    }
-  }, [paymentSuccess, router]);
+  // useEffect(() => {
+  //   // 페이지가 로드될 때 결제 성공 토큰이 없다면 홈으로 리다이렉트
+  //   if (!paymentSuccess) {
+  //     router.push("/");
+  //   }
+  // }, [paymentSuccess, router]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
@@ -62,4 +61,3 @@ const PaymentSuccessPage = () => {
 };
 
 export default PaymentSuccessPage;
-// pages/success.js
