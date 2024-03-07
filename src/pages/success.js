@@ -6,18 +6,23 @@ const PaymentSuccessPage = () => {
   const router = useRouter();
   const {
     paymentSuccess,
+    success, // 이제 이 값도 확인합니다.
     name,
     amount,
     stayDuration,
     visaDuration,
     serviceType,
   } = router.query;
-  // useEffect(() => {
-  //   // 페이지가 로드될 때 결제 성공 토큰이 없다면 홈으로 리다이렉트
-  //   if (!paymentSuccess) {
-  //     router.push("/");
-  //   }
-  // }, [paymentSuccess, router]);
+
+  useEffect(() => {
+    // 결제 성공 여부 확인: imp_success 또는 paymentSuccess 쿼리 파라미터가 'true'인 경우
+    console.log(paymentSuccess, success);
+    if (success !== "true") {
+      router.push("/");
+      alert("잘못된 접근입니다. 홈으로 돌아갑니다.");
+    }
+    // 다른 필요한 로직을 추가할 수 있습니다.
+  }, [success, paymentSuccess, router]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
