@@ -107,7 +107,7 @@ const VisaApplicationForm = () => {
 
     setPaymentParams((currentParams) => ({
       ...currentParams,
-      amount: 100,
+      amount: totalAmount,
       name: visaFormData.form1.visaType,
       stayDuration: visaFormData.form1.stayDuration,
       visaDuration: visaFormData.form1.visaDuration,
@@ -130,14 +130,16 @@ const VisaApplicationForm = () => {
   ]); // form1 또는 form6의 변화를 감지합니다.
 
   // const IMP_UID = "imp21001741"; // 실제 가맹점 식별코드로 변경해야 함
-  const IMP_UID = process.env.NEXT_PUBLIC_IMP_UID_TEST;
+  // const IMP_UID = "imp21001741"; // 실제 가맹점 식별코드로 변경해야 함
+  // pg: `html5_inicis.${process.env.NEXT_PUBLIC_IMP_MID}`,
+
+  const IMP_UID = process.env.NEXT_PUBLIC_IMP_UID;
   const [paymentParams, setPaymentParams] = useState({
-    // pg: `html5_inicis.${process.env.NEXT_PUBLIC_IMP_MID}`,
-    pg: `html5_inicis.INIpayTest`,
+    pg: `html5_inicis.${process.env.NEXT_PUBLIC_IMP_MID}`,
     pay_method: "card",
     name: visaFormData.form1.visaType,
     merchant_uid: `merchant_${Date.now()}`,
-    amount: 100,
+    amount: visaFormData.form1.calculatedPrice,
     buyer_name: visaFormData.form2.fullName,
     buyer_email:
       visaFormData?.form5?.emergencyContact?.email ||
