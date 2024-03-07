@@ -3,7 +3,8 @@ import nodemailer from "nodemailer";
 import mjml2html from "mjml";
 
 export default async (req, res) => {
-  console.error("asd");
+  // 예시로 Express.js의 라우터를 사용하는 서버 측 코드입니다.
+
   const labels = {
     visaType: "비자 유형",
     stayDuration: "체류 기간",
@@ -273,25 +274,22 @@ export default async (req, res) => {
 
   // fullName과 contactNumber 추출
   // fullName과 contactNumber 추출
-  const fullName = formData.form2.fullName || "고객";
-  const contactNumber = formData.form2.contactNumber || "연락처 정보 없음";
-  const customerEmail = formData.form5.emergencyContact.email; // 비상 연락처에서 받은 고객의 이메일 주소
+  // const fullName = formData.form2.fullName || "고객";
+  // const contactNumber = formData.form2.contactNumber || "연락처 정보 없음";
+  // const customerEmail = formData.form5.emergencyContact.email; // 비상 연락처에서 받은 고객의 이메일 주소
+  // const visaFormDataCustomerEmail = visaFormData.form5.emergencyContact.email; // 비상 연락처에서 받은 고객의 이메일 주소
+  // const { visaFormData } = req.body;
 
-  // 콘솔에 fullName, contactNumber, customerEmail 값을 출력합니다.
-  console.log("fullName:", fullName);
-  console.log("contactNumber:", contactNumber);
-  console.log("customerEmail:", customerEmail);
-  // 이메일 전송을 위한 설정
-  console.log("formData:", formData);
+  // // 올바르게 email 주소를 가져오기 위한 안전한 접근법
 
-  // 이메일 전송 로직...
-  // 이메일 전송
-  // 관리자에게 이메일 전송 로직
-  if (req.method !== "POST") {
-    res.setHeader("Allow", ["POST"]);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
-    return;
-  }
+  // 생략: 이메일 전송 로직
+
+  // // 콘솔에 fullName, contactNumber, customerEmail 값을 출력합니다.
+  // // console.log("fullName:", fullName);
+  // // console.log("contactNumber:", contactNumber);
+  // console.log("customerEmail:", customerEmail);
+  // console.log("customerEmail:", visaFormDataCustomerEmail);
+
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -302,49 +300,181 @@ export default async (req, res) => {
     },
   });
 
+  // const adminMailOptions = {
+  //   from: "visaexpress2183@gmail.com",
+  //   to: "visaexpress2183@gmail.com",
+  //   subject: `${fullName}님의 비자신청서 - 연락처: ${contactNumber}`,
+  //   html: html,
+  // };
+
+  // 전체 데이터를 출력합니다.
+  // console.log("Received data:", req.body);
+
+  // form5 객체 내부의 emergencyContact 객체에서 email 주소를 추출합니다.
+  const fullName = req.body.form2?.fullName || "고객";
+  const contactNumber = req.body.form2?.contactNumber || "연락처 정보 없음";
+  const customerEmail = req.body.form5?.emergencyContact?.email;
+  const email = req.body.form5?.emergencyContact?.email;
+
+  // email 값이 존재하는지 확인합니다.
+
+  // 콘솔에 email 값을 출력하여 확인합니다.
+  console.log("Email from visaFormData:", email);
+
+  // emergencyContact 객체의 내용을 출력합니다.
+  // console.log(
+  //   "Emergency contact data:",
+  //   req.body.visaFormData.form5.emergencyContact,
+  //   req.body.visaFormData.form5.emergencyContact[0].email
+  // );
+
+  // emergencyContact 객체에서 email 주소를 추출합니다.
+
+  // email 주소가 있는지 확인합니다.
+
+  // 이메일 전송 로직을 진행합니다.
+  // ...
   const adminMailOptions = {
     from: "visaexpress2183@gmail.com",
+    // from: "jhxxx7@gmail.com",
+    // to: "hello@pixelstudio.kr",
+
     to: "visaexpress2183@gmail.com",
     subject: `${fullName}님의 비자신청서 - 연락처: ${contactNumber}`,
     html: html,
   };
 
   const firstCustomerMailOptions = {
+    // from: "jhxxx7@gmail.com",
     from: "visaexpress2183@gmail.com",
-    to: customerEmail,
+    to: email, // 클라이언트로부터 받은 이메일 주소
+    // subject: ". 신청해 주셔서 감사합니다",
     subject: "귀하의 비자 신청서가 접수되었습니다. 신청해 주셔서 감사합니다",
     html: html,
   };
 
   const secondCustomerMailOptions = {
+    // from: "jhxxx7@gmail.com",
     from: "visaexpress2183@gmail.com",
+
     to: "hello@pixelstudio.kr",
     subject: "귀하의 비자 신청서가 접수되었습니다. 신청해 주셔서 감사합니다",
     html: html,
   };
 
-  const sendMailAsync = (mailOptions) => {
-    return new Promise((resolve, reject) => {
+  let emailTimeoutId;
+
+  // 이메일 예약 로직
+  const scheduleEmail = (mailOptions) => {
+    emailTimeoutId = setTimeout(() => {
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-          console.error("Send Mail error: ", error);
-          reject(error);
+          console.error("Error sending mail: ", error);
         } else {
-          console.log("Email sent: ", info.response);
-          resolve(info);
+          console.log("Mail sent: ", info);
         }
       });
-    });
+      console.log("성공ㅈㅈ");
+    }, 10000); // 5분 후 이메일 전송1
   };
 
-  try {
-    await sendMailAsync(adminMailOptions);
-    await sendMailAsync(firstCustomerMailOptions);
-    await sendMailAsync(secondCustomerMailOptions);
-    res.status(200).json({ message: "All emails sent successfully" });
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Email send failed", error: error.message });
+  // 이메일 예약 취소 로직
+  const cancelScheduledEmail = () => {
+    clearTimeout(emailTimeoutId);
+  };
+  if (req.method === "POST") {
+    const { imp_success, ...mailOptions } = req.body;
+    scheduleEmail(adminMailOptions);
+    scheduleEmail(firstCustomerMailOptions);
+    scheduleEmail(secondCustomerMailOptions);
+
+    try {
+      if (imp_success === "true") {
+        // 결제 검증 성공
+        console.log("성공");
+      } else {
+        // 결제 검증 실패
+        cancelScheduledEmail();
+        res.status(400).json({
+          success: false,
+          message: "Payment verification failed. Email sending canceled.",
+        });
+      }
+    } catch (error) {
+      // 서버 오류 처리
+      cancelScheduledEmail();
+      res.status(500).json({ error: "Internal server error." });
+    }
+  } else {
+    // POST 메소드가 아닐 경우
+    res.setHeader("Allow", ["POST"]);
+    res.status(405).end("Method Not Allowed");
   }
+
+  // ... 나머지 서버 코드 ...
+  // 이메일 전송을 위한 함수를 비동기적으로 지연시키지만, 결과를 기다리지 않습니다.
+  // sendEmail.js 내부
+  // 이메일 전송 및 결제 검증을 통합하는 함수
+  // const processPaymentAndSendEmail = async (req, res, mailOptions) => {
+  //   if (req.method === "POST") {
+  //     const { imp_success } = req.body;
+
+  //     try {
+  //       if (imp_success === "true") {
+  //         // 결제 검증 성공 시, 이메일 전송 로직
+  //         // emailTimeoutId = setTimeout(() => {
+  //         transporter.sendMail(mailOptions, (error, info) => {
+  //           if (error) {
+  //             console.error("Send Mail error: ", error);
+  //           } else {
+  //             console.log("Email sent after delay: ", info.response);
+  //           }
+  //         });
+  //         // }, 3999); // 5분 후에 이메일 전송
+  //         res.status(200).json({ success: true });
+  //       } else {
+  //         // 결제 검증 실패 시, 에러 메시지 전송
+  //         res
+  //           .status(400)
+  //           .json({ success: false, message: "Payment verification failed" });
+  //       }
+  //     } catch (error) {
+  //       // 서버 내부 오류 처리
+  //       res.status(500).json({ error: "Internal server error" });
+  //     }
+  //   } else {
+  //     // POST 요청이 아닌 경우 에러 처리
+  //     res.setHeader("Allow", "POST");
+  //     res.status(405).end("Method Not Allowed");
+  //   }
+  // };
+
+  // // 이메일 전송 예약 및 결제 프로세스 시작
+  // processPaymentAndSendEmail(req, res, secondCustomerMailOptions);
+
+  // const sendMailAsync = (mailOptions) => {
+  //   return new Promise((resolve, reject) => {
+  //     transporter.sendMail(mailOptions, (error, info) => {
+  //       if (error) {
+  //         console.error("Send Mail error: ", error);
+  //         reject(error);
+  //       } else {
+  //         console.log("Email sent: ", info.response);
+  //         resolve(info);
+  //       }
+  //     });
+  //   });
+  // };
+
+  // try {
+  //   // await sendMailAsync(adminMailOptions);
+  //   // await sendMailAsync(firstCustomerMailOptions);
+  //   await sendMailAsync(secondCustomerMailOptions);
+  //   res.status(200).json({ message: "All emails sent successfully" });
+  // } catch (error) {
+  //   res
+  //     .status(500)
+  //     .json({ message: "Email send failed", error: error.message });
+  // }
 };
+// pages/api/sendEmail.js
