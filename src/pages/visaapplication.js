@@ -185,13 +185,13 @@ const VisaApplicationForm = () => {
     setIsLoading(true); // 로딩 시작
     proceedToPaymentSuccess();
 
-    // const emailResponse = await fetch("/api/sendEmail", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(visaFormData), // 전체 폼 데이터를 JSON으로 변환
-    // });
+    const emailResponse = await fetch("/api/sendEmail", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(visaFormData), // 전체 폼 데이터를 JSON으로 변환
+    });
     try {
       const paymentResult = await initiatePayment(IMP_UID, paymentParams);
       const emailResponse = await fetch("/api/sendEmailPc", {
