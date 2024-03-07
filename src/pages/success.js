@@ -16,8 +16,8 @@ const PaymentSuccessPage = () => {
 
   useEffect(() => {
     // 결제 성공 여부 확인: imp_success 또는 paymentSuccess 쿼리 파라미터가 'true'인 경우
-    console.log(paymentSuccess, success);
-    if (success !== "true" || !paymentSuccess) {
+    // console.log(paymentSuccess, success);
+    if (!paymentSuccess) {
       router.push("/");
       alert("잘못된 접근입니다. 홈으로 돌아갑니다.");
     }
