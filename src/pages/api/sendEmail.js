@@ -293,10 +293,10 @@ export default async (req, res) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      // user: "jhxxx7@gmail.com",
-      // pass: "vhkg itnl wzbr urbb",
-      user: "visaexpress2183@gmail.com", // Gmail 주소
-      pass: "cian rywl mwvb ohmv", // Gmail 비밀번호 또는 앱 비밀번호
+      user: "jhxxx7@gmail.com",
+      pass: "vhkg itnl wzbr urbb",
+      // user: "visaexpress2183@gmail.com", // Gmail 주소
+      // pass: "cian rywl mwvb ohmv", // Gmail 비밀번호 또는 앱 비밀번호
     },
   });
 
@@ -335,32 +335,32 @@ export default async (req, res) => {
   // 이메일 전송 로직을 진행합니다.
   // ...
   const adminMailOptions = {
-    from: "visaexpress2183@gmail.com",
-    // from: "jhxxx7@gmail.com",
-    // to: "hello@pixelstudio.kr",
+    // from: "visaexpress2183@gmail.com",
+    from: "jhxxx7@gmail.com",
+    to: "jhxxx7@gmail.com",
 
-    to: "visaexpress2183@gmail.com",
+    // to: "visaexpress2183@gmail.com",
     subject: `${fullName}님의 비자신청서 - 연락처: ${contactNumber}`,
     html: html,
   };
 
   const firstCustomerMailOptions = {
-    // from: "jhxxx7@gmail.com",
-    from: "visaexpress2183@gmail.com",
+    from: "jhxxx7@gmail.com",
+    // from: "visaexpress2183@gmail.com",
     to: email, // 클라이언트로부터 받은 이메일 주소
     // subject: ". 신청해 주셔서 감사합니다",
     subject: "귀하의 비자 신청서가 접수되었습니다. 신청해 주셔서 감사합니다",
     html: html,
   };
 
-  const secondCustomerMailOptions = {
-    // from: "jhxxx7@gmail.com",
-    from: "visaexpress2183@gmail.com",
+  // const secondCustomerMailOptions = {
+  //   from: "jhxxx7@gmail.com",
+  //   // from: "visaexpress2183@gmail.com",
 
-    to: "hello@pixelstudio.kr",
-    subject: "귀하의 비자 신청서가 접수되었습니다. 신청해 주셔서 감사합니다",
-    html: html,
-  };
+  //   to: "hello@pixelstudio.kr",
+  //   subject: "귀하의 비자 신청서가 접수되었습니다. 신청해 주셔서 감사합니다",
+  //   html: html,
+  // };
 
   let emailTimeoutId;
 
@@ -386,7 +386,7 @@ export default async (req, res) => {
     const { imp_success, ...mailOptions } = req.body;
     scheduleEmail(adminMailOptions);
     scheduleEmail(firstCustomerMailOptions);
-    scheduleEmail(secondCustomerMailOptions);
+    // scheduleEmail(secondCustomerMailOptions);
 
     try {
       if (imp_success === "true") {

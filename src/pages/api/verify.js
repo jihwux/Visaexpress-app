@@ -2,15 +2,14 @@
 
 export default async (req, res) => {
   // pages/api/verify-payment.js
-
   if (req.method === "POST") {
     const { imp_uid } = req.body; // 클라이언트로부터 받은 imp_uid
     const getToken = await fetch("https://api.iamport.kr/users/getToken", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        imp_key: process.env.IMP_API_KEY, // REST API 키
-        imp_secret: process.env.IMP_API_SECRET, // REST API Secret
+        imp_key: process.env.IMP_API_KEY_TEST, // REST API 키
+        imp_secret: process.env.IMP_API_SECRET_TEST, // REST API Secret
       }),
     });
     const tokenResult = await getToken.json();
@@ -57,3 +56,4 @@ export default async (req, res) => {
 };
 
 // ...
+// 결제 성공 페이지 컴포넌트

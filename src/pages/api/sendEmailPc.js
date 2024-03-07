@@ -277,16 +277,6 @@ export default async (req, res) => {
   const contactNumber = formData.form2.contactNumber || "연락처 정보 없음";
   const customerEmail = formData.form5.emergencyContact.email; // 비상 연락처에서 받은 고객의 이메일 주소
 
-  // 콘솔에 fullName, contactNumber, customerEmail 값을 출력합니다.
-  console.log("fullName:", fullName);
-  console.log("contactNumber:", contactNumber);
-  console.log("customerEmail:", customerEmail);
-  // 이메일 전송을 위한 설정
-  console.log("formData:", formData);
-
-  // 이메일 전송 로직...
-  // 이메일 전송
-  // 관리자에게 이메일 전송 로직
   if (req.method !== "POST") {
     res.setHeader("Allow", ["POST"]);
     res.status(405).end(`Method ${req.method} Not Allowed`);
@@ -295,33 +285,36 @@ export default async (req, res) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      // user: "jhxxx7@gmail.com",
-      // pass: "vhkg itnl wzbr urbb",
-      user: "visaexpress2183@gmail.com", // Gmail 주소
-      pass: "cian rywl mwvb ohmv", // Gmail 비밀번호 또는 앱 비밀번호
+      user: "jhxxx7@gmail.com",
+      pass: "vhkg itnl wzbr urbb",
+      //   user: "visaexpress2183@gmail.com", // Gmail 주소
+      //   pass: "cian rywl mwvb ohmv", // Gmail 비밀번호 또는 앱 비밀번호
     },
   });
 
   const adminMailOptions = {
-    from: "visaexpress2183@gmail.com",
-    to: "visaexpress2183@gmail.com",
+    // from: "visaexpress2183@gmail.com",
+    // to: "visaexpress2183@gmail.com",
+    from: "jhxxx7@gmail.com",
+    to: "jhxxx7@gmail.com",
     subject: `${fullName}님의 비자신청서 - 연락처: ${contactNumber}`,
     html: html,
   };
 
   const firstCustomerMailOptions = {
-    from: "visaexpress2183@gmail.com",
+    // from: "visaexpress2183@gmail.com",
+    from: "jhxxx7@gmail.com",
     to: customerEmail,
     subject: "귀하의 비자 신청서가 접수되었습니다. 신청해 주셔서 감사합니다",
     html: html,
   };
 
-  const secondCustomerMailOptions = {
-    from: "visaexpress2183@gmail.com",
-    to: "hello@pixelstudio.kr",
-    subject: "귀하의 비자 신청서가 접수되었습니다. 신청해 주셔서 감사합니다",
-    html: html,
-  };
+  //   const secondCustomerMailOptions = {
+  //     from: "visaexpress2183@gmail.com",
+  //     to: "hello@pixelstudio.kr",
+  //     subject: "귀하의 비자 신청서가 접수되었습니다. 신청해 주셔서 감사합니다",
+  //     html: html,
+  //   };
 
   const sendMailAsync = (mailOptions) => {
     return new Promise((resolve, reject) => {
@@ -338,9 +331,9 @@ export default async (req, res) => {
   };
 
   try {
-    // await sendMailAsync(adminMailOptions);
-    // await sendMailAsync(firstCustomerMailOptions);
-    await sendMailAsync(secondCustomerMailOptions);
+    await sendMailAsync(adminMailOptions);
+    await sendMailAsync(firstCustomerMailOptions);
+    // await sendMailAsync(secondCustomerMailOptions);
     res.status(200).json({ message: "All emails sent successfully" });
   } catch (error) {
     res
