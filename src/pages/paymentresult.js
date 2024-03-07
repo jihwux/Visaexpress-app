@@ -60,7 +60,7 @@ const PaymentResultPage = () => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              // visaFormData,
+              visaFormData,
               imp_success: imp_success,
             }),
           });
