@@ -162,7 +162,7 @@ const VisaApplicationForm = () => {
     //   visaFormData.form1.calculatedPrice || ""
     // )}`,
     // m_redirect_url: `http://localhost:3000/paymentreseult`,
-    m_redirect_url: `http://localhost:3000/paymentresult?name=${encodeURIComponent(
+    m_redirect_url: `https://visaexpress.co.kr/paymentresult?name=${encodeURIComponent(
       visaFormData.form1.visaType
     )}&stayDuration=${encodeURIComponent(
       visaFormData.form1.stayDuration
