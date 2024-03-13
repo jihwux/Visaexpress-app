@@ -50,7 +50,7 @@ export default async (req, res) => {
     form4: "가족 리스트",
     form1: "신청 비자 정보",
     form2: "개인 정보",
-    form3: "재직. 힉력 정보",
+    form3: "재직, 학력 정보",
     form5: "방문, 불체, 범죄 기록",
     form6: "비자 접수 방법, 비자 수령 방법",
     workAddress: "직장 주소",
