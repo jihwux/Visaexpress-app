@@ -181,8 +181,8 @@ const HomePage = () => {
               buttonText: "자세히 보기",
             },
             {
-              title: "신청 가격 조회",
-              link: "/price",
+              title: "온라인 신청 방법",
+              link: "https://blog.naver.com/visaexpress365/223377119474",
               buttonText: "자세히 보기",
             },
             {
@@ -199,12 +199,20 @@ const HomePage = () => {
             <div key={index} className="p-3 w-1/2 md:w-1/3 lg:w-1/4">
               <div
                 className={`group flex flex-col items-center p-8 rounded-lg shadow-lg transition transform hover:-translate-y-2 hover:shadow-2xl ${
-                  index === arr.length - 1 ? "bg-yellow-300" : "bg-white"
+                  item.title === "온라인 신청 방법"
+                    ? "bg-green-500"
+                    : index === arr.length - 1
+                    ? "bg-yellow-300"
+                    : "bg-white"
                 }`}
               >
                 <h3
                   className={`font-bold text-sm md:text-2xl lg:text-3xl ${
-                    index === arr.length - 1 ? "text-black" : "text-gray-800"
+                    item.title === "온라인 신청 방법"
+                      ? "text-white-500"
+                      : index === arr.length - 1
+                      ? "text-black"
+                      : "text-gray-800"
                   }`}
                 >
                   {item.title}
@@ -213,7 +221,9 @@ const HomePage = () => {
                   <a
                     href={item.link}
                     className={`hover:underline text-base md:text-lg lg:text-xl font-semibold ${
-                      index === arr.length - 1
+                      item.title === "온라인 신청 방법"
+                        ? "text-white-500"
+                        : index === arr.length - 1
                         ? "text-black hover:text-white text-sm"
                         : "text-red-500 hover:text-red-700 text-sm"
                     }`}
