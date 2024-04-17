@@ -118,7 +118,7 @@ const VisaApplicationForm = () => {
       buyer_email:
         visaFormData?.form5?.emergencyContact?.email ||
         "defaultemail@example.com",
-      buyer_tel: visaFormData.form5.emergencyContact?.contact || "010-000-000",
+      buyer_tel: visaFormData.form2.contactNumber || "010-000-000",
       buyer_addr: `${visaFormData?.form6?.address || "직정 방문"}  ${
         visaFormData?.form6?.detailedAddress || ""
       }`.trim(),
@@ -146,7 +146,7 @@ const VisaApplicationForm = () => {
     buyer_email:
       visaFormData?.form5?.emergencyContact?.email ||
       "defaultemail@example.com",
-    buyer_tel: visaFormData.form5.emergencyContact?.contact || "010-000-000",
+    buyer_tel: visaFormData.form2.contactNumber || "010-000-000",
     buyer_addr: `${visaFormData?.form6?.address || "직정 방문"}  ${
       visaFormData?.form6?.detailedAddress || ""
     }`.trim(),
