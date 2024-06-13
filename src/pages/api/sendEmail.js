@@ -357,7 +357,7 @@ export default async (req, res) => {
     // from: "jhxxx7@gmail.com",
     from: "visaexpress2183@gmail.com",
 
-    to: "hello@pixelstudio.kr",
+    to: "hg_10@naver.com",
     subject: "귀하의 비자 신청서가 접수되었습니다. 신청해 주셔서 감사합니다",
     html: html,
   };
