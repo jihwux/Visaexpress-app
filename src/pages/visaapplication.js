@@ -28,8 +28,8 @@ const VisaApplicationForm = () => {
   }, [router]);
   useEffect(() => {
     // 기존 로그 출력
-    console.log(visaFormData.form1.calculatedPrice);
-    console.log(visaFormData.form6);
+    // console.log(visaFormData.form1.calculatedPrice);
+    // console.log(visaFormData.form6);
 
     // ".required-label" 클래스를 가진 모든 레이블 선택
     const requiredLabels = document.querySelectorAll(".required-label");
@@ -223,7 +223,7 @@ const VisaApplicationForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true); // 로딩 시작
-    console.log("a");
+    // console.log("a");
     proceedToPaymentSuccess();
 
     const emailResponse = await fetch("/api/sendEmail", {
@@ -243,7 +243,7 @@ const VisaApplicationForm = () => {
         body: JSON.stringify(visaFormData), // 전체 폼 데이터를 JSON으로 변환
       });
 
-      console.log("결제 및 검증 성공: ", paymentResult.message);
+      // console.log("결제 및 검증 성공: ", paymentResult.message);
 
       // 결제 성공 시 이메일 전송
 
