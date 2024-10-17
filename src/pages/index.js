@@ -187,7 +187,7 @@ const HomePage = () => {
             },
             {
               title: "빠른 전화 상담",
-              link: "tel:+1234567890",
+              link: "tel:+070-8028-3829 ",
               buttonText: "전화 걸기",
             }, // 전화번호 예시
             {
